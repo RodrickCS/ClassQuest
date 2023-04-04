@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const jwt = require("jsonwebtoken");
 const prisma = new PrismaClient();
 
 require("dotenv").config();
@@ -32,6 +33,7 @@ const create = async (req, res) => {
         senha: senhaCrypt,
       },
     });
+
     res.status(201).json({ msg: "Aluno cadastrado com sucesso" });
   } catch (err) {
     res.status(500).json(err).end();
@@ -40,26 +42,34 @@ const create = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const aluno = await prisma.alunos.findMany({
+  const aluno = await prisma.alunos.findUnique({
     where: {
       email: req.body.email,
     },
   });
   if (!aluno) {
-    console.log("aluno não encontrado");
-    res.status(404).json({ msg: "Aluno não encontrado" });
+    return res.status(404).json({ msg: "Aluno não encontrado" }).end();
   }
-  const senhaCorreta = await bcrypt.compare(
-    hashSenha(req.body.senha),
-    aluno.senha,
-    function (err, result) {
-      console.log(err);
-    }
-  );
-  if (!senhaCorreta) {
-    res.status(401).json({ msg: "Senha incorreta" });
+  const checkPswd = await bcrypt.compare(req.body.senha, aluno.senha);
+
+  if (!checkPswd) {
+    res.status(401).json({ msg: "Senha incorreta" }).end();
+  } else {
+    jwt.sign(
+      { ...aluno },
+      process.env.KEY,
+      { expiresIn: "10m" },
+      function (err, token) {
+        if (err == null) {
+          aluno["token"] = token;
+          res.status(200).json(aluno).end();
+        } else {
+          res.status(400).json(err).end();
+          console.log(err);
+        }
+      }
+    );
   }
-  return aluno;
 };
 
 module.exports = {
