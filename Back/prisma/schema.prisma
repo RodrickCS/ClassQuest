@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model alunos {
+  id_aluno     Int            @id @default(autoincrement())
+  id_turma     Int?
+  nome         String
+  email        String         @unique
+  senha        String
+  turma        turma?         @relation(fields: [id_turma], references: [id_turma])
+  pontos_turma pontos_turma[]
+  pontos_geral pontos_geral[]
+}
+
+model professores {
+  id_prof Int     @id @default(autoincrement())
+  nome    String
+  email   String  @unique
+  senha   String
+  turma   turma[]
+}
+
+model atividades {
+  id_atividade     Int      @id @default(autoincrement())
+  id_turma         Int
+  imagem           Bytes
+  descricao        String
+  prazo            DateTime
+  pontos_conclusao Int      @default(0)
+  turma            turma    @relation(fields: [id_turma], references: [id_turma])
+}
+
+model turma {
+  id_turma     Int            @id @default(autoincrement())
+  codigo       String
+  professores  professores[]
+  alunos       alunos[]
+  atividades   atividades[]
+  pontos_turma pontos_turma[]
+}
+
+model pontos_turma {
+  id_ponto Int    @id @default(autoincrement())
+  id_aluno Int
+  id_turma Int
+  qtd      Float
+  alunos   alunos @relation(fields: [id_aluno], references: [id_aluno])
+  turma    turma  @relation(fields: [id_turma], references: [id_turma])
+}
+
+model pontos_geral {
+  id_ponto Int    @id @default(autoincrement())
+  id_aluno Int
+  qtd      Float
+  alunos   alunos @relation(fields: [id_aluno], references: [id_aluno])
+}
