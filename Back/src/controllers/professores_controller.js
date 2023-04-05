@@ -15,8 +15,8 @@ async function hashSenha(senha) {
 
 const read = async (req, res) => {
   try {
-    let aluno = await prisma.alunos.findMany();
-    res.status(200).json(aluno).end();
+    let professor = await prisma.professores.findMany();
+    res.status(200).json(professor).end();
   } catch (err) {
     res.status(500).json(err).end();
     console.log(err);
@@ -26,16 +26,15 @@ const read = async (req, res) => {
 const create = async (req, res) => {
   const senhaCrypt = await hashSenha(req.body.senha);
   try {
-    let aluno = await prisma.alunos.create({
+    let professor = await prisma.professores.create({
       data: {
         nome: req.body.nome,
         email: req.body.email,
         senha: senhaCrypt,
-        nivel_de_acesso: req.body.nivel_de_acesso || "Aluno",
       },
     });
 
-    res.status(201).json({ msg: "Aluno cadastrado com sucesso" });
+    res.status(201).json({ msg: "professor cadastrado com sucesso" });
   } catch (err) {
     res.status(500).json(err).end();
     console.log(err);
@@ -43,36 +42,33 @@ const create = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const aluno = await prisma.alunos.findUnique({
+  const professor = await prisma.professores.findUnique({
     where: {
       email: req.body.email,
     },
   });
-  if (!aluno) {
-    return res.status(404).json({ msg: "Aluno não encontrado" }).end();
+  if (!professor) {
+    return res.status(404).json({ msg: "Professor não encontrado" }).end();
   }
-  const checkPswd = await bcrypt.compare(req.body.senha, aluno.senha);
+  const checkPswd = await bcrypt.compare(req.body.senha, professor.senha);
 
   if (!checkPswd) {
     res.status(401).json({ msg: "Senha incorreta" }).end();
   } else {
     jwt.sign(
-      { ...aluno },
+      { ...professor },
       process.env.KEY,
       { expiresIn: "3h" },
       function (err, token) {
         if (err == null) {
-          aluno["token"] = token;
-          delete aluno.senha;
+          professor["token"] = token;
+          delete professor.senha;
           res
             .status(200)
             .json({
               msg: "Login efetuado",
-              info: {
-                id_aluno: aluno.id_aluno,
-                nivel_de_acesso: aluno.nivel_de_acesso,
-              },
-              token: token,
+              info: { id_prof: professor.id_prof },
+              token: token
             })
             .end();
         } else {
@@ -86,12 +82,12 @@ const login = async (req, res) => {
 
 const excluir = async (req, res) => {
   try {
-    let aluno = await prisma.alunos.delete({
+    let professor = await prisma.professores.delete({
       where: {
-        id_aluno: Number(req.params.id_aluno),
+        id_prof: Number(req.params.id_prof),
       },
     });
-    res.status(204).json(aluno).end();
+    res.status(204).json(professor).end();
   } catch (err) {
     res.status(500).json(err).end();
     console.log(err);
@@ -104,13 +100,13 @@ const update = async (req, res) => {
     req.body.senha = senhaCrypt;
   }
   try {
-    let aluno = await prisma.alunos.update({
+    let professor = await prisma.professores.update({
       where: {
-        id_aluno: Number(req.params.id_aluno),
+        id_prof: Number(req.params.id_prof),
       },
       data: req.body,
     });
-    res.status(200).json(aluno).end();
+    res.status(200).json(professor).end();
   } catch (err) {
     res.status(500).json(err).end();
   }

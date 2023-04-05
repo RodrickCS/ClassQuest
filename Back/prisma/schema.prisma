@@ -11,22 +11,23 @@ datasource db {
 }
 
 model alunos {
-  id_aluno     Int            @id @default(autoincrement())
-  id_turma     Int?
-  nome         String
-  email        String         @unique
-  senha        String
-  turma        turma?         @relation(fields: [id_turma], references: [id_turma])
-  pontos_turma pontos_turma[]
-  pontos_geral pontos_geral[]
+  id_aluno        Int            @id @default(autoincrement())
+  nome            String
+  email           String         @unique
+  senha           String
+  nivel_de_acesso String?        @default("Aluno")
+  turma           turma[]
+  pontos_turma    pontos_turma[]
+  pontos_geral    pontos_geral[]
 }
 
 model professores {
-  id_prof Int     @id @default(autoincrement())
-  nome    String
-  email   String  @unique
-  senha   String
-  turma   turma[]
+  id_prof         Int     @id @default(autoincrement())
+  nome            String
+  email           String  @unique
+  senha           String
+  nivel_de_acesso String? @default("Professor")
+  turma           turma[]
 }
 
 model atividades {
