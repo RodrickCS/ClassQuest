@@ -23,9 +23,6 @@ const read = async (req, res) => {
   }
 };
 
-
-
-
 const create = async (req, res) => {
   const senhaCrypt = await hashSenha(req.body.senha);
   try {
@@ -34,7 +31,7 @@ const create = async (req, res) => {
         nome: req.body.nome,
         email: req.body.email,
         senha: senhaCrypt,
-        nivel_de_acesso: req.body.nivel_de_acesso || "Aluno"
+        nivel_de_acesso: req.body.nivel_de_acesso || "Aluno",
       },
     });
 
@@ -71,8 +68,11 @@ const login = async (req, res) => {
             .status(200)
             .json({
               msg: "Login efetuado",
-              info: { id_aluno: aluno.id_aluno, nivel_de_acesso: aluno.nivel_de_acesso },
-              token: token
+              info: {
+                id_aluno: aluno.id_aluno,
+                nivel_de_acesso: aluno.nivel_de_acesso,
+              },
+              token: token,
             })
             .end();
         } else {
