@@ -4,6 +4,7 @@ CREATE TABLE `alunos` (
     `nome` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
     `senha` VARCHAR(191) NOT NULL,
+    `nivel_de_acesso` VARCHAR(191) NULL DEFAULT 'Aluno',
 
     UNIQUE INDEX `alunos_email_key`(`email`),
     PRIMARY KEY (`id_aluno`)
@@ -15,6 +16,7 @@ CREATE TABLE `professores` (
     `nome` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
     `senha` VARCHAR(191) NOT NULL,
+    `nivel_de_acesso` VARCHAR(191) NULL DEFAULT 'Professor',
 
     UNIQUE INDEX `professores_email_key`(`email`),
     PRIMARY KEY (`id_prof`)
@@ -35,6 +37,7 @@ CREATE TABLE `atividades` (
 -- CreateTable
 CREATE TABLE `turma` (
     `id_turma` INTEGER NOT NULL AUTO_INCREMENT,
+    `codigo` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id_turma`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
