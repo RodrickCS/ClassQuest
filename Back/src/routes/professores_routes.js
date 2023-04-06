@@ -8,9 +8,9 @@ const Middleware = require("../middleware/middleware");
 const professor = require("../controllers/professores_controller");
 
 router.get("/read", Middleware.validaAcessoApi, professor.read);
-router.delete("/delete/:id_aluno", professor.excluir);
+router.delete("/delete/:id_prof", professor.excluir);
 router.post("/login", professor.login);
 router.post("/create", professor.create);
-router.put("/update/:id_aluno", professor.update);
+router.put("/update/:id_prof", professor.update);
 
 module.exports = router;
