@@ -42,6 +42,7 @@ model atividades {
 
 model turma {
   id_turma     Int            @id @default(autoincrement())
+  nome         String
   codigo       String
   professores  professores[]
   alunos       alunos[]
