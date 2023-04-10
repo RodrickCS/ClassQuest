@@ -12,23 +12,25 @@ model alunos {
   nome                  String
   email                 String                  @unique
   senha                 String
+  nivel_de_acesso       String?                 @default("Aluno")
   turma                 turmas[]
   pontos                pontos[]
   atividades_concluidas atividades_concluidas[]
 }
 
 model professores {
-  id_prof Int      @id @default(autoincrement())
-  nome    String
-  email   String   @unique
-  senha   String
-  turma   turmas[]
+  id_prof         Int      @id @default(autoincrement())
+  nome            String
+  email           String   @unique
+  senha           String
+  nivel_de_acesso String?  @default("Professor")
+  turma           turmas[]
 }
 
 model atividades {
   id_atividade          Int                     @id @default(autoincrement())
   id_turma              Int
-  imagem                Bytes
+  imagem                Bytes?
   descricao             String
   prazo                 DateTime
   pontos_conclusao      Int                     @default(0)
