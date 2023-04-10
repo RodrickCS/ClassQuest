@@ -35,6 +35,10 @@ export default StyleSheet.create({
     justifyContent: 'center',
     fontSize: '15pt'
   },
+  image: {
+    width: '25vw',
+    height: '15vh',
+  },
   txtErr: {
     color: 'red'
   }
