@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model alunos {
+  id_aluno              Int                     @id @default(autoincrement())
+  nome                  String
+  email                 String                  @unique
+  senha                 String
+  nivel_de_acesso       String?                 @default("Aluno")
+  turma                 turma[]
+  pontos_turma          pontos_turma[]
+  pontos_geral          pontos_geral[]
+  atividades_concluidas atividades_concluidas[]
+}
+
+model professores {
+  id_prof         Int     @id @default(autoincrement())
+  nome            String
+  email           String  @unique
+  senha           String
+  nivel_de_acesso String? @default("Professor")
+  turma           turma[]
+}
+
+model atividades {
+  id_atividade          Int                     @id @default(autoincrement())
+  id_turma              Int
+  imagem                Bytes
+  descricao             String
+  prazo                 DateTime
+  pontos_conclusao      Int                     @default(0)
+  turma                 turma                   @relation(fields: [id_turma], references: [id_turma])
+  atividades_concluidas atividades_concluidas[]
+<<<<<<< HEAD
+=======
+}
+
+model atividades_concluidas {
+  id_concluida   Int        @id @default(autoincrement())
+  id_atividade   Int
+  id_aluno       Int
+  total_pontos   Float
+  data_concluida DateTime
+  atividade      atividades @relation(fields: [id_atividade], references: [id_atividade])
+  aluno          alunos     @relation(fields: [id_aluno], references: [id_aluno])
+>>>>>>> 2beefe5f9d96b42e959cff13a5a8307411db9ef6
+}
+
+model turma {
+  id_turma     Int            @id @default(autoincrement())
+  nome         String
+  codigo       String
+  professores  professores[]
+  alunos       alunos[]
+  atividades   atividades[]
+  pontos_turma pontos_turma[]
+  premios      premios[]
+}
+
+model premios {
+  id_premio         Int    @id @default(autoincrement())
+  id_turma          Int
+  descricao         String
+  pontos_requeridos Float
+  turma             turma  @relation(fields: [id_turma], references: [id_turma])
+}
+
+model pontos_turma {
+  id_ponto Int    @id @default(autoincrement())
+  id_aluno Int
+  id_turma Int
+  qtd      Float
+  alunos   alunos @relation(fields: [id_aluno], references: [id_aluno])
+  turma    turma  @relation(fields: [id_turma], references: [id_turma])
+}
+
+model pontos_geral {
+  id_ponto Int    @id @default(autoincrement())
+  id_aluno Int
+  qtd      Float
+  alunos   alunos @relation(fields: [id_aluno], references: [id_aluno])
+}
+
+model atividades_concluidas {
+  id_concluida Int        @id @default(autoincrement())
+  id_atividade Int
+  id_aluno     Int
+  aluno        alunos     @relation(fields: [id_aluno], references: [id_aluno])
+  atividade    atividades @relation(fields: [id_atividade], references: [id_atividade])
+}
