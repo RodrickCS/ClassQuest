@@ -37,6 +37,8 @@ model atividades {
   pontos_conclusao      Int                     @default(0)
   turma                 turma                   @relation(fields: [id_turma], references: [id_turma])
   atividades_concluidas atividades_concluidas[]
+<<<<<<< HEAD
+=======
 }
 
 model atividades_concluidas {
@@ -47,6 +49,7 @@ model atividades_concluidas {
   data_concluida DateTime
   atividade      atividades @relation(fields: [id_atividade], references: [id_atividade])
   aluno          alunos     @relation(fields: [id_aluno], references: [id_aluno])
+>>>>>>> 2beefe5f9d96b42e959cff13a5a8307411db9ef6
 }
 
 model turma {
@@ -57,6 +60,15 @@ model turma {
   alunos       alunos[]
   atividades   atividades[]
   pontos_turma pontos_turma[]
+  premios      premios[]
+}
+
+model premios {
+  id_premio         Int    @id @default(autoincrement())
+  id_turma          Int
+  descricao         String
+  pontos_requeridos Float
+  turma             turma  @relation(fields: [id_turma], references: [id_turma])
 }
 
 model pontos_turma {
@@ -73,4 +85,12 @@ model pontos_geral {
   id_aluno Int
   qtd      Float
   alunos   alunos @relation(fields: [id_aluno], references: [id_aluno])
+}
+
+model atividades_concluidas {
+  id_concluida Int        @id @default(autoincrement())
+  id_atividade Int
+  id_aluno     Int
+  aluno        alunos     @relation(fields: [id_aluno], references: [id_aluno])
+  atividade    atividades @relation(fields: [id_atividade], references: [id_atividade])
 }
