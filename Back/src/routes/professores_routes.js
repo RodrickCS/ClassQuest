@@ -7,7 +7,7 @@ const Middleware = require("../middleware/middleware");
 
 const professor = require("../controllers/professores_controller");
 
-router.get("/read", Middleware.validaAcessoApi, professor.read);
+router.get("/read", professor.read);
 router.delete("/delete/:id_prof", professor.excluir);
 router.post("/login", professor.login);
 router.post("/create", professor.create);

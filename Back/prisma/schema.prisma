@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -40,6 +37,19 @@ model atividades {
   pontos_conclusao      Int                     @default(0)
   turma                 turma                   @relation(fields: [id_turma], references: [id_turma])
   atividades_concluidas atividades_concluidas[]
+<<<<<<< HEAD
+=======
+}
+
+model atividades_concluidas {
+  id_concluida   Int        @id @default(autoincrement())
+  id_atividade   Int
+  id_aluno       Int
+  total_pontos   Float
+  data_concluida DateTime
+  atividade      atividades @relation(fields: [id_atividade], references: [id_atividade])
+  aluno          alunos     @relation(fields: [id_aluno], references: [id_aluno])
+>>>>>>> 2beefe5f9d96b42e959cff13a5a8307411db9ef6
 }
 
 model turma {

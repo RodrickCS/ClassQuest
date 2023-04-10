@@ -31,7 +31,6 @@ const create = async (req, res) => {
         nome: req.body.nome,
         email: req.body.email,
         senha: senhaCrypt,
-        nivel_de_acesso: req.body.nivel_de_acesso || "Aluno",
       },
     });
 
