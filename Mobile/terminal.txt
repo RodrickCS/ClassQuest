@@ -1,0 +1,11 @@
+expo init ClassQuest
+cd ClassQuest
+npm i express cors mysql
+npm install --global expo-cli
+npm i -g yarn
+yarn add @react-navigation/native 
+yarn add react-native-screens react-native-safe-area-context
+yarn add @react-navigation/native-stack
+yarn add @react-native-async-storage/async-storage
+npm i react-native-paper
+expo start --web
