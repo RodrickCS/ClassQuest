@@ -42,7 +42,9 @@ model atividades_concluidas {
   id_concluida   Int        @id @default(autoincrement())
   id_atividade   Int
   id_aluno       Int
-  total_pontos   Float
+  descricao      String?
+  arquivo        Bytes?
+  link           String?
   data_concluida DateTime
   atividade      atividades @relation(fields: [id_atividade], references: [id_atividade])
   aluno          alunos     @relation(fields: [id_aluno], references: [id_aluno])
