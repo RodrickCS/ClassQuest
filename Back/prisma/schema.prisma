@@ -30,7 +30,6 @@ model professores {
 model atividades {
   id_atividade          Int                     @id @default(autoincrement())
   id_turma              Int
-  imagem                Bytes?
   descricao             String
   prazo                 DateTime
   pontos_conclusao      Int                     @default(0)
@@ -42,9 +41,6 @@ model atividades_concluidas {
   id_concluida   Int        @id @default(autoincrement())
   id_atividade   Int
   id_aluno       Int
-  descricao      String?
-  arquivo        Bytes?
-  link           String?
   data_concluida DateTime
   atividade      atividades @relation(fields: [id_atividade], references: [id_atividade])
   aluno          alunos     @relation(fields: [id_aluno], references: [id_aluno])
@@ -73,7 +69,7 @@ model pontos {
   id_ponto Int    @id @default(autoincrement())
   id_aluno Int
   id_turma Int
-  qtd      Float
+  qtd      Float?  @default(0)
   alunos   alunos @relation(fields: [id_aluno], references: [id_aluno])
   turma    turmas @relation(fields: [id_turma], references: [id_turma])
 }

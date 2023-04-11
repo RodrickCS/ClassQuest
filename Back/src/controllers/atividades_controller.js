@@ -55,10 +55,17 @@ const concluirTarefa = async (req, res) => {
     let atividade = await prisma.atividades_concluidas.create({
       data: req.body,
     });
-    res.status(204).json(atividade).end();
+
+    let read =
+      await prisma.$queryRaw`SELECT pontos_conclusao FROM atividades WHERE id_atividade = ${req.body.id_atividade}`;
+
+    let ponto =
+      await prisma.$queryRaw`UPDATE pontos SET qtd = (SELECT qtd FROM pontos WHERE id_aluno = ${req.body.id_aluno}) + ${read[0].pontos_conclusao} WHERE id_aluno = ${req.body.id_aluno}`;
+
+    res.status(200).json(atividade).end();
   } catch (err) {
     res.status(500).json(err).end();
-    console.log(err)
+    console.log(err);
   }
 };
 
@@ -70,20 +77,20 @@ const readTarefaConcluida = async (req, res) => {
         id_aluno: true,
         descricao: true,
         arquivo: true,
-        link: true, 
+        link: true,
         data_concluida: true,
         aluno: {
-          select:{
+          select: {
             id_aluno: true,
-            nome: true
-          }
-        }
-      }
+            nome: true,
+          },
+        },
+      },
     });
     res.status(200).json(atividade).end();
   } catch (err) {
     res.status(500).json(err).end();
-    console.log(err)
+    console.log(err);
   }
 };
 module.exports = {
@@ -92,5 +99,5 @@ module.exports = {
   updateAtividade,
   excluir,
   concluirTarefa,
-  readTarefaConcluida
+  readTarefaConcluida,
 };

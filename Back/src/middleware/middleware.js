@@ -12,8 +12,8 @@ const validaAcessoApi = (req, res, next) => {
       if (err !== null) {
         res.status(400).json(err).end();
       } else {
-        const isAdmin = data.nivel_de_acesso === "Admin";
-        isAdmin
+        const isProfessor = data.nivel_de_acesso === "Professor";
+        isProfessor
           ? next()
           : res
               .status(401)
@@ -24,9 +24,6 @@ const validaAcessoApi = (req, res, next) => {
   }
 };
 
-
-
 module.exports = {
   validaAcessoApi,
-  
 };

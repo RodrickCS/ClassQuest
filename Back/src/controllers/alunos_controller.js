@@ -15,7 +15,15 @@ async function hashSenha(senha) {
 
 const read = async (req, res) => {
   try {
-    let aluno = await prisma.alunos.findMany();
+    let aluno = await prisma.alunos.findMany({
+      select: {
+        id_aluno: true,
+        nome: true,
+        email: true,
+        nivel_de_acesso: true,
+        pontos: true,
+      },
+    });
     res.status(200).json(aluno).end();
   } catch (err) {
     res.status(500).json(err).end();
@@ -112,6 +120,7 @@ const update = async (req, res) => {
     res.status(200).json(aluno).end();
   } catch (err) {
     res.status(500).json(err).end();
+    console.log(err);
   }
 };
 
