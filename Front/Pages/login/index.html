@@ -1,25 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <link
-      rel="shortcut icon"
-      type="x-icon"
-      href="../../assets/icone.png"
-    />
-  <title>ClassQuest</title>
-</head>
-<body>
-  <header>
-    <nav>
-      <ul>
-        <li>Teste</li>
-        <li>Teste</li>
-      </ul>
-    </nav>
-  </header>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" type="x-icon" href="../../assets/icone.png" />
+    <title>ClassQuest</title>
+  </head>
+  <body>
+    <main>
+      <section id="container">
+        <div id="left">
+          <img src="../../Assets/logo.png" alt="" />
+          <h2>Bem <span class="welcome">Vindo(a)!</span></h2>
+        </div>
+        <div id="right">
+          <div class="group">
+            <input value="ciclano@gmail.com" id="email" type="text" required />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label class="inputLabel">Email</label>
+          </div>
+          <div class="group">
+            <input value="senaha1234" id="senha" type="text" required />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label class="inputLabel">Senha</label>
+          </div>
+
+          <button onclick="login()" class="btLogin">Login</button>
+        </div>
+
+        <div id="bottom">
+          <form>
+            <p style="margin-bottom: 10px; color: white">Acessar como:</p>
+            <div class="radio-group">
+              <input
+                type="radio"
+                name="user-type"
+                id="student"
+                value="student"
+                checked
+              />
+              <label for="student">Aluno</label>
+
+              <input
+                type="radio"
+                name="user-type"
+                id="teacher"
+                value="teacher"
+              />
+              <label for="teacher">Professor</label>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+  </body>
+  <script src="script.js"></script>
 </html>

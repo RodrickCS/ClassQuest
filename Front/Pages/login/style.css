@@ -1,0 +1,204 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
+main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #a6f6fd;
+  background-image: url("../../Assets/v1015-101a.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#container {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-radius: 12px;
+  width: 58%;
+  height: 44%;
+  background-color: #32aadd;
+}
+
+#left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid black;
+  padding: 30px;
+}
+
+#right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+}
+
+#bottom {
+  display: flex;
+  flex-direction: column;
+}
+
+.btLogin {
+  border: none;
+  background-color:#007bff;
+  width: 300px;
+  color: white;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bolder;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.btLogin:hover {
+  background-color: #fff;
+  color: #007bff;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.radio-group input[type="radio"] {
+  display: none;
+}
+
+.radio-group label {
+  display: inline-block;
+  margin-right: 20px;
+  padding: 5px 10px;
+  background-color: #eee;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.radio-group label:hover {
+  background-color: #ddd;
+}
+
+.radio-group input[type="radio"]:checked + label {
+  background-color: #007bff;
+  color: #fff;
+}
+
+h2 {
+  color: #ec1d1e;
+  font-size: 28px;
+}
+
+h1 {
+  font-size: 50px;
+  color: #ec1d1e;
+}
+
+.welcome {
+  color: #fbf209;
+}
+
+.group {
+  position: relative;
+  margin-bottom: 45px;
+}
+
+
+input {
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 300px;
+  border: none;
+  border-bottom: 1px solid #32aadd;
+  background-color: #32aadd;
+}
+input:focus {
+  outline: none;
+}
+
+.inputLabel {
+  color: white;
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+input:focus ~ label,
+input:valid ~ label {
+  top: -20px;
+  font-size: 14px;
+}
+
+.bar {
+  position: relative;
+  display: block;
+  width: 300px;
+}
+.bar:before,
+.bar:after {
+  content: "";
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: white;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+.bar:before {
+  left: 50%;
+}
+.bar:after {
+  right: 50%;
+}
+
+input:focus ~ .bar:before,
+input:focus ~ .bar:after {
+  width: 50%;
+}
+
+.highlight {
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+input:focus ~ .highlight {
+  animation: inputHighlighter 0.3s ease;
+}
