@@ -18,12 +18,9 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(
       null,
-      generateRandomString() +
-        "_" +
-        `${(file.originalname = Buffer.from(
-          file.originalname,
-          "latin1"
-        ).toString("utf-8"))}`
+      `${(file.originalname = Buffer.from(file.originalname, "latin1").toString(
+        "utf-8"
+      ))}`
     );
   },
 });
