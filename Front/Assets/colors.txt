@@ -1,4 +1,4 @@
 ClassQuest colors : {
-	#101820 
-	#fff
+	#ec1c23
+	#fbf10c
 }
