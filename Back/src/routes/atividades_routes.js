@@ -9,9 +9,9 @@ const atividades = require("../controllers/atividades_controller");
 
 router.post("/create", atividades.adicionarAtividade);
 router.post("/concluir", atividades.concluirTarefa);
-router.put("/update/:id_atividade", atividades.updateAtividade);
+router.put("/update/:id_atividade", Middleware.validaAcesso ,atividades.updateAtividade);
 router.get("/read", atividades.read);
 router.get("/readConcluida", atividades.readTarefaConcluida);
-router.delete("/excluir/:id_atividade", atividades.excluir);
+router.delete("/excluir/:id_atividade", Middleware.validaAcesso ,atividades.excluir);
 
 module.exports = router;

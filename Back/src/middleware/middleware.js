@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-const validaAcessoApi = (req, res, next) => {
+const validaAcesso = (req, res, next) => {
   const token = req.headers.authorization;
 
   if (token === undefined) {
@@ -25,5 +25,5 @@ const validaAcessoApi = (req, res, next) => {
 };
 
 module.exports = {
-  validaAcessoApi,
+  validaAcesso,
 };

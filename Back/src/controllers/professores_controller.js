@@ -58,7 +58,7 @@ const login = async (req, res) => {
     jwt.sign(
       { ...professor },
       process.env.KEY,
-      { expiresIn: "3h" },
+      { expiresIn: "5h" },
       function (err, token) {
         if (err == null) {
           professor["token"] = token;
