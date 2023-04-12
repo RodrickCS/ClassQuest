@@ -35,6 +35,7 @@ const login = () => {
       if (data.msg === "Login efetuado") {
         localStorage.setItem("token", data.token);
         localStorage.setItem("info_user_login", JSON.stringify(data.info));
+        alert(data.msg);
       } else {
         alert(data.msg);
         // openModal(data.msg)
