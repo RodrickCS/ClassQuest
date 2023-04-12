@@ -30,7 +30,7 @@ main {
   align-items: center;
   padding: 20px;
   border-radius: 12px;
-  width: 58%;
+  width: fit-content;
   height: 44%;
   background-color: #32aadd;
 }
@@ -71,6 +71,11 @@ main {
   cursor: pointer;
   border-radius: 15px;
   transition: transform 0.3s ease-in-out;
+}
+
+
+img {
+  width:300px;
 }
 
 .btLogin:hover {
