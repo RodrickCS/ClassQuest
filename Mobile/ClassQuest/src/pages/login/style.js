@@ -24,7 +24,8 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   buttonzinho: {
-    backgroundColor: "#1df",
+    backgroundColor: "#f00",
+    boxShadow:'10px 5px 5px black',
     borderRadius: '10px',
     padding: '10px'
   },
