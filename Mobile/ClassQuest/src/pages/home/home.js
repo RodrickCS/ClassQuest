@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import styles from '../home/style'
 
@@ -36,7 +35,7 @@ export default function Home({ navigation }) {
 
     return (
         <View>
-            <Image style={styles.image} source={require('../../../assets/logo.jpeg')} />
+            {/* <Image style={styles.image} source={require('../../../assets/logo.png')} /> */}
             <View style={styles.divizinha}>
                 {/* <Text>{usuario.nome}</Text> */}
                 {/* <Image style={styles.image} source={require('../../../assets/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg')} /> */}

@@ -9,14 +9,20 @@ export default function Login({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Image style={styles.image} source={require('../../../assets/logo.jpeg')} />
+            <View style={styles.imagenzinha}>
+                <Image style={styles.image} source={require('../../../assets/logo.png')} />
+            </View>
             <View style={styles.divInputzinho}>
                 <TextInput style={styles.inputzinho} placeholder='Digite o email' value={Email} onChangeText={(val) => { setEmail(val) }} />
                 <TextInput style={styles.inputzinho} placeholder='Digite a senha' value={Senha} onChangeText={(val1) => { setSenha(val1) }} />
+            </View>
+            <View>
                 <TouchableOpacity style={styles.buttonzinho} >
                     <Text style={styles.txtbutton}>Login</Text>
                 </TouchableOpacity>
+                <Text style={styles.txtAbaixo}>ou</Text>
+                <Text style={styles.txtCad}>Cadastre-se</Text>
             </View>
-        </View>
+        </View >
     )
 }
