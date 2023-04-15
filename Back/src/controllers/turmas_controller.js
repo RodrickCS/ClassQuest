@@ -1,6 +1,16 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+const read = async (req, res) => {
+  try {
+    let turma = await prisma.turmas.findMany();
+    res.status(200).json(turma).end();
+  } catch (err) {
+    res.status(500).json(err).end();
+    console.error(err);
+  }
+};
+
 const readAluno = async (req, res) => {
   try {
     let turma = await prisma.turmas.findMany({
@@ -60,7 +70,6 @@ const readAtividades = async (req, res) => {
             descricao: true,
             prazo: true,
             pontos_conclusao: true,
-            imagem: true,
           },
         },
       },

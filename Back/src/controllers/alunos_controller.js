@@ -31,6 +31,27 @@ const read = async (req, res) => {
   }
 };
 
+const readOne = async (req, res) => {
+  try {
+    let aluno = await prisma.alunos.findUnique({
+      where: {
+        id_aluno: Number(req.params.id_aluno)
+      },
+      select: {
+        id_aluno: true,
+        nome: true,
+        email: true,
+        nivel_de_acesso: true,
+        pontos: true,
+        turma: true,
+      },
+    })
+    res.status(200).json(aluno).end();
+  }catch(err) {
+    res.status(500).json(err).end();
+  }
+}
+
 const create = async (req, res) => {
   const senhaCrypt = await hashSenha(req.body.senha);
   try {
@@ -126,6 +147,7 @@ const update = async (req, res) => {
 
 module.exports = {
   read,
+  readOne,
   create,
   login,
   excluir,

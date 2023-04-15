@@ -3,6 +3,7 @@ const uriLoginProf = "http://localhost:3000/professores/login";
 
 const login = () => {
   let uri = "";
+  let url = "";
 
   let inpEmail = document.querySelector("#email");
   let inpSenha = document.querySelector("#senha");
@@ -16,8 +17,10 @@ const login = () => {
 
   if (radioAluno.checked) {
     uri = uriLoginAluno;
+    url = "../alunosHome/index.html"
   } else {
     uri = uriLoginProf;
+    url = "../professoresHome/index.html"
   }
 
   options = {
@@ -35,7 +38,7 @@ const login = () => {
       if (data.msg === "Login efetuado") {
         localStorage.setItem("token", data.token);
         localStorage.setItem("info_user_login", JSON.stringify(data.info));
-        window.location.href = "../professoresHome/index.html"
+        window.location.href = url;
       } else {
         alert(data.msg);
         // openModal(data.msg)
