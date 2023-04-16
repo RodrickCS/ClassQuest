@@ -23,6 +23,26 @@ const read = async (req, res) => {
   }
 };
 
+const readOne = async (req, res) => {
+  try {
+    let professor = await prisma.professores.findUnique({
+      where: {
+        id_prof: Number(req.params.id_prof),
+      },
+      select: {
+        id_prof: true,
+        nome: true,
+        email: true,
+        nivel_de_acesso: true,
+        turma: true,
+      },
+    });
+    res.status(200).json(professor).end();
+  } catch (err) {
+    res.status(500).json(err).end();
+  }
+};
+
 const create = async (req, res) => {
   const senhaCrypt = await hashSenha(req.body.senha);
   try {
@@ -114,6 +134,7 @@ const update = async (req, res) => {
 
 module.exports = {
   read,
+  readOne,
   create,
   login,
   excluir,
