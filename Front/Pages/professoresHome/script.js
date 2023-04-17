@@ -16,6 +16,11 @@ const closeModal = () => {
 const checkUser = () => {
   if (localStorage.getItem("token") !== null) {
     const tokenJWT = localStorage.getItem("token");
+    const info = localStorage.getItem("info_user_login");
+
+    let nome = JSON.parse(info).nome;
+
+    document.querySelector(".nomeProfessor").innerHTML = nome;
 
     try {
       const payload = JSON.parse(atob(tokenJWT.split(".")[1]));
@@ -38,10 +43,10 @@ const checkUser = () => {
 };
 
 const logout = () => {
-  window.location.href = "../login/index.html"
-  localStorage.removeItem("token")
-  localStorage.removeItem("info_user_login")
-}
+  window.location.href = "../login/index.html";
+  localStorage.removeItem("token");
+  localStorage.removeItem("info_user_login");
+};
 
 const fetchOneProfessor = () => {
   let info = localStorage.getItem("info_user_login");
@@ -86,6 +91,7 @@ const criarTurma = () => {
     .then((data) => {
       if (data.id_turma) {
         adicionarProfessor(data.id_turma, professor.id_prof);
+        window.location.reload();
       } else {
         alert("Hove um erro na criação uma turma");
       }
@@ -143,7 +149,6 @@ const buildTurmasCard = (dados) => {
     divPai.style.cursor = "pointer";
     divPai.style.alignItems = "center";
     divPai.style.borderRadius = "12px";
-    divPai.style.marginTop = "12px";
 
     divBody.style.width = "100%";
     divBody.style.height = "230px";

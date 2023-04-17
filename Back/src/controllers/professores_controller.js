@@ -87,7 +87,7 @@ const login = async (req, res) => {
             .status(200)
             .json({
               msg: "Login efetuado",
-              info: { id_prof: professor.id_prof },
+              info: { id_prof: professor.id_prof, nome: professor.nome },
               token: token,
             })
             .end();

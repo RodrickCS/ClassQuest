@@ -12,9 +12,11 @@ main {
   height: 100vh;
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
   padding: 30px;
   background-image: url("../../Assets/v1015-101a.jpg");
   background-size: cover;
+  gap: 20px;
 }
 
 nav {
@@ -219,15 +221,13 @@ input:valid ~ label {
   -moz-transition: 0.2s ease all;
   -webkit-transition: 0.2s ease all;
 }
+
 .bar:before {
   left: 50%;
 }
+
 .bar:after {
   right: 50%;
-}
-
-::placeholder {
-  color: black;
 }
 
 input:focus ~ .bar:before,
@@ -256,7 +256,7 @@ input:focus ~ .highlight {
 /* width */
 ::-webkit-scrollbar {
   width: 13px;
-  border-radius: 12px;  
+  border-radius: 12px;
 }
 
 /* Track */
@@ -267,11 +267,10 @@ input:focus ~ .highlight {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #888;
-  border-radius: 12px;  
+  border-radius: 12px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
-  
 }
