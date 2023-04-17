@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family:Poppins:wght@200;300&display:swap");
 
 * {
   margin: 0;
@@ -8,22 +8,20 @@
 }
 
 main {
-  width: 100vw;
-  height: 88vh;
+  max-width: 100vw;
+  height: 100vh;
   display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
+  flex-wrap: wrap;
+  padding: 30px;
   background-image: url("../../Assets/v1015-101a.jpg");
   background-size: cover;
-  background-repeat: no-repeat;
 }
 
 nav {
-  width: 100%;
+  max-width: 100%;
   height: 90px;
   padding: 20px;
-  background-color: #a6c4fd9c;
+  background-color: #6fddeb;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,7 +35,6 @@ nav {
   gap: 20px;
 }
 
-
 ul {
   list-style: none;
 }
@@ -47,7 +44,7 @@ ul {
 }
 
 header {
-  width: 100vw;
+  max-width: 100vw;
   height: 110px;
   padding: 20px;
   background-color: #67b3e6;
@@ -56,16 +53,16 @@ header {
 .gradient-text {
   background-image: linear-gradient(
     45deg,
-    #9400D3 16.666%,
-    #4B0082 16.666%,
-    #0000FF 33.333%,
-    #00CED1 33.333%,
+    #9400d3 16.666%,
+    #4b0082 16.666%,
+    #0000ff 33.333%,
+    #00ced1 33.333%,
     #006400 50%,
-    #FF8C00 50%,
-    #FF4500 66.666%,
-    #8B0000 66.666%,
-    #FF1493 83.333%,
-    #8B4513 83.333%
+    #ff8c00 50%,
+    #ff4500 66.666%,
+    #8b0000 66.666%,
+    #ff1493 83.333%,
+    #8b4513 83.333%
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -78,7 +75,6 @@ header {
 .gradient-text:hover {
   animation: rainbow-text-simple-animation 0.5s ease-in forwards;
 }
-
 
 @keyframes rainbow-text-simple-animation-rev {
   0% {
@@ -102,4 +98,180 @@ header {
   100% {
     background-size: 650%;
   }
+}
+
+.back_modal {
+  top: 0;
+  left: 0;
+  background-color: #000000a4;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  position: relative;
+  width: 40%;
+  height: 300px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgb(126, 233, 236);
+}
+
+.btCriar {
+  border: none;
+  background-color: #007bff;
+  width: 300px;
+  color: white;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bolder;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: all 0.2s ease-in-out;
+}
+
+.btCriar:hover {
+  background-color: #449cfa;
+}
+
+.btClose {
+  position: absolute;
+  margin: 20px;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: none;
+  background: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btClose:hover {
+  background-color: rgb(255, 41, 41);
+}
+
+.group {
+  position: relative;
+  margin-bottom: 45px;
+}
+
+input {
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 300px;
+  border: none;
+  border-bottom: 1px solid #32aadd;
+  background-color: #32aadd;
+}
+input:focus {
+  outline: none;
+}
+
+.inputLabel {
+  color: white;
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+input:focus ~ label,
+input:valid ~ label {
+  top: -20px;
+  font-size: 14px;
+}
+
+.bar {
+  position: relative;
+  display: block;
+  width: 300px;
+}
+.bar:before,
+.bar:after {
+  content: "";
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: white;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+.bar:before {
+  left: 50%;
+}
+.bar:after {
+  right: 50%;
+}
+
+::placeholder {
+  color: black;
+}
+
+input:focus ~ .bar:before,
+input:focus ~ .bar:after {
+  width: 50%;
+}
+
+.highlight {
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+input:focus ~ .highlight {
+  animation: inputHighlighter 0.3s ease;
+}
+
+.model {
+  display: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 13px;
+  border-radius: 12px;  
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 12px;  
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  
 }

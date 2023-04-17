@@ -18,11 +18,29 @@
           </li>
         </ul>
         <ul>
-          <li><button onclick="criarTurma()" class="gradient-text">Criar uma turma</button></li>
+          <li>
+            <button onclick="openModal()" class="gradient-text">
+              Criar uma turma
+            </button>
+          </li>
         </ul>
       </nav>
     </header>
-    <main class="content"></main>
+    <main class="content">
+      <div class="back_modal model">
+        <div class="modal">
+          <h1 style="margin-bottom: 26px">Criar uma turma</h1>
+          <button onclick="closeModal()" class="btClose">X</button>
+          <div class="group">
+            <input id="nome_turma" type="text" required />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label class="inputLabel">Nome</label>
+          </div>
+          <button onclick="criarTurma()" class="btCriar">Criar</button>
+        </div>
+      </div>
+    </main>
   </body>
   <script src="script.js"></script>
 </html>
