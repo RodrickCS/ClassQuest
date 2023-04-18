@@ -13,10 +13,10 @@ router.get("/readPremios", turma.readPremios);
 router.get("/readPontos", turma.readPontos);
 router.delete("/delete/:id_turma", Middleware.validaAcesso, turma.excluir);
 router.post("/create", Middleware.validaAcesso, turma.create);
+router.post("/checkTurma", turma.checkTurma);
 router.put("/update/:id_turma", Middleware.validaAcesso, turma.update);
 router.put(
   "/adicionarAluno/:id_turma",
-  Middleware.validaAcesso,
   turma.adicionarAluno
 );
 router.put(

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="x-icon" href="../../assets/icone.png" />
+    <link rel="stylesheet" href="style.css" />
+    <title>ClassQuest</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul class="navLogo">
+          <li><img width="50px" src="../../Assets/icone.png" alt="Icone" /></li>
+          <li style="font-size: 28px">
+           <p class="nomeAluno"></p>
+          </li>
+          <li><Button onclick="logout()" class="gradient-text">Sair</Button></li>
+        </ul>
+        <ul>
+          <li>
+            <button onclick="openModal()" class="gradient-text">
+              Entrar em uma turma
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="content">
+      <div class="back_modal model">
+        <div class="modal">
+          <h1 style="margin-bottom: 26px">Código da turma:</h1>
+          <button onclick="closeModal()" class="btClose">X</button>
+          <div class="group">
+            <input id="codigo_turma" type="text" required />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label class="inputLabel">Código</label>
+          </div>
+          <button onclick="entrarTurma()" class="btCriar">Entrar</button>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script src="script.js"></script>
+</html>

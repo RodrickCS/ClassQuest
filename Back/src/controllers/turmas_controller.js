@@ -221,6 +221,16 @@ const excluir = async (req, res) => {
   }
 };
 
+const checkTurma = async (req, res) => {
+  try {
+    let turma =
+      await prisma.$queryRaw`SELECT * FROM turmas WHERE codigo = ${req.body.codigo}`;
+    res.status(200).json(turma).end();
+  } catch (err) {
+    res.status(500).json(err).end();
+  }
+};
+
 module.exports = {
   readAluno,
   create,
@@ -228,8 +238,10 @@ module.exports = {
   adicionarAluno,
   adicionarProfessor,
   excluir,
+  read,
   readProf,
   readAtividades,
   readPremios,
   readPontos,
+  checkTurma
 };

@@ -97,6 +97,7 @@ const login = async (req, res) => {
             .json({
               msg: "Login efetuado",
               info: {
+                nome: aluno.nome,
                 id_aluno: aluno.id_aluno,
                 nivel_de_acesso: aluno.nivel_de_acesso,
               },
