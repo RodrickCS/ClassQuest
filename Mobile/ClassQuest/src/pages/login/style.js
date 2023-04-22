@@ -1,11 +1,15 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: '50px',
+  imagem: {
+    flex: 2,
+    width: 400, 
+    height: 700,
     justifyContent: 'center',
+  },
+  container: {
+    alignItems: 'center',
+    margin: '10px',
   },
   titulo: {
     color: "#15f",
@@ -15,13 +19,12 @@ export default StyleSheet.create({
     padding: '20px',
   },
   inputzinho: {
-    width: '70vw',
     margin: '5px',
     backgroundColor: "#eef",
     borderRadius: '10px',
   },
   divInputzinho: {
-    alignItems: 'center',
+    padding: '10vh',
   },
   buttonzinho: {
     backgroundColor: "#f00",
@@ -43,6 +46,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
     fontSize: '10pt',
+    // paddingBottom:'10px',
   },
   divInputzinho: {
     marginBottom: '5vh',
@@ -50,16 +54,25 @@ export default StyleSheet.create({
   imagenzinha: {
     alignItems: 'center',
     marginBottom: '5vh',
+    padding: '5vh',
   },
   txtAbaixo: {
-    paddingTop: '5vh',
-    color: "#bbb",
+    paddingTop: '10px',
+    // color: "#bbb",
+    textAlign: 'center',
+    justifyContent: 'center',
+    fontSize: '10pt',
+  },
+  label: {
+    padding: '10px',
+    marginBottom: '5px',
+    // color: "#bbb",
     textAlign: 'center',
     justifyContent: 'center',
     fontSize: '10pt',
   },
   image: {
-    width: '65vw',
+    width: '80vw',
     height: '15vh',
   },
   txtErr: {
