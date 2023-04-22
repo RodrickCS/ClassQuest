@@ -163,6 +163,7 @@ const buildTurmasCard = (dados) => {
     h1.innerHTML = elemento.nome;
 
     divPai.addEventListener("click", function () {
+      localStorage.setItem("id_turma", elemento.id_turma);
       window.location.href = "../turmasHome/index.html";
     });
 

@@ -11,6 +11,40 @@ const read = async (req, res) => {
   }
 };
 
+const readOne = async (req, res) => {
+  try {
+    let turma = await prisma.turmas.findUnique({
+      where: {
+        id_turma: Number(req.params.id_turma),
+      },
+      select: {
+        id_turma: true,
+        nome: true,
+        codigo: true,
+        atividades: true,
+        alunos: {
+          select: {
+            id_aluno: true,
+            nome: true,
+            email: true,
+          }
+        },
+        professores: {
+          select: {
+            id_prof: true,
+            nome: true,
+            email: true,
+          }
+        },
+        premios: true,
+      }
+    });
+    res.status(200).json(turma).end();
+  } catch (err) {
+    res.status(500).json(err).end();
+  }
+};
+
 const readAluno = async (req, res) => {
   try {
     let turma = await prisma.turmas.findMany({
@@ -173,6 +207,7 @@ const adicionarAluno = async (req, res) => {
     console.log(err);
   }
 };
+
 const adicionarProfessor = async (req, res) => {
   try {
     let turma = await prisma.turmas.update({
@@ -239,9 +274,10 @@ module.exports = {
   adicionarProfessor,
   excluir,
   read,
+  readOne,
   readProf,
   readAtividades,
   readPremios,
   readPontos,
-  checkTurma
+  checkTurma,
 };

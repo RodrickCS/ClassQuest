@@ -7,6 +7,8 @@ const Middleware = require("../middleware/middleware");
 const turma = require("../controllers/turmas_controller");
 
 router.get("/readAluno", turma.readAluno);
+router.get("/read", turma.read);
+router.get("/readOne/:id_turma", turma.readOne);
 router.get("/readProf", turma.readProf);
 router.get("/readAtividades", turma.readAtividades);
 router.get("/readPremios", turma.readPremios);
