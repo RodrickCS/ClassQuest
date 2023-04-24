@@ -185,13 +185,19 @@ header {
 .modal {
   position: relative;
   width: 40%;
-  height: 300px;
+  height: 500px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   background-color: rgb(126, 233, 236);
+}
+
+textarea {
+  resize: none;
+  max-height: 200px;
+  max-width: 100%;
 }
 
 .btCriar {

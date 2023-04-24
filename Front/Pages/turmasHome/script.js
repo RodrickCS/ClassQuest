@@ -1,4 +1,5 @@
 const uriGetTurma = "http://localhost:3000/turmas/readOne/";
+var textAreaLinks;
 
 const openModal = () => {
   document.querySelector(".back_modal").classList.remove("model");
@@ -87,21 +88,22 @@ const buildAtividadesCard = (dados) => {
     imgHeader.classList.add("card_img");
 
     imgHeader.src = "../../Assets/icone.png";
-    imgHeader.style.width = "100px";
+    imgHeader.style.width = "90px";
 
     divPai.style.width = "100%";
 
     divPai.style.backgroundColor = "#FFFFFF";
-    divPai.style.height = "170px";
+    divPai.style.height = "100px";
     divPai.style.display = "flex";
-    divPai.style.flexDirection = "column";
     divPai.style.cursor = "pointer";
     divPai.style.alignItems = "center";
     divPai.style.borderRadius = "12px";
+    divPai.style.marginBottom = "12px";
 
     divBody.style.width = "100%";
-    divBody.style.height = "230px";
+   
     divBody.style.display = "flex";
+    divBody.style.height = "100%";
     divBody.style.alignItems = "center";
     divBody.style.justifyContent = "center";
     divBody.style.backgroundColor = "#19dde0";

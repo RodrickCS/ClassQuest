@@ -25,7 +25,6 @@ const checkUser = () => {
 
     try {
       const payload = JSON.parse(atob(encodeURIComponent(tokenJWT).split(".")[1]));
-      console.log(payload);
       const expiracao = payload.exp;
       const agora = Math.floor(Date.now() / 1000);
 
