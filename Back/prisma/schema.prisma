@@ -31,6 +31,7 @@ model atividades {
   id_atividade          Int                     @id @default(autoincrement())
   id_turma              Int
   descricao             String
+  link                  String?
   prazo                 DateTime
   pontos_conclusao      Int                     @default(0)
   turma                 turmas                  @relation(fields: [id_turma], references: [id_turma])

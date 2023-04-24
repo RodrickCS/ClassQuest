@@ -14,7 +14,9 @@ const closeModal = () => {
 };
 
 const checkUser = () => {
+  console.log("MAOE 11");
   if (localStorage.getItem("token") !== null) {
+    console.log("MAOE");
     const tokenJWT = localStorage.getItem("token");
     const info = localStorage.getItem("info_user_login");
 
@@ -23,7 +25,8 @@ const checkUser = () => {
     document.querySelector(".nomeAluno").innerHTML = nome;
 
     try {
-      const payload = JSON.parse(atob(tokenJWT.split(".")[1]));
+      const payload = JSON.parse(atob(encodeURIComponent(tokenJWT).split(".")[1]));
+      console.log(payload);
       const expiracao = payload.exp;
       const agora = Math.floor(Date.now() / 1000);
 
@@ -92,6 +95,7 @@ const entrarTurma = () => {
     .then((data) => {
       if (data.length === 1) {
         adicionarAluno(data[0].id_turma, aluno.id_aluno)
+        window.location.reload();
       } else {
         alert("Hove um erro tentando entrar na turma");
       }
@@ -173,6 +177,3 @@ const buildTurmasCard = (dados) => {
 
 fetchOneProfessor();
 checkUser();
-setInterval(() => {
-  checkUser();
-}, 10000);

@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" type="x-icon" href="../../assets/icone.png" />
+    <script src="https://cdn.jsdelivr.net/jquery.hovercard/2.3.0/jquery.hovercard.js"></script>
+    <script src="script.js"></script>
     <link rel="stylesheet" href="style.css" />
     <title>ClassQuest</title>
   </head>
@@ -20,18 +22,37 @@
             <button onclick="voltar()" class="gradient-text">Voltar</button>
           </li>
         </ul>
-
         <ul>
           <li><h3 id="codigoTurma">Código da turma:</h3></li>
+          <li class="remove">
+            <button
+              onclick="openModal()"
+              id="btAdicionarAtividade"
+              class="gradient-text"
+            >
+              Adicionar Atividade
+            </button>
+          </li>
         </ul>
       </nav>
     </header>
 
     <main>
-      <section id="scoreBoard"></section>
       <section id="atividades"></section>
-      <section id="atividadeInfo"></section>
+      <section class="atividadeInfo model"></section>
+      <div class="back_modal model">
+        <div class="modal">
+          <h1 style="margin-bottom: 26px">Adicionar uma atividade</h1>
+          <button onclick="closeModal()" class="btClose">X</button>
+          <div class="group">
+            <input id="nome_turma" type="text" required />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label class="inputLabel">Nome</label>
+          </div>
+          <button onclick="adicionarAtividade()" class="btCriar">Criar</button>
+        </div>
+      </div>
     </main>
   </body>
-  <script src="script.js"></script>
 </html>

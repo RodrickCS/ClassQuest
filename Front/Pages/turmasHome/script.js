@@ -1,5 +1,47 @@
 const uriGetTurma = "http://localhost:3000/turmas/readOne/";
 
+const openModal = () => {
+  document.querySelector(".back_modal").classList.remove("model");
+};
+const closeModal = () => {
+  document.querySelector(".back_modal").classList.add("model");
+};
+
+const checkUser = () => {
+  if (localStorage.getItem("token") !== null) {
+    const tokenJWT = localStorage.getItem("token");
+    const info = localStorage.getItem("info_user_login");
+
+    let checkIfProfessor = JSON.parse(info);
+
+    if (checkIfProfessor.id_prof) {
+      console.log("Checked");
+    } else {
+      let li = document.querySelector(".remove");
+      li.remove();
+    }
+
+    try {
+      const payload = JSON.parse(atob(tokenJWT.split(".")[1]));
+      const expiracao = payload.exp;
+      const agora = Math.floor(Date.now() / 1000);
+
+      if (agora >= expiracao) {
+        logout();
+        return false;
+      }
+
+      return true;
+    } catch (err) {
+      logout();
+      return false;
+    }
+  } else {
+    window.location.href = "../login/index.html";
+  }
+};
+checkUser();
+
 const fetchAtividades = () => {
   let id = localStorage.getItem("id_turma");
   const options = {
@@ -72,4 +114,5 @@ const buildAtividadesCard = (dados) => {
     document.querySelector("#atividades").appendChild(divPai);
   });
 };
+
 fetchAtividades();

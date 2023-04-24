@@ -9,6 +9,7 @@ var professor = [];
 const openModal = () => {
   document.querySelector(".back_modal").classList.remove("model");
 };
+
 const closeModal = () => {
   document.querySelector(".back_modal").classList.add("model");
 };
@@ -23,7 +24,8 @@ const checkUser = () => {
     document.querySelector(".nomeProfessor").innerHTML = nome;
 
     try {
-      const payload = JSON.parse(atob(tokenJWT.split(".")[1]));
+      const payload = JSON.parse(atob(encodeURIComponent(tokenJWT).split(".")[1]));
+      console.log(payload);
       const expiracao = payload.exp;
       const agora = Math.floor(Date.now() / 1000);
 
@@ -34,7 +36,7 @@ const checkUser = () => {
 
       return true;
     } catch (err) {
-      logout();
+      console.log(err);
       return false;
     }
   } else {
@@ -173,6 +175,3 @@ const buildTurmasCard = (dados) => {
 
 fetchOneProfessor();
 checkUser();
-setInterval(() => {
-  checkUser();
-}, 10000);
