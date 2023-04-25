@@ -30,6 +30,7 @@ model professores {
 model atividades {
   id_atividade          Int                     @id @default(autoincrement())
   id_turma              Int
+  titulo                String
   descricao             String
   prazo                 DateTime
   pontos_conclusao      Int                     @default(0)

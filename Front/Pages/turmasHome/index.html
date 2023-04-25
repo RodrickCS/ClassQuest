@@ -39,28 +39,55 @@
 
     <main>
       <section id="atividades"></section>
-      <section class="atividadeInfo "></section>
+      <section class="atividadeInfo">
+        <div class="infoHeader">
+          <h1 id="nomeAtividade"></h1>
+        </div>
+        <div class="infoBody">
+          <p id="descricaoAtividade"></p>
+          <div id="links">
+            
+          </div>
+        </div>
+        <div class="infoFooter">
+          <p id="pontos_conclusao"></p>
+        </div>
+      </section>
       <div class="back_modal model">
         <div class="modal">
           <h1 style="margin-bottom: 26px">Adicionar uma atividade</h1>
           <button onclick="closeModal()" class="btClose">X</button>
+
           <div class="group">
-            <input id="nome_turma" type="text" required />
+            <input id="inpTitle" type="text" required />
             <span class="highlight"></span>
             <span class="bar"></span>
-            <label class="inputLabel">Nome</label>
+            <label class="inputLabel">Titulo</label>
           </div>
+
           <div class="group">
-            <input id="nome_turma" type="text" required />
+            <p style="color: white; font-size: large">Prazo</p>
+            <input id="inpData" type="date" required />
             <span class="highlight"></span>
             <span class="bar"></span>
-            <label class="inputLabel">Nome</label>
+          </div>
+
+          <div class="group">
+            <input id="inpPontos" type="text" required />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label class="inputLabel">Pontos por conclusão</label>
           </div>
           <p>Descrição</p>
-          <textarea style="margin-bottom: 30px;" id="textArea" rows="8" cols="60" resize="none"></textarea>
-          
+          <textarea
+            style="margin-bottom: 30px"
+            id="textArea"
+            rows="8"
+            cols="60"
+            resize="none"
+          ></textarea>
 
-          <button onclick="verificarLink()" class="btCriar">Criar</button>
+          <button onclick="adicionarAtividade()" class="btCriar">Criar</button>
         </div>
       </div>
     </main>

@@ -11,6 +11,7 @@ router.post("/create", atividades.adicionarAtividade);
 router.post("/concluir", atividades.concluirTarefa);
 router.put("/update/:id_atividade", Middleware.validaAcesso ,atividades.updateAtividade);
 router.get("/read", atividades.read);
+router.get("/readOne/:id_atividade", atividades.readOne);
 router.get("/readConcluida", atividades.readTarefaConcluida);
 router.delete("/excluir/:id_atividade", Middleware.validaAcesso ,atividades.excluir);
 

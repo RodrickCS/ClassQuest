@@ -3,7 +3,6 @@ const uriCreateTurma = "http://localhost:3000/turmas/create";
 const uriAddProf = "http://localhost:3000/turmas/adicionarProfessor/";
 
 var dadosCard = [];
-
 var professor = [];
 
 const openModal = () => {

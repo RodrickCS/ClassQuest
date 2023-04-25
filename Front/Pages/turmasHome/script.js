@@ -1,9 +1,14 @@
 const uriGetTurma = "http://localhost:3000/turmas/readOne/";
-var textAreaLinks;
+const uriCreateAtividadem = "http://localhost:3000/atividades/create";
+const uriReadOneAtividade = "http://localhost:3000/atividades/readOne/";
+var textAreaLinks = [];
+var dadosAtividade = [];
+var dadosTurma = [];
 
 const openModal = () => {
   document.querySelector(".back_modal").classList.remove("model");
 };
+
 const closeModal = () => {
   document.querySelector(".back_modal").classList.add("model");
 };
@@ -41,6 +46,7 @@ const checkUser = () => {
     window.location.href = "../login/index.html";
   }
 };
+
 checkUser();
 
 const fetchAtividades = () => {
@@ -54,6 +60,7 @@ const fetchAtividades = () => {
     })
     .then((data) => {
       console.log(data);
+      dadosTurma = data;
       document.querySelector("#codigoTurma").innerHTML += " " + data.codigo;
       buildAtividadesCard(data.atividades);
     });
@@ -66,6 +73,46 @@ const voltar = () => {
   } else {
     window.location.href = "../alunosHome/index.html";
   }
+};
+
+const adicionarAtividade = () => {
+  let inpPrazo = document.querySelector("#inpData");
+  let inpDescricao = document.querySelector("#textArea");
+  let inpPontos = document.querySelector("#inpPontos");
+  let inpTitle = document.querySelector("#inpTitle");
+
+  inpPrazo = new Date();
+  var offset = inpPrazo.getTimezoneOffset() / 60;
+  var horas = inpPrazo.getHours() - offset;
+  inpPrazo.setHours(horas);
+  var dataFormatada = inpPrazo.toISOString();
+
+  let form = {
+    id_turma: dadosTurma.id_turma,
+    titulo: inpTitle.value,
+    descricao: inpDescricao.value,
+    prazo: dataFormatada,
+    pontos_conclusao: Number(inpPontos.value),
+  };
+
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: JSON.stringify(form),
+  };
+
+  fetch(uriCreateAtividadem, options)
+    .then((resp) => {
+      return resp.status;
+    })
+    .then((data) => {
+      if (data === 201) {
+        window.location.reload();
+      }
+    });
 };
 
 const buildAtividadesCard = (dados) => {
@@ -101,7 +148,7 @@ const buildAtividadesCard = (dados) => {
     divPai.style.marginBottom = "12px";
 
     divBody.style.width = "100%";
-   
+
     divBody.style.display = "flex";
     divBody.style.height = "100%";
     divBody.style.alignItems = "center";
@@ -111,10 +158,80 @@ const buildAtividadesCard = (dados) => {
     divBody.style.padding = "12px";
 
     divHeader.style.height = "100px";
-    h1.innerHTML = elemento.descricao;
+    h1.innerHTML = elemento.titulo;
+    divPai.setAttribute("id", elemento.id_atividade);
+
+    divPai.addEventListener("click", (event) => {
+      const idDoCard = event.target.closest(".turma_card").id;
+      fetchOneAtividade(idDoCard);
+    });
 
     document.querySelector("#atividades").appendChild(divPai);
   });
+};
+
+const fetchOneAtividade = (id) => {
+  const options = {
+    method: "GET",
+  };
+  fetch(uriReadOneAtividade + id, options)
+    .then((resp) => {
+      return resp.json();
+    })
+    .then((data) => {
+      dadosAtividade = data;
+      preencherInfoAtividade(data);
+    });
+};
+
+const preencherInfoAtividade = (dados) => {
+  const descricaoComLinks = dados.descricao;
+  const links =
+    descricaoComLinks.match(/(https?:\/\/[^\s]+)|(ftp:\/\/[^\s]+)/g) || [];
+  const descricaoSemLinks = descricaoComLinks.replace(
+    /(https?:\/\/[^\s]+)|(ftp:\/\/[^\s]+)/g,
+    ""
+  );
+
+  document.querySelector("#descricaoAtividade").innerHTML = descricaoSemLinks;
+  document.querySelector("#nomeAtividade").innerHTML = dados.titulo;
+  document.querySelector("#pontos_conclusao").innerHTML = dados.pontos_conclusao;
+
+  const imagens = links.map(async (link) => {
+    const response = await fetch(
+      `https://api.apiflash.com/v1/urltoimage?access_key=5c38e433a59b42b0aac2052e7959a67b&url=${link}&format=png&width=500&height=500 `
+    );
+    const blob = await response.blob();
+    return URL.createObjectURL(blob);
+  });
+
+  Promise.all(imagens).then((urlImagens) => {
+    urlImagens.forEach((urlImagem, index) => {
+      const img = document.createElement("img");
+      img.src = urlImagem;
+      img.alt = `Imagem ${index + 1}`;
+
+      const div = document.createElement("div");
+      const p = document.createElement("p");
+      p.innerHTML = `<a href="${links}">${links}</a>`
+      div.setAttribute("class", "divLink")
+      div.appendChild(img)
+      div.appendChild(p)
+      
+
+      document.querySelector(`#links`).appendChild(div);
+    });
+  });
+
+  document.querySelector(`#links`).innerHTML = "";
+  document.querySelector(
+    `#links`
+  ) 
+
+  document.querySelector("#descricaoAtividade").innerHTML = descricaoSemLinks;
+  document.querySelector("#nomeAtividade").innerHTML = dados.titulo;
+
+  console.log(links);
 };
 
 fetchAtividades();

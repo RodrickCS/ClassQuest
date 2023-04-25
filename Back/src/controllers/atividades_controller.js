@@ -11,14 +11,29 @@ const read = async (req, res) => {
   }
 };
 
+const readOne = async (req, res) => {
+  try {
+    let atividade = await prisma.atividades.findUnique({
+      where: {
+        id_atividade: Number(req.params.id_atividade),
+      },
+    });
+    res.status(200).json(atividade).end();
+  } catch (err) {
+    res.status(500).json(err).end();
+    console.log(err);
+  }
+};
+
 const adicionarAtividade = async (req, res) => {
   try {
     let atividade = await prisma.atividades.create({
       data: req.body,
     });
-    res.status(200).json(atividade).end();
+    res.status(201).json(atividade).end();
   } catch (err) {
     res.status(500).json(err).end();
+    console.log(err);
   }
 };
 
@@ -95,6 +110,7 @@ const readTarefaConcluida = async (req, res) => {
 };
 module.exports = {
   read,
+  readOne,
   adicionarAtividade,
   updateAtividade,
   excluir,
