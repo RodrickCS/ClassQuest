@@ -213,7 +213,7 @@ const preencherInfoAtividade = (dados) => {
 
       const div = document.createElement("div");
       const p = document.createElement("p");
-      p.innerHTML = `<a href="${links}">${links}</a>`
+      p.innerHTML = `<a href="${links[index]}">${links[index]}</a>`
       div.setAttribute("class", "divLink")
       div.appendChild(img)
       div.appendChild(p)
