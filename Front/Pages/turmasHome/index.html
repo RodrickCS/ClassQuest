@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" type="x-icon" href="../../assets/icone.png" />
     <script src="https://cdn.jsdelivr.net/jquery.hovercard/2.3.0/jquery.hovercard.js"></script>
-    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
     <link rel="stylesheet" href="style.css" />
     <title>ClassQuest</title>
   </head>
@@ -39,18 +39,18 @@
 
     <main>
       <section id="atividades"></section>
-      <section class="atividadeInfo">
+      <section class="atividadeInfo model">
         <div class="infoHeader">
           <h1 id="nomeAtividade"></h1>
         </div>
         <div class="infoBody">
           <p id="descricaoAtividade"></p>
-          <div id="links">
-            
-          </div>
+          <div id="links"></div>
         </div>
         <div class="infoFooter">
-          <p id="pontos_conclusao"></p>
+          <h3>Pts. <span id="pontos_conclusao"></span></h3>
+          <button class="btInfo model" id="btEntregaAtividade">Entregar Atividade</button>
+          <button onclick="excluirAtividade()" class="btInfo model" id="btExcluiAtividade">Excluir Atividade</button>
         </div>
       </section>
       <div class="back_modal model">
@@ -92,4 +92,5 @@
       </div>
     </main>
   </body>
+  <script src="script.js"></script>
 </html>

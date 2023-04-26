@@ -1,6 +1,7 @@
 const uriGetTurma = "http://localhost:3000/turmas/readOne/";
 const uriCreateAtividadem = "http://localhost:3000/atividades/create";
 const uriReadOneAtividade = "http://localhost:3000/atividades/readOne/";
+const uriExcluirAtividade = "http://localhost:3000/atividades/excluir/";
 var textAreaLinks = [];
 var dadosAtividade = [];
 var dadosTurma = [];
@@ -21,10 +22,10 @@ const checkUser = () => {
     let checkIfProfessor = JSON.parse(info);
 
     if (checkIfProfessor.id_prof) {
-      console.log("Checked");
+      document.querySelector("#btExcluiAtividade").classList.remove("model");
     } else {
-      let li = document.querySelector(".remove");
-      li.remove();
+      document.querySelector(".remove").classList.add("model");
+      document.querySelector("#btEntregaAtividade").classList.remove("model");
     }
 
     try {
@@ -162,6 +163,7 @@ const buildAtividadesCard = (dados) => {
     divPai.setAttribute("id", elemento.id_atividade);
 
     divPai.addEventListener("click", (event) => {
+      document.querySelector(".atividadeInfo").classList.remove("model");
       const idDoCard = event.target.closest(".turma_card").id;
       fetchOneAtividade(idDoCard);
     });
@@ -195,7 +197,8 @@ const preencherInfoAtividade = (dados) => {
 
   document.querySelector("#descricaoAtividade").innerHTML = descricaoSemLinks;
   document.querySelector("#nomeAtividade").innerHTML = dados.titulo;
-  document.querySelector("#pontos_conclusao").innerHTML = dados.pontos_conclusao;
+  document.querySelector("#pontos_conclusao").innerHTML =
+    +" " + dados.pontos_conclusao;
 
   const imagens = links.map(async (link) => {
     const response = await fetch(
@@ -213,20 +216,17 @@ const preencherInfoAtividade = (dados) => {
 
       const div = document.createElement("div");
       const p = document.createElement("p");
-      p.innerHTML = `<a href="${links[index]}">${links[index]}</a>`
-      div.setAttribute("class", "divLink")
-      div.appendChild(img)
-      div.appendChild(p)
-      
+      p.innerHTML = `<a href="${links[index]}">${links[index]}</a>`;
+      div.setAttribute("class", "divLink");
+      div.appendChild(img);
+      div.appendChild(p);
 
       document.querySelector(`#links`).appendChild(div);
     });
   });
 
   document.querySelector(`#links`).innerHTML = "";
-  document.querySelector(
-    `#links`
-  ) 
+  document.querySelector(`#links`);
 
   document.querySelector("#descricaoAtividade").innerHTML = descricaoSemLinks;
   document.querySelector("#nomeAtividade").innerHTML = dados.titulo;
@@ -234,4 +234,26 @@ const preencherInfoAtividade = (dados) => {
   console.log(links);
 };
 
+const excluirAtividade = () => {
+  let id = dadosAtividade.id_atividade;
+  const options = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  };
+  fetch(uriExcluirAtividade + Number(id), options)
+    .then((response) => {
+      return response.status;
+    })
+    .then((data) => {
+      if(data === 204) {
+        window.location.reload()
+      } else {
+        alert("Ocorreu um erro")
+        console.log(data)
+      }
+    });
+};
 fetchAtividades();

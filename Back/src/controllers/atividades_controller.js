@@ -62,6 +62,7 @@ const excluir = async (req, res) => {
     res.status(204).json(atividade).end();
   } catch (err) {
     res.status(500).json(err).end();
+    console.log(err)
   }
 };
 

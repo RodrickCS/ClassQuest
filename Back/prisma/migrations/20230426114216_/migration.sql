@@ -26,7 +26,7 @@ CREATE TABLE `professores` (
 CREATE TABLE `atividades` (
     `id_atividade` INTEGER NOT NULL AUTO_INCREMENT,
     `id_turma` INTEGER NOT NULL,
-    `imagem` LONGBLOB NULL,
+    `titulo` VARCHAR(191) NOT NULL,
     `descricao` VARCHAR(191) NOT NULL,
     `prazo` DATETIME(3) NOT NULL,
     `pontos_conclusao` INTEGER NOT NULL DEFAULT 0,
@@ -39,8 +39,8 @@ CREATE TABLE `atividades_concluidas` (
     `id_concluida` INTEGER NOT NULL AUTO_INCREMENT,
     `id_atividade` INTEGER NOT NULL,
     `id_aluno` INTEGER NOT NULL,
-    `total_pontos` DOUBLE NOT NULL,
     `data_concluida` DATETIME(3) NOT NULL,
+    `arquivo` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id_concluida`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -69,7 +69,7 @@ CREATE TABLE `pontos` (
     `id_ponto` INTEGER NOT NULL AUTO_INCREMENT,
     `id_aluno` INTEGER NOT NULL,
     `id_turma` INTEGER NOT NULL,
-    `qtd` DOUBLE NOT NULL,
+    `qtd` DOUBLE NULL DEFAULT 0,
 
     PRIMARY KEY (`id_ponto`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
