@@ -1,7 +1,11 @@
 import { View, Text, TouchableOpacity, Image, ImageBackground } from 'react-native';
-// import { createDrawerNavigator } from '@react-navigation/drawer';
-import styles from '../home/style'
+import styles from '../home/style';
 
+const voltar = () => {
+    // clearInterval(myInterval)
+    navigation.navigate('Login')
+    // navigation.goBack()
+}
 export default function Home({ navigation }) {
 
     return (
@@ -14,7 +18,7 @@ export default function Home({ navigation }) {
                 <TouchableOpacity>
                     <Text style={styles.txtEntrar}>Entrar em uma turma</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => { voltar() }}>
                     <Text style={styles.txtSair}>Sair</Text>
                 </TouchableOpacity>
             </View>

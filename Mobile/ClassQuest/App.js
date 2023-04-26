@@ -14,12 +14,17 @@ export default function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="Login" component={Login} />
-                {/* <Stack.Screen name="Home" component={Home} /> */}
+                {/* <Stack.Screen name="Login" component={Login} /> */}
+                <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Cadastro" component={Cadastro} />
-                {/* <Stack.Screen name="Professor" component={Professor} /> */}
-                {/* <Stack.Screen name="Aluno" component={Aluno} /> */}
+                <Stack.Screen name="Professor" component={Professor} />
+                <Stack.Screen name="Aluno" component={Aluno} />
             </Stack.Navigator>
+            {/* <Tab.Navigator screenOptions={{ headerShown: false }}>
+                <Tab.Screen name="Home" component={Home} />
+                <Tab.Screen name="Professor" component={Professor} />
+                <Tab.Screen name="Aluno" component={Aluno} />
+            </Tab.Navigator> */}
         </NavigationContainer>
     );
 }

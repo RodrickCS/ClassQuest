@@ -8,50 +8,16 @@ import styles from '../login/style'
 export default function Login({ navigation }) {
     const [Email, setEmail] = useState('');
     const [Senha, setSenha] = useState('');
-    const [Msg, setMsg] = useState('');
+    // const [Msg, setMsg] = useState('');
     const [checked, setChecked] = useState('aluno');
 
     function validarLogin() {
-        // const options = {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: `{"email":"${Email}","senha":"${Senha}"}`
-        // };
-
-        // fetch('http://localhost:3000/usuarioLogin', options)
-        //     .then(response => response.json())
-        //     .then(async response => {
-        //         if (response.id == undefined) {
-        //             setMsg(response.Msg);
-        //         } else {
-        //             await AsyncStorage.setItem('userdata', JSON.stringify(response[0]));
-        //             setMsg("");
         navigation.navigate('Home');
-        // }
-        // })
     }
 
-    function cadastro(){
+    function cadastro() {
         navigation.navigate('Cadastro');
     }
-    const [password, setPassword] = useState('');  
-    const [passwordVisibility, setPasswordVisibility] = useState(true);  
-    const [rightIcon, setRightIcon] = useState('eye');  
-    const [rightIconColor, setRightIconColor] = useState('#0C8A7B');
-    
-    const handlePasswordVisibility = () => {  
-        if (rightIcon === 'eye') {  
-            setRightIcon('eye-slash');  
-            //setRightIconColor('#FF0000')  
-            setPasswordVisibility(!passwordVisibility);  
-        } else if (rightIcon === 'eye-slash') {  
-            setRightIcon('eye');  
-            //setRightIconColor('#0C8A7B')
-            setPasswordVisibility(!passwordVisibility);  
-        }  
-    };  
 
     return (
         <View style={styles.container}>
