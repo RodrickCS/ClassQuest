@@ -24,6 +24,18 @@ export default StyleSheet.create({
         padding: '5px',
         backgroundColor: '#6fddeb',
     },
+    dados: {
+        padding: '15px',
+        backgroundColor: '#6fddeb',
+    },
+    inputzinho: {
+        margin: '5px',
+        backgroundColor: "#eef",
+        borderRadius: '10px',
+      },
+      divInputzinho: {
+        padding: '10vh',
+      },
     txtSair: {
         color: '#f00',
         fontSize: '12pt',

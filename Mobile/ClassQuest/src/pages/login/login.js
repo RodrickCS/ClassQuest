@@ -36,6 +36,22 @@ export default function Login({ navigation }) {
     function cadastro(){
         navigation.navigate('Cadastro');
     }
+    const [password, setPassword] = useState('');  
+    const [passwordVisibility, setPasswordVisibility] = useState(true);  
+    const [rightIcon, setRightIcon] = useState('eye');  
+    const [rightIconColor, setRightIconColor] = useState('#0C8A7B');
+    
+    const handlePasswordVisibility = () => {  
+        if (rightIcon === 'eye') {  
+            setRightIcon('eye-slash');  
+            //setRightIconColor('#FF0000')  
+            setPasswordVisibility(!passwordVisibility);  
+        } else if (rightIcon === 'eye-slash') {  
+            setRightIcon('eye');  
+            //setRightIconColor('#0C8A7B')
+            setPasswordVisibility(!passwordVisibility);  
+        }  
+    };  
 
     return (
         <View style={styles.container}>
@@ -44,8 +60,8 @@ export default function Login({ navigation }) {
                 <Image style={styles.image} source={require('../../../assets/logo.png')} />
             </View>
             <View style={styles.divInputzinho}>
-                <TextInput style={styles.inputzinho} placeholder='Digite o email' value={Email} onChangeText={(val) => { setEmail(val) }} />
-                <TextInput style={styles.inputzinho} placeholder='Digite a senha' value={Senha} onChangeText={(val1) => { setSenha(val1) }} />
+                <TextInput keyboardType='email-address' style={styles.inputzinho} placeholder='Digite o email' value={Email} onChangeText={(val) => { setEmail(val) }} />
+                <TextInput secureTextEntry={true} style={styles.inputzinho} placeholder='Digite a senha' value={Senha} onChangeText={(val1) => { setSenha(val1) }} />
                 <Text style={styles.txtErr} >{Msg}</Text>
             </View>
             <View>
