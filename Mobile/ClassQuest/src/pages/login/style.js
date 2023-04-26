@@ -3,13 +3,12 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   imagem: {
     flex: 2,
-    width: 400, 
+    width: 400,
     height: 700,
     justifyContent: 'center',
   },
   container: {
     alignItems: 'center',
-    margin: '10px',
   },
   titulo: {
     color: "#15f",
@@ -64,7 +63,7 @@ export default StyleSheet.create({
     fontSize: '10pt',
   },
   label: {
-    padding: '10px',
+    padding: '5px',
     marginBottom: '5px',
     // color: "#bbb",
     textAlign: 'center',

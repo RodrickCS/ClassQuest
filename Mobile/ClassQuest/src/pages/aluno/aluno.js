@@ -6,7 +6,7 @@ export default function Aluno({ navigation }) {
 
     return (
         <View>
-            {/* <Image style={styles.image} source={require('../../../assets/logo.png')} /> */}
+            <Image style={styles.image} source={require('../../../assets/logo.png')} />
             <View style={styles.divizinha}>
                 {/* <Text>{usuario.nome}</Text> */}
                 {/* <Image style={styles.image} source={require('../../../assets/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg')} /> */}
