@@ -8,9 +8,9 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     titulo: {
-        color: '#0f0',
+        color: '#3a3',
         fontSize: '25pt',
-        marginLeft: '10px',
+        marginLeft: '30vw',
     },
     image: {
         width: '25vw',
@@ -22,7 +22,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         padding: '5px',
-        backgroundColor: '#fff',
+        backgroundColor: '#6fddeb',
     },
     txtSair: {
         color: '#f00',

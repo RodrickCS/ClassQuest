@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { View, Text, TouchableOpacity, Image, CheckBox, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { RadioButton } from 'react-native-paper';
 import styles from '../login/style'
