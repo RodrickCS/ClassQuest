@@ -3,7 +3,6 @@ const uriCheckTurma = "http://localhost:3000/turmas/checkTurma";
 const uriAddAluno = "http://localhost:3000/turmas/adicionarAluno/";
 
 var dadosCard = [];
-
 var aluno = [];
 
 const openModal = () => {
@@ -14,9 +13,7 @@ const closeModal = () => {
 };
 
 const checkUser = () => {
-  console.log("MAOE 11");
   if (localStorage.getItem("token") !== null) {
-    console.log("MAOE");
     const tokenJWT = localStorage.getItem("token");
     const info = localStorage.getItem("info_user_login");
 

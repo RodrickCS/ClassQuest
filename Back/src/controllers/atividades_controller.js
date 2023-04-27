@@ -91,9 +91,7 @@ const readTarefaConcluida = async (req, res) => {
       select: {
         id_atividade: true,
         id_aluno: true,
-        descricao: true,
         arquivo: true,
-        link: true,
         data_concluida: true,
         aluno: {
           select: {

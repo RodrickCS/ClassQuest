@@ -1,17 +1,32 @@
 const uriGetTurma = "http://localhost:3000/turmas/readOne/";
-const uriCreateAtividadem = "http://localhost:3000/atividades/create";
+const uriCreateAtividade = "http://localhost:3000/atividades/create";
 const uriReadOneAtividade = "http://localhost:3000/atividades/readOne/";
 const uriExcluirAtividade = "http://localhost:3000/atividades/excluir/";
+const uriCompletarAtividade = "http://localhost:3000/atividades/concluir";
+const uriEnviarArquivo = "http://localhost:3000/arquivos/enviar";
+const uriAddPoints = "http://localhost:3000/pontos/addPoints/";
 var textAreaLinks = [];
 var dadosAtividade = [];
 var dadosTurma = [];
 
-const openModal = () => {
+const openModalAddAtividade = () => {
   document.querySelector(".back_modal").classList.remove("model");
+  document.querySelector(".modalAddAtividade").classList.remove("model");
 };
 
-const closeModal = () => {
+const closeModalAddAtividade = () => {
   document.querySelector(".back_modal").classList.add("model");
+  document.querySelector(".modalAddAtividade").classList.add("model");
+};
+
+const openModalEntregarAtividade = () => {
+  document.querySelector(".back_modal").classList.remove("model");
+  document.querySelector(".modalEntregarAtividade").classList.remove("model");
+};
+
+const closeModalEntregarAtividade = () => {
+  document.querySelector(".back_modal").classList.add("model");
+  document.querySelector(".modalEntregarAtividade").classList.add("model");
 };
 
 const checkUser = () => {
@@ -60,7 +75,6 @@ const fetchAtividades = () => {
       return resp.json();
     })
     .then((data) => {
-      console.log(data);
       dadosTurma = data;
       document.querySelector("#codigoTurma").innerHTML += " " + data.codigo;
       buildAtividadesCard(data.atividades);
@@ -105,7 +119,7 @@ const adicionarAtividade = () => {
     body: JSON.stringify(form),
   };
 
-  fetch(uriCreateAtividadem, options)
+  fetch(uriCreateAtividade, options)
     .then((resp) => {
       return resp.status;
     })
@@ -248,12 +262,107 @@ const excluirAtividade = () => {
       return response.status;
     })
     .then((data) => {
-      if(data === 204) {
-        window.location.reload()
+      if (data === 204) {
+        window.location.reload();
       } else {
-        alert("Ocorreu um erro")
-        console.log(data)
+        alert("Ocorreu um erro");
+        console.log(data);
       }
+    });
+};
+
+const generateRandomString = () => {
+  const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
+  let randomString = "";
+  for (let i = 0; i < 5; i++) {
+    const randomIndex = Math.floor(Math.random() * alphabet.length);
+    randomString += alphabet[randomIndex];
+  }
+  return randomString;
+};
+
+const formatDate = (data) => {
+  data = new Date();
+
+  var offset = data.getTimezoneOffset() / 60;
+  var horas = data.getHours() - offset;
+
+  data.setHours(horas);
+
+  var dataFormatada = data.toISOString();
+
+  return dataFormatada;
+};
+
+const entregarAtividade = async () => {
+  let idAluno = JSON.parse(localStorage.getItem("info_user_login"));
+  let inpArquivo = document.querySelector("#inpArquivo");
+
+  let fileName = generateRandomString() + "_" + inpArquivo.value.split("\\")[2];
+  let file = inpArquivo.files[0];
+  let fileWithNewName = new File([file], fileName, { type: file.type });
+
+  let form = {
+    id_atividade: dadosAtividade.id_atividade,
+    id_aluno: idAluno.id_aluno,
+    data_concluida: formatDate(new Date()),
+    arquivo: fileName,
+  };
+
+  const optionsCompletar = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: JSON.stringify(form),
+  };
+
+  try {
+    const completar = await fetch(uriCompletarAtividade, optionsCompletar).then(
+      (resp) => {
+        return resp.json();
+      }
+    );
+    atribuirPontos(idAluno.id_aluno);
+    if (inpArquivo.value !== "") {
+      const formData = new FormData();
+      formData.append("img", fileWithNewName);
+      const optionsEnviarArquivo = {
+        method: "POST",
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: formData,
+      };
+      const arquivo = await fetch(uriEnviarArquivo, optionsEnviarArquivo).then(
+        (resp) => {
+          return resp.status;
+        }
+      );
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const atribuirPontos = (id) => {
+  const options = {
+    method: "POST",
+    headers: {
+      authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: {
+      qtd: dadosAtividade.pontos_conclusao,
+    },
+  };
+
+  fetch(uriAddPoints + id, options)
+    .then((resp) => {
+      return resp.json();
+    })
+    .then((data) => {
+      console.log(data);
     });
 };
 fetchAtividades();

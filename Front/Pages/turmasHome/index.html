@@ -26,7 +26,7 @@
           <li><h3 id="codigoTurma">Código da turma:</h3></li>
           <li class="remove">
             <button
-              onclick="openModal()"
+              onclick="openModalAddAtividade()"
               id="btAdicionarAtividade"
               class="gradient-text"
             >
@@ -49,14 +49,14 @@
         </div>
         <div class="infoFooter">
           <h3>Pts. <span id="pontos_conclusao"></span></h3>
-          <button class="btInfo model" id="btEntregaAtividade">Entregar Atividade</button>
+          <button onclick="openModalEntregarAtividade()" class="btInfo model" id="btEntregaAtividade">Entregar Atividade</button>
           <button onclick="excluirAtividade()" class="btInfo model" id="btExcluiAtividade">Excluir Atividade</button>
         </div>
       </section>
       <div class="back_modal model">
-        <div class="modal">
+        <div class="modalAddAtividade model">
           <h1 style="margin-bottom: 26px">Adicionar uma atividade</h1>
-          <button onclick="closeModal()" class="btClose">X</button>
+          <button onclick="closeModalAddAtividade()" class="btClose">X</button>
 
           <div class="group">
             <input id="inpTitle" type="text" required />
@@ -88,6 +88,19 @@
           ></textarea>
 
           <button onclick="adicionarAtividade()" class="btCriar">Criar</button>
+        </div>
+
+        <div class="modalEntregarAtividade model">
+          <h1 style="margin-bottom: 26px">Adicionar um arquivo</h1>
+          <button onclick="closeModalEntregarAtividade()" class="btClose">X</button>
+
+          <div class="group">
+            <input id="inpArquivo" type="file" required />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+          </div>
+
+          <button onclick="entregarAtividade()" class="btCriar">Enviar</button>
         </div>
       </div>
     </main>

@@ -184,7 +184,19 @@ header {
   justify-content: center;
 }
 
-.modal {
+.modalAddAtividade {
+  position: relative;
+  width: 40%;
+  height: 600px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgb(126, 233, 236);
+}
+
+.modalEntregarAtividade {
   position: relative;
   width: 40%;
   height: 600px;

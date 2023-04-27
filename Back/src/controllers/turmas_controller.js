@@ -27,17 +27,17 @@ const readOne = async (req, res) => {
             id_aluno: true,
             nome: true,
             email: true,
-          }
+          },
         },
         professores: {
           select: {
             id_prof: true,
             nome: true,
             email: true,
-          }
+          },
         },
         premios: true,
-      }
+      },
     });
     res.status(200).json(turma).end();
   } catch (err) {
@@ -201,7 +201,15 @@ const adicionarAluno = async (req, res) => {
         },
       },
     });
-    res.status(200).json(turma).end();
+
+    let pontos = await prisma.pontos.create({
+      data: {
+        id_aluno: req.body.id_aluno,
+        id_turma: Number(req.params.id_turma),
+      },
+    });
+
+    res.status(200).json(pontos).end();
   } catch (err) {
     res.status(500).json(err).end();
     console.log(err);

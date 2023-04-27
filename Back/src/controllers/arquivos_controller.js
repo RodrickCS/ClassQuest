@@ -1,15 +1,5 @@
 const multer = require("multer");
 
-const generateRandomString = () => {
-  const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
-  let randomString = "";
-  for (let i = 0; i < 5; i++) {
-    const randomIndex = Math.floor(Math.random() * alphabet.length);
-    randomString += alphabet[randomIndex];
-  }
-  return randomString;
-};
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "C:/Users/Desenvolvimento/Desktop/ClassQuest/Docs/blob");

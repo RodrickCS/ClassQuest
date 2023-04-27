@@ -128,10 +128,6 @@ const excluir = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  if (req.body.senha) {
-    const senhaCrypt = await hashSenha(req.body.senha);
-    req.body.senha = senhaCrypt;
-  }
   try {
     let aluno = await prisma.alunos.update({
       where: {
