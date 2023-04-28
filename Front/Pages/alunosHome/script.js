@@ -153,7 +153,7 @@ const buildTurmasCard = (dados) => {
     divPai.style.borderRadius = "12px";
 
     divBody.style.width = "100%";
-    divBody.style.height = "230px";
+    divBody.style.height = "200px";
     divBody.style.display = "flex";
     divBody.style.alignItems = "center";
     divBody.style.justifyContent = "center";
