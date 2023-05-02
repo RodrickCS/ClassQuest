@@ -62,7 +62,7 @@ const excluir = async (req, res) => {
     res.status(204).json(atividade).end();
   } catch (err) {
     res.status(500).json(err).end();
-    console.log(err)
+    console.log(err);
   }
 };
 
@@ -107,6 +107,22 @@ const readTarefaConcluida = async (req, res) => {
     console.log(err);
   }
 };
+
+const readPendentes = async (req, res) => {
+  try {
+    let atividade = await prisma.$queryRaw`SELECT a.*, t.id_turma, t.nome as nome_turma
+    FROM atividades a
+    LEFT JOIN atividades_concluidas ac ON ac.id_atividade = a.id_atividade AND ac.id_aluno = ${req.params.id_aluno}
+    INNER JOIN  turmas t on t.id_turma = a.id_turma
+    WHERE ac.id_concluida IS NULL;
+    `;
+    res.status(200).json(atividade).end();
+  } catch (err) {
+    res.status(500).json(err).end();
+    console.log(err);
+  }
+};
+
 module.exports = {
   read,
   readOne,
@@ -115,4 +131,5 @@ module.exports = {
   excluir,
   concluirTarefa,
   readTarefaConcluida,
+  readPendentes,
 };

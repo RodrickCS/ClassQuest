@@ -13,6 +13,7 @@ router.put("/update/:id_atividade", Middleware.validaAcesso ,atividades.updateAt
 router.get("/read", atividades.read);
 router.get("/readOne/:id_atividade", atividades.readOne);
 router.get("/readConcluida", atividades.readTarefaConcluida);
+router.get("/readPendentes/:id_aluno", atividades.readPendentes);
 router.delete("/excluir/:id_atividade", Middleware.validaAcesso ,atividades.excluir);
 
 module.exports = router;

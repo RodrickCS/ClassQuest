@@ -22,7 +22,9 @@ const checkUser = () => {
     document.querySelector(".nomeAluno").innerHTML = nome;
 
     try {
-      const payload = JSON.parse(atob(encodeURIComponent(tokenJWT).split(".")[1]));
+      const payload = JSON.parse(
+        atob(encodeURIComponent(tokenJWT).split(".")[1])
+      );
       console.log(payload);
       const expiracao = payload.exp;
       const agora = Math.floor(Date.now() / 1000);
@@ -48,7 +50,7 @@ const logout = () => {
   localStorage.removeItem("info_user_login");
 };
 
-const fetchOneProfessor = () => {
+const fetchOneAluno = () => {
   let info = localStorage.getItem("info_user_login");
 
   let id = JSON.parse(info);
@@ -91,7 +93,7 @@ const entrarTurma = () => {
     })
     .then((data) => {
       if (data.length === 1) {
-        adicionarAluno(data[0].id_turma, aluno.id_aluno)
+        adicionarAluno(data[0].id_turma, aluno.id_aluno);
         window.location.reload();
       } else {
         alert("Hove um erro tentando entrar na turma");
@@ -165,6 +167,7 @@ const buildTurmasCard = (dados) => {
     h1.innerHTML = elemento.nome;
 
     divPai.addEventListener("click", function () {
+      localStorage.setItem("id_turma", elemento.id_turma);
       window.location.href = "../turmasHome/index.html";
     });
 
@@ -172,5 +175,5 @@ const buildTurmasCard = (dados) => {
   });
 };
 
-fetchOneProfessor();
+fetchOneAluno();
 checkUser();

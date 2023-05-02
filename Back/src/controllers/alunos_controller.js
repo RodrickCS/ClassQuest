@@ -35,7 +35,7 @@ const readOne = async (req, res) => {
   try {
     let aluno = await prisma.alunos.findUnique({
       where: {
-        id_aluno: Number(req.params.id_aluno)
+        id_aluno: Number(req.params.id_aluno),
       },
       select: {
         id_aluno: true,
@@ -43,14 +43,20 @@ const readOne = async (req, res) => {
         email: true,
         nivel_de_acesso: true,
         pontos: true,
-        turma: true,
+        turma: {
+          select: {
+            id_turma: true,
+            nome: true,
+            atividades: true,
+          },
+        },
       },
-    })
+    });
     res.status(200).json(aluno).end();
-  }catch(err) {
+  } catch (err) {
     res.status(500).json(err).end();
   }
-}
+};
 
 const create = async (req, res) => {
   const senhaCrypt = await hashSenha(req.body.senha);
