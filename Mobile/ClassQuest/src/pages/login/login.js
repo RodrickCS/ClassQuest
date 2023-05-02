@@ -17,13 +17,17 @@ export default function Login({ navigation }) {
   // const [Msg, setMsg] = useState('');
   const [checked, setChecked] = useState("aluno");
 
-  const uriLogin = "http://localhost:3000/alunos/login";
-
   function login() {
     let form = {
       email: Email,
       senha: Senha,
     };
+
+    let uri =
+      checked === "professor"
+        ? "http://localhost:3000/professores/login"
+        : "http://localhost:3000/alunos/login";
+    let path = checked === "professor" ? "Professor" : "Aluno";
 
     const options = {
       method: "POST",
@@ -32,18 +36,30 @@ export default function Login({ navigation }) {
       },
       body: JSON.stringify(form),
     };
-    fetch(uriLogin, options)
+
+    fetch(uri, options)
       .then((resp) => {
-        return resp.status;
+        if (resp.ok) {
+          return resp.json();
+        } else if (resp.status === 401) {
+          throw new Error("Senha incorreta");
+        } else if (resp.status === 404) {
+          throw new Error("Usuário não encontrado");
+        } else {
+          throw new Error("Erro interno do servidor");
+        }
       })
       .then((data) => {
-        if (data === 200) {
-          if (checked === "aluno") {
-            navigation.navigate("Aluno");
-          } else {
-            console.log("alo");
-          }
-        }
+        console.log(data);
+
+        AsyncStorage.setItem("nome", data.info.nome);
+        AsyncStorage.setItem("id_aluno", data.info.id_aluno);
+        AsyncStorage.setItem("token", data.token);
+
+        navigation.navigate(path);
+      })
+      .catch((error) => {
+        console.error(error);
       });
   }
 
