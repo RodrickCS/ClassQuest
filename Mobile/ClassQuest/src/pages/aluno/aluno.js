@@ -1,6 +1,5 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import styles from '../aluno/style'
-// import Menu from '../home/style'
 
 export default function Aluno({ navigation }) {
 

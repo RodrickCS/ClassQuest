@@ -2,19 +2,14 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     container: {
-        flex: 1,
+        // flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'center',
     },
     titulo: {
         color: '#3a3',
         fontSize: '25pt',
         marginLeft: '30vw',
-    },
-    image: {
-        width: '25vw',
-        height: '15vh',
     },
     divizinha: {
         width: '100%',
@@ -26,19 +21,39 @@ export default StyleSheet.create({
     },
     dados: {
         padding: '15px',
-        backgroundColor: '#6fddeb',
+        // backgroundColor: '#6fddeb',
+        alignItems: 'center',
     },
     inputzinho: {
         margin: '5px',
         backgroundColor: "#eef",
         borderRadius: '10px',
-      },
-      divInputzinho: {
+    },
+    divInputzinho: {
         padding: '10vh',
-      },
+    },
     txtSair: {
         color: '#f00',
         fontSize: '12pt',
         marginLeft: '10px'
+    },
+    imagem: {
+        flex: 2,
+        width: 400,
+        height: 700,
+        justifyContent: 'center',
+    },
+    buttonzinho: {
+        backgroundColor: "#0f0",
+        borderRadius: '10px',
+        padding: '10px',
+        justifyContent: 'flex-end',
+    },
+    txtbutton: {
+        color: "#fff",
+        fontWeight: 'bold',
+        textAlign: 'center',
+        justifyContent: 'center',
+        fontSize: '15pt',
     }
 });
