@@ -11,6 +11,10 @@ export default function Login({ navigation }) {
     // const [Msg, setMsg] = useState('');
     const [checked, setChecked] = useState("aluno");
 
+    function cadastro() {
+        navigation.navigate('Cadastro');
+    }
+
     function login() {
         let form = {
             email: Email,
@@ -62,13 +66,11 @@ export default function Login({ navigation }) {
             <ImageBackground
                 source={require("../../../assets/fundo.jpg")}
                 resizeMode="cover"
-                style={styles.imagem}
-            ></ImageBackground>
+                style={styles.imagem}></ImageBackground>
             <View style={styles.imagenzinha}>
                 <Image
                     style={styles.image}
-                    source={require("../../../assets/logo.png")}
-                />
+                    source={require("../../../assets/logo.png")}/>
             </View>
             <View style={styles.divInputzinho}>
                 <TextInput
@@ -78,8 +80,7 @@ export default function Login({ navigation }) {
                     value={Email}
                     onChangeText={(val) => {
                         setEmail(val);
-                    }}
-                />
+                    }}/>
                 <TextInput
                     secureTextEntry={true}
                     style={styles.inputzinho}
@@ -87,8 +88,7 @@ export default function Login({ navigation }) {
                     value={Senha}
                     onChangeText={(val1) => {
                         setSenha(val1);
-                    }}
-                />
+                    }}/>
                 <Text style={styles.txtErr}></Text>
             </View>
             <View>
@@ -98,16 +98,14 @@ export default function Login({ navigation }) {
                         <RadioButton
                             value="aluno"
                             status={checked === "aluno" ? "checked" : "unchecked"}
-                            onPress={() => setChecked("aluno")}
-                        />{" "}
+                            onPress={() => setChecked("aluno")}/>{" "}
                         Aluno(a)
                     </Text>
                     <Text style={styles.label}>
                         <RadioButton
                             value="professor"
                             status={checked === "professor" ? "checked" : "unchecked"}
-                            onPress={() => setChecked("professor")}
-                        />{" "}
+                            onPress={() => setChecked("professor")}/>{" "}
                         Professor(a)
                     </Text>
                 </Text>
@@ -117,16 +115,14 @@ export default function Login({ navigation }) {
                     style={styles.buttonzinho}
                     onPress={() => {
                         login();
-                    }}
-                >
+                    }}>
                     <Text style={styles.txtbutton}>Login</Text>
                 </TouchableOpacity>
                 <Text style={styles.txtAbaixo}>ou</Text>
                 <TouchableOpacity
                     onPress={() => {
-                        login();
-                    }}
-                >
+                        cadastro();
+                    }}>
                     <Text style={styles.txtCad}>Cadastre-se</Text>
                 </TouchableOpacity>
             </View>
