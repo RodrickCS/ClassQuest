@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family:Poppins:wght@200;300&display:swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap");
 
 * {
   margin: 0;
@@ -7,7 +7,7 @@
   font-family: "Poppins", sans-serif;
 }
 
-body{
+body {
   background-image: url("../../Assets/v1015-101a.jpg");
   background-size: cover;
 }
@@ -16,7 +16,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  padding:  100px 300px 0px 300px;
+  padding: 100px 300px 0px 300px;
   gap: 20px;
 }
 
@@ -24,7 +24,7 @@ nav {
   width: 70%;
   height: 90px;
   padding: 30px;
-padding-top: 44px;
+  padding-top: 44px;
   background-color: #6fddeb;
   display: flex;
   align-items: center;
@@ -114,8 +114,8 @@ header {
   justify-content: center;
 }
 
-.modal {
-  position: relative;
+.modalCriarTurma {
+  position: absolute; 
   width: 40%;
   height: 300px;
   border-radius: 12px;
