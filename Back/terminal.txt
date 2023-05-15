@@ -1,0 +1,11 @@
+cd back
+npm i -g prisma
+npm install prisma --save-dev
+npx prisma init --datasource-provider sqlite
+npx prisma migrate dev --name init
+npm i mysql express nodemon cors
+nodemon
+
+npm i -g prisma
+npx prisma migrate dev --name init
+nodemon
