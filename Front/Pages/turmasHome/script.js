@@ -38,6 +38,7 @@ const checkUser = () => {
 
     if (checkIfProfessor.id_prof) {
       document.querySelector("#btExcluiAtividade").classList.remove("model");
+      document.querySelector("#btCorrigirAtividade").classList.remove("model");
     } else {
       document.querySelector(".remove").classList.add("model");
       document.querySelector("#btEntregaAtividade").classList.remove("model");
@@ -327,7 +328,7 @@ const entregarAtividade = async () => {
     atribuirPontos(idAluno.id_aluno);
     if (inpArquivo.value !== "") {
       const formData = new FormData();
-      formData.append("img", fileWithNewName);
+      formData.append("file", fileWithNewName);
       const optionsEnviarArquivo = {
         method: "POST",
         headers: {
@@ -335,7 +336,7 @@ const entregarAtividade = async () => {
         },
         body: formData,
       };
-      const arquivo = await fetch(uriEnviarArquivo, optionsEnviarArquivo).then(
+      const arquivo = await fetch("http://localhost:3000/arquivos/enviar", optionsEnviarArquivo).then(
         (resp) => {
           return resp.status;
         }
@@ -365,4 +366,9 @@ const atribuirPontos = (id) => {
       console.log(data);
     });
 };
+
+const corrigirAtividade = () => {
+  window.location.href = "../corrigirAtividade/index.html"
+}
+
 fetchAtividades();

@@ -1,31 +1,40 @@
-const multer = require("multer");
+const { BlobServiceClient } = require('@azure/storage-blob');
+const fs = require('fs');
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "C:/Users/Desenvolvimento/Desktop/ClassQuest/Docs/blob");
-  },
 
-  filename: function (req, file, cb) {
-    cb(
-      null,
-      `${(file.originalname = Buffer.from(file.originalname, "latin1").toString(
-        "utf-8"
-      ))}`
-    );
-  },
-});
+const connectionString = process.env.connectionString
+const containerName = process.env.containerName;
 
-const parser = multer({ storage });
 
-const enviarArquivo = async (req, res) => {
-  parser.single("img")(req, res, (err) => {
-    if (err) res.status(500).json({ error: 1, payload: err }).end();
-    else {
-      res.status(200).json(req.file.filename).end();
-    }
-  });
-};
+const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
+
+const uploadAzure = async (req, res) => {
+  try {
+    
+    const file = req.file;
+    const filePath = file.path;
+    const fileName = file.originalname;
+
+   
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+
+    const blockBlobClient = containerClient.getBlockBlobClient(fileName);
+
+
+    await blockBlobClient.uploadFile(filePath);
+
+    console.log(`Arquivo '${fileName}' enviado com sucesso para o Data Lake Gen2.`);
+
+    fs.unlinkSync(filePath);
+
+    res.status(200).send('Arquivo enviado com sucesso!');
+  } catch (error) {
+    console.error('Erro ao fazer o upload do arquivo:', error);
+    res.status(500).send('Erro ao fazer o upload do arquivo.');
+  }
+
+}
 
 module.exports = {
-  enviarArquivo,
-};
+  uploadAzure
+}
