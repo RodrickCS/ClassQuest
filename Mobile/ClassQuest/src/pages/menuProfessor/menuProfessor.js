@@ -3,7 +3,6 @@ import { Text } from 'react-native';
 
 const Drawer = createDrawerNavigator();
 
-import Home from '../home/home';
 import Professor from '../professorHome/professorHome';
 import Aluno from '../alunoHome/alunoHome';
 

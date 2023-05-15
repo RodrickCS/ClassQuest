@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, ImageBackground } from 'react-native';
 import styles from '../cadastro/style'
 
 export default function Cadastro({ navigation }) {
@@ -9,7 +9,7 @@ export default function Cadastro({ navigation }) {
 
     return (
         <View style={styles.container}>
-            {/* <ImageBackground source={require("../../../assets/fundo.jpg")} resizeMode="cover" style={styles.imagem}></ImageBackground> */}
+            <ImageBackground source={require("../../../assets/fundo.jpg")} resizeMode="cover" style={styles.imagem}></ImageBackground>
             <View style={styles.divizinha}>
                 <Text style={styles.titulo}>Cadastro</Text>
                 <TouchableOpacity onPress={() => { voltar() }}>
