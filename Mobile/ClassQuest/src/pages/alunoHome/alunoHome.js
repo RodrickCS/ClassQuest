@@ -1,17 +1,19 @@
-import { View, Text, TouchableOpacity } from 'react-native';
-import styles from '../professor/style'
-// import Menu from '../home/style'
+import { View, Text, TouchableOpacity, Image } from 'react-native';
+import styles from '../alunoHome/style'
 
-export default function Professor({ navigation }) {
+const voltar = () => {
+    navigation.navigate('Login')
+}
+
+export default function Aluno({ navigation }) {
 
     return (
         <View>
-            {/* <Image style={styles.image} source={require('../../../assets/logo.png')} /> */}
+            <Image style={styles.image} source={require('../../../assets/favicon.png')} />
             <View style={styles.divizinha}>
                 {/* <Text>{usuario.nome}</Text> */}
                 {/* <Image style={styles.image} source={require('../../../assets/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg')} /> */}
-                {/* <TouchableOpacity onPress={() => { voltar() }}> */}
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => { voltar() }}>
                     <Text style={styles.txtSair}>Sair</Text>
                 </TouchableOpacity>
             </View>
