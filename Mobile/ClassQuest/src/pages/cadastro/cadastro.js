@@ -1,11 +1,11 @@
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import styles from '../cadastro/style'
 
-const voltar = () => {
-    navigation.navigate('Login')
-}
-
 export default function Cadastro({ navigation }) {
+
+    const voltar = () => {
+        navigation.navigate('Login')
+    }
 
     return (
         <View style={styles.container}>

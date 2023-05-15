@@ -8,12 +8,12 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: '25vw',
-    height: '15vh',
+    width: '49px',
+    height: '50px',
   },
   divizinha: {
     width: '100%',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
     padding:'5px',

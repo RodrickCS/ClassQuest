@@ -13,7 +13,7 @@ export default StyleSheet.create({
   },
   divizinha: {
     width: '100%',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     flexDirection: 'row',
     padding:'5px',

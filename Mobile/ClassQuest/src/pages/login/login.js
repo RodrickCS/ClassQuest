@@ -25,7 +25,7 @@ export default function Login({ navigation }) {
             checked === "professor"
                 ? "http://localhost:3000/professores/login"
                 : "http://localhost:3000/alunos/login";
-        let path = checked === "professor" ? "Professor" : "Aluno";
+        let path = checked === "professor" ? "MenuProfessor" : "MenuAluno";
 
         const options = {
             method: "POST",
