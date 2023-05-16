@@ -44,6 +44,7 @@ model atividades_concluidas {
   id_aluno       Int
   data_concluida DateTime
   arquivo        String
+  corrigida      Int
   atividade      atividades @relation(fields: [id_atividade], references: [id_atividade], onDelete: Cascade)
   aluno          alunos     @relation(fields: [id_aluno], references: [id_aluno])
 }

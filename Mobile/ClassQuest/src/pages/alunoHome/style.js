@@ -15,13 +15,11 @@ export default StyleSheet.create({
     // padding: '15px',
   },
   divizinha: {
-    // width: '95%',
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
     padding: '5px',
     backgroundColor: '#6fddeb',
-    // borderRadius: '12px',
     margin: '10px',
   },
   txtEntrar: {

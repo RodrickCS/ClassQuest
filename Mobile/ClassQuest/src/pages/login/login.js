@@ -6,8 +6,8 @@ import { RadioButton } from "react-native-paper";
 import styles from "../login/style";
 
 export default function Login({ navigation }) {
-    const [Email, setEmail] = useState("pedro@gmail.com");
-    const [Senha, setSenha] = useState("senha1234");
+    const [Email, setEmail] = useState("ciclano@gmail.com");
+    const [Senha, setSenha] = useState("senaha1234");
     // const [Msg, setMsg] = useState('');
     const [checked, setChecked] = useState("aluno");
 
@@ -25,7 +25,7 @@ export default function Login({ navigation }) {
             checked === "professor"
                 ? "http://localhost:3000/professores/login"
                 : "http://localhost:3000/alunos/login";
-        let path = checked === "professor" ? "Professor" : "Aluno";
+        let path = checked === "professor" ? "MenuProfessor" : "MenuAluno";
 
         const options = {
             method: "POST",

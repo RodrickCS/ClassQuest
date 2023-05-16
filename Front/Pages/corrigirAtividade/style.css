@@ -1,0 +1,119 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-image: url("../../Assets/v1015-101a.jpg");
+  background-size: cover;
+}
+
+nav {
+  width: 70%;
+  height: 90px;
+  padding: 30px;
+  background-color: #6fddeb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 12px;
+  margin: 20;
+}
+
+main {
+  display: flex;
+  max-width: 100vw;
+  padding: 30px 300px 0px 300px;
+  gap: 20px;
+}
+
+.navLogo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+ul {
+  list-style: none;
+}
+
+.textLogo {
+  font-size: 24px;
+}
+
+header {
+  max-width: 100vw;
+  height: 110px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  background-color: #67b3e6;
+}
+
+main {
+  display: flex;
+  max-width: 100vw;
+  padding: 30px 300px 0px 300px;
+  gap: 20px;
+}
+
+.gradient-text {
+  background-image: linear-gradient(
+    45deg,
+    #9400d3 16.666%,
+    #4b0082 16.666%,
+    #0000ff 33.333%,
+    #00ced1 33.333%,
+    #006400 50%,
+    #ff8c00 50%,
+    #ff4500 66.666%,
+    #8b0000 66.666%,
+    #ff1493 83.333%,
+    #8b4513 83.333%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow-text-simple-animation-rev 0.75s ease forwards;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.gradient-text:hover {
+  animation: rainbow-text-simple-animation 0.5s ease-in forwards;
+}
+
+@keyframes rainbow-text-simple-animation-rev {
+  0% {
+    background-size: 650%;
+  }
+  40% {
+    background-size: 650%;
+  }
+  100% {
+    background-size: 100%;
+  }
+}
+
+@keyframes rainbow-text-simple-animation {
+  0% {
+    background-size: 100%;
+  }
+  80% {
+    background-size: 650%;
+  }
+  100% {
+    background-size: 650%;
+  }
+}
+
+#atividadesConcluidas {
+  width: 100%;
+  height: 700px;
+  border-radius: 12px;
+  background-color: #6fddeb;
+  padding: 10px;
+  overflow-y: auto;
+}

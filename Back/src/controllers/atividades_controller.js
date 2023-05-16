@@ -76,7 +76,10 @@ const concluirTarefa = async (req, res) => {
       await prisma.$queryRaw`SELECT pontos_conclusao FROM atividades WHERE id_atividade = ${req.body.id_atividade}`;
 
     let ponto =
-      await prisma.$queryRaw`UPDATE pontos SET qtd = (SELECT qtd FROM pontos WHERE id_aluno = ${req.body.id_aluno}) + ${read[0].pontos_conclusao} WHERE id_aluno = ${req.body.id_aluno}`;
+      await prisma.$queryRaw`UPDATE pontos 
+      SET qtd = (SELECT SUM(qtd) FROM pontos WHERE id_aluno = ${req.body.id_aluno}) + ${read[0].pontos_conclusao} 
+      WHERE id_aluno = ${req.body.id_aluno} 
+      LIMIT 1`;
 
     res.status(200).json(atividade).end();
   } catch (err) {
