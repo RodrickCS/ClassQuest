@@ -5,8 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" type="x-icon" href="../../assets/icone.png" />
-    <script src="https://cdn.jsdelivr.net/jquery.hovercard/2.3.0/jquery.hovercard.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
+
     <link rel="stylesheet" href="style.css" />
     <title>ClassQuest</title>
   </head>
@@ -44,14 +48,32 @@
           <h1 id="nomeAtividade"></h1>
         </div>
         <div class="infoBody">
-          <p id="descricaoAtividade"></p>
+          <div id="descricaoAtividade"></div>
           <div id="links"></div>
         </div>
         <div class="infoFooter">
           <h3>Pts. <span id="pontos_conclusao"></span></h3>
-          <button onclick="openModalEntregarAtividade()" class="btInfo model" id="btEntregaAtividade">Entregar Atividade</button>
-          <button onclick="excluirAtividade()" class="btInfo model" id="btExcluiAtividade">Excluir Atividade</button>
-          <button onclick="corrigirAtividade()" class="btInfo model" id="btCorrigirAtividade">Ver atividades concluídas</button>
+          <button
+            onclick="openModalEntregarAtividade()"
+            class="btInfo model"
+            id="btEntregaAtividade"
+          >
+            Entregar Atividade
+          </button>
+          <button
+            onclick="excluirAtividade()"
+            class="btInfo model"
+            id="btExcluiAtividade"
+          >
+            Excluir Atividade
+          </button>
+          <button
+            onclick="corrigirAtividade()"
+            class="btInfo model"
+            id="btCorrigirAtividade"
+          >
+            Ver atividades concluídas
+          </button>
         </div>
       </section>
       <div class="back_modal model">
@@ -93,7 +115,9 @@
 
         <div class="modalEntregarAtividade model">
           <h1 style="margin-bottom: 26px">Adicionar um arquivo</h1>
-          <button onclick="closeModalEntregarAtividade()" class="btClose">X</button>
+          <button onclick="closeModalEntregarAtividade()" class="btClose">
+            X
+          </button>
 
           <div class="group">
             <input id="inpArquivo" type="file" required />

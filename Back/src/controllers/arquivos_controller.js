@@ -2,7 +2,7 @@ const { BlobServiceClient } = require('@azure/storage-blob');
 const fs = require('fs');
 
 
-const connectionString = process.env.connectionString
+const connectionString = process.env.connectionString;
 const containerName = process.env.containerName;
 
 
