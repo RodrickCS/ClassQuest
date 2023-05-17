@@ -22,7 +22,7 @@ nav {
   margin: 20;
 }
 
-main {
+#principal {
   display: flex;
   max-width: 100vw;
   padding: 30px 300px 0px 300px;

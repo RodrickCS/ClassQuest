@@ -12,7 +12,7 @@ body {
   background-size: cover;
 }
 
-main {
+#principal {
   max-width: 100vw;
   height: 100vh;
   display: flex;
