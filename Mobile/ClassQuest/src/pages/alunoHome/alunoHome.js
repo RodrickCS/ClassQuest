@@ -3,6 +3,7 @@ import styles from '../alunoHome/style'
 
 export default function Aluno({ navigation }) {
 
+    
     const voltar = () => {
         navigation.navigate('Login')
     }
@@ -12,8 +13,6 @@ export default function Aluno({ navigation }) {
     }
 
     return (
-        //         {/* <Text>Olá, {usuario.nome}</Text> */}
-        //         {/* <Image style={styles.image} source={require('../../../assets/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg')} /> */}
         <View style={styles.container}>
             <ImageBackground source={require('../../../assets/fundo.jpg')} resizeMode="cover" style={styles.imagem}></ImageBackground>
             <View style={styles.divizinha}>
