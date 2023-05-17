@@ -129,7 +129,7 @@ const readPendentes = async (req, res) => {
 
 const viewAtividadeConcluida = async (req, res) => {
   try {
-    let atividade = await prisma.$queryRaw`SELECT DISTINCT ac.id_atividade, at.titulo, at.descricao, ac.id_aluno, al.nome, ac.data_concluida, t.id_turma, t.nome FROM atividades_concluidas ac
+    let atividade = await prisma.$queryRaw`SELECT DISTINCT ac.id_atividade, at.titulo, at.descricao, ac.id_aluno, al.nome AS aluno, ac.arquivo, ac.data_concluida, t.id_turma, t.nome AS turma FROM atividades_concluidas ac
   INNER JOIN atividades at 
   ON ac.id_atividade = at.id_atividade
   INNER JOIN alunos al
