@@ -22,9 +22,7 @@ export default function Login({ navigation }) {
         };
 
         let uri =
-            checked === "professor"
-                ? "http://localhost:3000/professores/login"
-                : "http://localhost:3000/alunos/login";
+            checked === "professor" ? "http://localhost:3000/professores/login" : "http://localhost:3000/alunos/login";
         let path = checked === "professor" ? "MenuProfessor" : "MenuAluno";
 
         const options = {
@@ -50,9 +48,9 @@ export default function Login({ navigation }) {
             .then((data) => {
                 console.log(data);
 
-                AsyncStorage.setItem("nome", data.info.nome);
-                AsyncStorage.setItem("id_aluno", data.info.id_aluno);
-                AsyncStorage.setItem("token", data.token);
+                AsyncStorage.setItem("nome", JSON.stringify(data.info));
+                // AsyncStorage.setItem("id_aluno", data.info.id_aluno);
+                // AsyncStorage.setItem("token", data.token);
 
                 navigation.navigate(path);
             })
