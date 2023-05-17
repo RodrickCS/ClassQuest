@@ -8,7 +8,7 @@ import styles from "../login/style";
 export default function Login({ navigation }) {
     const [Email, setEmail] = useState("ciclano@gmail.com");
     const [Senha, setSenha] = useState("senaha1234");
-    // const [Msg, setMsg] = useState('');
+    const [Msg, setMsg] = useState('');
     const [checked, setChecked] = useState("aluno");
 
     function cadastro() {
@@ -38,10 +38,13 @@ export default function Login({ navigation }) {
                 if (resp.ok) {
                     return resp.json();
                 } else if (resp.status === 401) {
+                    setMsg("Senha incorreta")
                     throw new Error("Senha incorreta");
                 } else if (resp.status === 404) {
+                    setMsg("Usuário não encontrado")
                     throw new Error("Usuário não encontrado");
                 } else {
+                    setMsg("Erro interno do servidor")
                     throw new Error("Erro interno do servidor");
                 }
             })
@@ -49,8 +52,8 @@ export default function Login({ navigation }) {
                 console.log(data);
 
                 AsyncStorage.setItem("nome", JSON.stringify(data.info));
-                // AsyncStorage.setItem("id_aluno", data.info.id_aluno);
-                // AsyncStorage.setItem("token", data.token);
+                AsyncStorage.setItem("id_aluno", data.info.id_aluno);
+                AsyncStorage.setItem("token", data.token);
 
                 navigation.navigate(path);
             })
@@ -85,9 +88,10 @@ export default function Login({ navigation }) {
                     placeholder="Digite a senha"
                     value={Senha}
                     onChangeText={(val1) => {
-                        setSenha(val1);
+                        setSenha(val1)
                     }}/>
-                <Text style={styles.txtErr}></Text>
+                    
+                <Text style={styles.txtErr}>{Msg}</Text>
             </View>
             <View>
                 <Text style={styles.label}>
