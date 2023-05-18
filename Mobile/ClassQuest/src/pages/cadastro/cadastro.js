@@ -25,6 +25,8 @@ export default function Cadastro({ navigation }) {
                 <TextInput secureTextEntry={true} style={styles.inputzinho}></TextInput>
                 <Text>Digite a senha novamente:</Text>
                 <TextInput secureTextEntry={true} style={styles.inputzinho}></TextInput>
+            </View>
+            <View style={styles.cadastro}>
                 <TouchableOpacity style={styles.buttonzinho} onPress={() => { login() }}>
                     <Text style={styles.txtbutton}>Cadastrar</Text>
                 </TouchableOpacity>

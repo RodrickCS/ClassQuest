@@ -83,10 +83,8 @@ export default function Login({ navigation }) {
                         setEmail(val);
                     }}/>
                 <TextInput
-                    secureTextEntry={true}
-                    style={styles.inputzinho}
-                    placeholder="Digite a senha"
-                    value={Senha}
+                    secureTextEntry={true} style={styles.inputzinho}
+                    placeholder="Digite a senha" value={Senha}
                     onChangeText={(val1) => {
                         setSenha(val1)
                     }}/>
@@ -97,15 +95,13 @@ export default function Login({ navigation }) {
                 <Text style={styles.label}>
                     Sou:
                     <Text style={styles.label}>
-                        <RadioButton
-                            value="aluno"
+                        <RadioButton value="aluno"
                             status={checked === "aluno" ? "checked" : "unchecked"}
                             onPress={() => setChecked("aluno")}/>{" "}
                         Aluno(a)
                     </Text>
                     <Text style={styles.label}>
-                        <RadioButton
-                            value="professor"
+                        <RadioButton value="professor"
                             status={checked === "professor" ? "checked" : "unchecked"}
                             onPress={() => setChecked("professor")}/>{" "}
                         Professor(a)

@@ -3,9 +3,8 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   imagem: {
     flex: 2,
-    width: 400,
-    height: 700,
-    justifyContent: 'center',
+    width: 390,
+    height: 900,
   },
   container: {
     alignItems: 'center',
@@ -31,6 +30,7 @@ export default StyleSheet.create({
     // boxShadow: '5px 1px 1px black',
     borderRadius: '10px',
     padding: '10px',
+    margin:'10px'
   },
   txtbutton: {
     color: "#fff",
@@ -52,29 +52,24 @@ export default StyleSheet.create({
   },
   imagenzinha: {
     alignItems: 'center',
-    marginBottom: '5vh',
     padding: '5vh',
   },
   txtAbaixo: {
-    paddingTop: '10px',
-    // color: "#bbb",
+    padding: '5px',
     textAlign: 'center',
     justifyContent: 'center',
     fontSize: '10pt',
   },
   label: {
     padding: '5px',
-    marginBottom: '5px',
-    // color: "#bbb",
-    textAlign: 'center',
-    justifyContent: 'center',
     fontSize: '10pt',
   },
   image: {
-    width: '80vw',
-    height: '15vh',
+    width: '70vw',
+    height: '10vh',
   },
   txtErr: {
     color: 'red',
+    textAlign: 'center'
   }
 });

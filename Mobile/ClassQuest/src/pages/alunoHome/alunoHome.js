@@ -6,6 +6,8 @@ export default function Aluno({ navigation }) {
     
     const voltar = () => {
         navigation.navigate('Login')
+        window.localStorage.removeItem('nome')
+
     }
 
     const menu = () => {

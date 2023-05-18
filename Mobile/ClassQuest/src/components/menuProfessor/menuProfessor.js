@@ -1,35 +1,28 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Text } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const Drawer = createDrawerNavigator();
 
-import Professor from '../professorHome/professorHome';
-import Aluno from '../alunoHome/alunoHome';
+import Perfil from '../../pages/perfilProf/perfilProf';
+import Professor from '../../pages/professorHome/professorHome';
+
 
 export default function Menu({ navigation }) {
 
+    var user = JSON.parse(localStorage.getItem('nome'))
+    
     return (
-        <Drawer.Navigator
-            drawerStyle={{ backgroudColor: "#fdf", paddingVertical: 20 }}
-            drawerContentOptions={{ activeBackgroudColor: "#ff0", inactiveTintColor: "#f0f" }}
-        screenOptions={{ headerShown: false }}
-        >
-            <Drawer.Screen name="Home" component={Home}
+        <Drawer.Navigator screenOptions={{ headerShown: false }}>
+            <Drawer.Screen name="Perfil" component={Perfil}
                 options={{
-                    drawerLabel: (({ focused }) => <Text style={{ color: focused ? '#000' : '#aaa' }}>Primeira tela</Text>),
-                    // drawerIcon: (({ focused }) => <Icon color={focused ? '#313131' : '#ddd'} name="home" />)
+                    drawerLabel: (() => <Text> Olá, {user.nome} </Text>),
                 }}>
             </Drawer.Screen>
             <Drawer.Screen name="Professor" component={Professor}
                 options={{
-                    drawerLabel: (({ focused }) => <Text style={{ color: focused ? '#000' : '#aaa' }}>Segunda tela</Text>),
-                    // drawerIcon: (({ focused }) => <Icon color={focused ? '#f00' : '#ddd'} name="home" />)
-                }}>
-            </Drawer.Screen>
-            <Drawer.Screen name="Aluno" component={Aluno}
-                options={{
-                    drawerLabel: (({ focused }) => <Text style={{ color: focused ? '#000' : '#aaa' }}>Terceira tela</Text>),
-                    // drawerIcon: (({ focused }) => <Icon color={focused ? '#313131' : '#fff'} name="home" />)
+                    drawerLabel: (({ focused }) => <Text style={{ color: focused ? '#000' : '#aaa' }}>Home</Text>),
+                    drawerIcon: ({ focused, color, size }) => (<Ionicons name={focused ? 'home' : 'home-outline'} size={size} color={color} />),
                 }}>
             </Drawer.Screen>
         </Drawer.Navigator>

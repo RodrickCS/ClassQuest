@@ -4,8 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './src/pages/login/login';
 import Cadastro from './src/pages/cadastro/cadastro';
 import MenuAluno from './src/components/menuAluno/menuAluno';
-import Aluno from './src/pages/alunoHome/alunoHome';
-// import MenuProf from './src/components/menuProfessor/menuProfessor';
+import MenuProf from './src/components/menuProfessor/menuProfessor';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -13,10 +12,9 @@ export default function App() {
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Login" component={Login} />
-                {/* <Stack.Screen name="Cadastro" component={Cadastro} /> */}
+                <Stack.Screen name="Cadastro" component={Cadastro} />
                 <Stack.Screen name="MenuAluno" component={MenuAluno} /> 
-                {/* <Stack.Screen name="MenuProf" component={MenuProf} />  */}
-                {/* <Stack.Screen name="Aluno" component={Aluno} />  */}
+                <Stack.Screen name="MenuProf" component={MenuProf} /> 
             </Stack.Navigator>
         </NavigationContainer>
     );
