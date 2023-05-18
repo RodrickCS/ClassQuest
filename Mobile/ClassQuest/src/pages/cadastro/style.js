@@ -2,9 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     container: {
-        // flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
     },
     titulo: {
         color: '#3a3',
@@ -12,7 +10,6 @@ export default StyleSheet.create({
         marginLeft: '30vw',
     },
     divizinha: {
-        width: '100%',
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row',
@@ -21,7 +18,9 @@ export default StyleSheet.create({
     },
     dados: {
         padding: '15px',
-        // backgroundColor: '#6fddeb',
+    },
+    cadastro: {
+        padding: '15px',
         alignItems: 'center',
     },
     inputzinho: {
@@ -39,10 +38,9 @@ export default StyleSheet.create({
     },
     imagem: {
         flex: 2,
-        width: 400,
-        height: 700,
-        justifyContent: 'center',
-    },
+        width: 390,
+        height: 900,
+      },
     buttonzinho: {
         backgroundColor: "#0f0",
         borderRadius: '10px',
