@@ -64,7 +64,7 @@ const excluir = async (req, res) => {
     res.status(500).json(err).end();
     console.log(err);
   }
-};
+}; 
 
 const concluirTarefa = async (req, res) => {
   try {
