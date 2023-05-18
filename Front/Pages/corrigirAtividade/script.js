@@ -12,6 +12,8 @@ const fetchAtividadesConcluidas = () => {
     })
 }
 
+
+
 const buildAtividadesCard = (dados) => {
   dados.forEach((elemento) => {
     const divPai = document.createElement("div")

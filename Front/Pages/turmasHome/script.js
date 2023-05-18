@@ -14,6 +14,8 @@ const openModalAddAtividade = () => {
   document.querySelector(".modalAddAtividade").classList.remove("model")
 }
 
+
+
 const closeModalAddAtividade = () => {
   document.querySelector(".back_modal").classList.add("model")
   document.querySelector(".modalAddAtividade").classList.add("model")
