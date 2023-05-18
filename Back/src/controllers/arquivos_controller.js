@@ -19,7 +19,7 @@ const uploadAzure = async (req, res) => {
     const containerClient = blobServiceClient.getContainerClient(containerName);
 
     const blockBlobClient = containerClient.getBlockBlobClient(fileName);
-
+ 
 
     await blockBlobClient.uploadFile(filePath);
 
