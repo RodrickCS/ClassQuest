@@ -84,11 +84,6 @@ const concluirTarefa = async (req, res) => {
       data: req.body,
     });
 
-    const read =
-      await prisma.$queryRaw`SELECT pontos_conclusao FROM atividades WHERE id_atividade = ${Number(
-        req.body.id_atividade
-      )}`;
-
     res.status(200).json(atividade).end();
   } catch (err) {
     res.status(500).json(err).end();
@@ -149,16 +144,28 @@ const readPendentes = async (req, res) => {
 
 const viewAtividadeConcluida = async (req, res) => {
   try {
-    let atividade =
-      await prisma.$queryRaw`SELECT DISTINCT ac.id_atividade, at.titulo, at.descricao, ac.id_aluno, al.nome AS aluno, ac.arquivo, ac.data_concluida, t.id_turma, t.nome AS turma FROM atividades_concluidas ac
-  INNER JOIN atividades at 
-  ON ac.id_atividade = at.id_atividade
-  INNER JOIN alunos al
-  ON ac.id_aluno = al.id_aluno
-  INNER JOIN turmas t
-  ON t.id_turma = at.id_turma
-  GROUP BY ac.id_atividade;
-  `;
+    let atividade = await prisma.atividades.findMany({
+      select: {
+        id_turma: true,
+        titulo: true,
+        descricao: true,
+        prazo: true,
+        pontos_conclusao: true,
+        turma: {
+          select:{
+            nome: true,
+          }
+        },
+        atividades_concluidas: {
+          select: {
+            id_aluno: true,
+            id_atividade: true,
+            data_concluida: true,
+            arquivo: true,
+          }
+        },
+      },
+    });
     res.status(200).json(atividade);
   } catch (err) {
     res.status(500).json(err);
@@ -176,5 +183,5 @@ module.exports = {
   readTarefaConcluida,
   readPendentes,
   viewAtividadeConcluida,
-  adicionarTarefa
+  adicionarTarefa,
 };

@@ -117,3 +117,11 @@ main {
   padding: 10px;
   overflow-y: auto;
 }
+
+#atividadeInfo {
+  position: relative;
+  width: 75%;
+  height: 700px;
+  border-radius: 12px;
+  background-color: #6fddeb;
+}
