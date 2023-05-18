@@ -9,6 +9,7 @@ const atividades = require("../controllers/atividades_controller");
 
 router.post("/create", atividades.adicionarAtividade);
 router.post("/concluir", atividades.concluirTarefa);
+router.post("/concluirNovamente", atividades.adicionarTarefa);
 router.put("/update/:id_atividade", Middleware.validaAcesso ,atividades.updateAtividade);
 router.get("/read", atividades.read);
 router.get("/readOne/:id_atividade", atividades.readOne);
