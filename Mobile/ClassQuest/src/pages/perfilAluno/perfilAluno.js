@@ -4,12 +4,15 @@ import styles from './style'
 
 export default function Perfil({ navigation }) {
 
+    // const [id_aluno, setId_aluno] = useState('');
+
     const menu = () => {
         navigation.openDrawer();
     }
 
     var user = JSON.parse(localStorage.getItem('nome'))
-    var id_aluno = JSON.parse(localStorage.getItem('id_aluno'))
+    var id_alu = user.id_aluno
+    // var id_aluno = JSON.parse(localStorage.getItem('id_aluno'))
 
     console.log(user)
 
@@ -34,13 +37,10 @@ export default function Perfil({ navigation }) {
     //             if (resp.ok) {
     //                 return resp.json();
     //             } else if (resp.status === 401) {
-    //                 setMsg("Senha incorreta")
     //                 throw new Error("Senha incorreta");
     //             } else if (resp.status === 404) {
-    //                 setMsg("Usuário não encontrado")
     //                 throw new Error("Usuário não encontrado");
     //             } else {
-    //                 setMsg("Erro interno do servidor")
     //                 throw new Error("Erro interno do servidor");
     //             }
     //         })
@@ -73,13 +73,10 @@ export default function Perfil({ navigation }) {
     //             if (resp.ok) {
     //                 return resp.json();
     //             } else if (resp.status === 401) {
-    //                 setMsg("Senha incorreta")
     //                 throw new Error("Senha incorreta");
     //             } else if (resp.status === 404) {
-    //                 setMsg("Usuário não encontrado")
     //                 throw new Error("Usuário não encontrado");
     //             } else {
-    //                 setMsg("Erro interno do servidor")
     //                 throw new Error("Erro interno do servidor");
     //             }
     //         })
@@ -112,13 +109,10 @@ export default function Perfil({ navigation }) {
     //             if (resp.ok) {
     //                 return resp.json();
     //             } else if (resp.status === 401) {
-    //                 setMsg("Senha incorreta")
     //                 throw new Error("Senha incorreta");
     //             } else if (resp.status === 404) {
-    //                 setMsg("Usuário não encontrado")
     //                 throw new Error("Usuário não encontrado");
     //             } else {
-    //                 setMsg("Erro interno do servidor")
     //                 throw new Error("Erro interno do servidor");
     //             }
     //         })
@@ -137,16 +131,53 @@ export default function Perfil({ navigation }) {
                 <TouchableOpacity onPress={() => { menu() }}>
                     <Image style={styles.image} source={require('../../../assets/favicon.png')} />
                 </TouchableOpacity>
+                <Text style={styles.txtEntrar}>Perfil</Text>
                 <Text style={styles.txtSair}>Sair</Text>
             </View>
             <View style={styles.dados}>
-            <TextInput style={styles.inputzinho} 
-            // placeholder=`${user}`
-            // value={Senha}
+                <TextInput style={styles.inputzinho}
+                    // placeholder=`${id_aluno}`
+                    // value={id_aluno}
                     onChangeText={(val1) => {
-                        setSenha(val1)
-                    }}/>
+                        setId_aluno(val1)
+                    }} />
+                <TextInput style={styles.inputzinho}
+                    // placeholder=`${id_aluno}`
+                    // value={id_aluno}
+                    onChangeText={(val1) => {
+                        setId_aluno(val1)
+                    }} />
+                <TextInput style={styles.inputzinho}
+                    // placeholder=`${id_aluno}`
+                    // value={id_aluno}
+                    onChangeText={(val1) => {
+                        setId_aluno(val1)
+                    }} />
+                <TextInput style={styles.inputzinho}
+                    // placeholder=`${id_aluno}`
+                    // value={id_aluno}
+                    onChangeText={(val1) => {
+                        setId_aluno(val1)
+                    }} />
+                <View style={styles.coisinhas}>
+                    <TextInput style={styles.inputzinho}
+                        // placeholder=`${id_aluno}`
+                        // value={id_aluno}
+                        onChangeText={(val1) => {
+                            setId_aluno(val1)
+                        }} />
+                    <TextInput style={styles.inputzinho}
+                        // placeholder=`${id_aluno}`
+                        // value={id_aluno}
+                        onChangeText={(val1) => {
+                            setId_aluno(val1)
+                        }} />
+                </View>
+                
             </View>
+            <TouchableOpacity style={styles.botaozinho}>
+                    <Text style={styles.txtbutton}>ok</Text>
+                </TouchableOpacity>
         </View>
     )
 }

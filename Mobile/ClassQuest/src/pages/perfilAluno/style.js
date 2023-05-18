@@ -6,8 +6,8 @@ export default StyleSheet.create({
   },
   imagem: {
     flex: 2,
-    width: 400,
-    height: 800,
+    width: 390,
+    height: 900,
   },
   image: {
     width: '49px',
@@ -24,7 +24,6 @@ export default StyleSheet.create({
   txtEntrar: {
     color: '#ddd',
     fontSize: '15pt',
-    // paddingLeft: '25px',
     paddingRight: '15px',
     textShadow: '1px 1px 1px #000',
   },
@@ -32,16 +31,35 @@ export default StyleSheet.create({
     color: '#f00',
     fontSize: '12pt',
     padding: '15px',
-    // marginRight: '35px',
     textShadow: '1px 1px 1px #000',
-    // padding: '15px',
   },
   dados:{
     backgroundColor: '#6fddeb',
+    margin: '10px',
   },
   inputzinho: {
-    margin: '5px',
+    height:'5px',
+    margin: '10px',
+    width:'45%',
     backgroundColor: "#eef",
     borderRadius: '10px',
 },
+coisinhas:{
+  flexDirection: 'row',
+},
+botaozinho: {
+  backgroundColor: "#0f0",
+  borderRadius: '10px',
+  padding: '10px',
+  justifyContent: 'center',
+  alignItems: 'center',
+  // width:'60px'
+},
+txtbutton: {
+  color: "#fff",
+  fontWeight: 'bold',
+  textAlign: 'center',
+  justifyContent: 'center',
+  fontSize: '15pt',
+}
 });
