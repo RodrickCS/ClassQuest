@@ -24,8 +24,6 @@ const uploadAzure = async (req, res) => {
 
     await blockBlobClient.uploadFile(filePath);
 
-    console.log(`Arquivo '${fileName}' enviado com sucesso para o Data Lake Gen2.`);
-
     fs.unlinkSync(filePath);
 
     res.status(200).send('Arquivo enviado com sucesso!');

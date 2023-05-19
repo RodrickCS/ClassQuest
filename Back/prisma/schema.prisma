@@ -33,6 +33,7 @@ model atividades {
   titulo                String
   descricao             String
   prazo                 DateTime
+  aberta                Int                     @default(1)
   pontos_conclusao      Int                     @default(0)
   turma                 turmas                  @relation(fields: [id_turma], references: [id_turma])
   atividades_concluidas atividades_concluidas[]
