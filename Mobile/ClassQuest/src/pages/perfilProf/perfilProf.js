@@ -13,41 +13,48 @@ export default function Perfil({ navigation }) {
     var user = JSON.parse(localStorage.getItem('nome'))
     var id_prof = user.id_prof
 
-    function info() {
-        let form = {
-            email: Email,
-            senha: Senha,
-        };
+    useEffect(() => {
+        // cadAluno()
+        setInterval(() => {
+            // cadAluno()
+        }, 3000)
+    }, [])
 
-        let uri = `http://localhost:3000/readOne/${id_prof}`;
+    // function info() {
+    //     let form = {
+    //         email: Email,
+    //         senha: Senha,
+    //     };
 
-        const options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(form),
-        };
+    //     let uri = `http://localhost:3000/readOne/${id_prof}`;
 
-        fetch(uri, options)
-            .then((resp) => {
-                if (resp.ok) {
-                    return resp.json();
-                } else if (resp.status === 401) {
-                    throw new Error("Senha incorreta");
-                } else if (resp.status === 404) {
-                    throw new Error("Usuário não encontrado");
-                } else {
-                    throw new Error("Erro interno do servidor");
-                }
-            })
-            .then((data) => {
-                console.log(data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }
+    //     const options = {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify(form),
+    //     };
+
+    //     fetch(uri, options)
+    //         .then((resp) => {
+    //             if (resp.ok) {
+    //                 return resp.json();
+    //             } else if (resp.status === 401) {
+    //                 throw new Error("Senha incorreta");
+    //             } else if (resp.status === 404) {
+    //                 throw new Error("Usuário não encontrado");
+    //             } else {
+    //                 throw new Error("Erro interno do servidor");
+    //             }
+    //         })
+    //         .then((data) => {
+    //             console.log(data);
+    //         })
+    //         .catch((error) => {
+    //             console.error(error);
+    //         });
+    // }
 
     // function update() {
     //     let form = {

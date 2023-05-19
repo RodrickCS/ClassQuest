@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import styles from '../professorHome/style'
 
 export default function Professor({ navigation }) {
@@ -12,17 +12,35 @@ export default function Professor({ navigation }) {
     }
 
     return (
-        <View>
-            {/* <Image style={styles.image} source={require('../../../assets/logo.png')} /> */}
+        <View style={styles.container}>
+            <ImageBackground source={require('../../../assets/fundo.jpg')} resizeMode="cover" style={styles.imagem}></ImageBackground>
             <View style={styles.divizinha}>
-            <TouchableOpacity onPress={() => { menu() }}>
+                <TouchableOpacity style={styles.imagenzinha} onPress={() => { menu() }}>
                     <Image style={styles.image} source={require('../../../assets/favicon.png')} />
                 </TouchableOpacity>
-                {/* <Text>{usuario.nome}</Text> */}
-                {/* <Image style={styles.image} source={require('../../../assets/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg')} /> */}
+                <TouchableOpacity>
+                    <Text style={styles.txtEntrar}> Criar uma turma </Text>
+                </TouchableOpacity>
                 <TouchableOpacity onPress={() => { voltar() }}>
                     <Text style={styles.txtSair}>Sair</Text>
                 </TouchableOpacity>
+            </View>
+            <View style={styles.turmas}>
+                <View style={styles.turma}>
+                    <Image style={styles.image2} source={require('../../../assets/pontinhos.png')} />
+                    <Image style={styles.image} source={require('../../../assets/favicon.png')} />
+                    <Text>turminha</Text>
+                </View>
+                <View style={styles.turma}>
+                    <Image style={styles.image2} source={require('../../../assets/pontinhos.png')} />
+                    <Image style={styles.image} source={require('../../../assets/favicon.png')} />
+                    <Text>turminha</Text>
+                </View>
+                <View style={styles.turma}>
+                    <Image style={styles.image2} source={require('../../../assets/pontinhos.png')} />
+                    <Image style={styles.image} source={require('../../../assets/favicon.png')} />
+                    <Text>turminha</Text>
+                </View>
             </View>
         </View>
     )

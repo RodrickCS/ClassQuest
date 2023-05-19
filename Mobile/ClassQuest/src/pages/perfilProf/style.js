@@ -49,7 +49,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     margin: '5px',
-    borderRadius: '10px',
+    // padding: '10px',
     backgroundColor: '#fff',
   },
 
