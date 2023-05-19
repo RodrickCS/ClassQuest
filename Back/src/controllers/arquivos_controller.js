@@ -6,7 +6,7 @@ const connectionString = process.env.connectionString;
 const containerName = process.env.containerName;
 
 
-// const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
+const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString)
 
 const uploadAzure = async (req, res) => {
   try {
@@ -19,7 +19,7 @@ const uploadAzure = async (req, res) => {
     const containerClient = blobServiceClient.getContainerClient(containerName);
 
     const blockBlobClient = containerClient.getBlockBlobClient(fileName);
-
+ 
 
     await blockBlobClient.uploadFile(filePath);
 

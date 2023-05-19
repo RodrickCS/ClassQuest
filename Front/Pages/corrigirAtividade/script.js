@@ -12,6 +12,7 @@ const fetchAtividadesConcluidas = () => {
     })
 }
 
+
 const buildAtividadesCard = (dados) => {
   dados.forEach((elemento) => {
     const divPai = document.createElement("div")
@@ -60,7 +61,7 @@ const buildAtividadesCard = (dados) => {
 
     divHeader.style.height = "100px"
     h1Title.innerHTML = elemento.titulo + " - "
-    h1NomeTurma.innerHTML = " - " + elemento.turma
+    h1NomeTurma.innerHTML = " - " + elemento.turma.nome
     divPai.setAttribute("id", elemento.id_atividade)
 
     divPai.addEventListener("click", (event) => {

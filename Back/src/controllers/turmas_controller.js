@@ -179,7 +179,8 @@ const create = async (req, res) => {
         nome: req.body.nome,
         codigo: generateRandomString(),
       },
-    });
+    }); 
+    
     res.status(201).json(turma).end();
   } catch (err) {
     res.status(500).json(err).end();
