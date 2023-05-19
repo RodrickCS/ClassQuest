@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   imagem: {
     flex: 2,
@@ -17,9 +17,9 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
-    padding: '5px',
     backgroundColor: '#6fddeb',
     margin: '10px',
+    borderRadius: '10px'
   },
   txtEntrar: {
     color: '#ddd',
@@ -53,7 +53,6 @@ botaozinho: {
   padding: '10px',
   justifyContent: 'center',
   alignItems: 'center',
-  // width:'60px'
 },
 txtbutton: {
   color: "#fff",
