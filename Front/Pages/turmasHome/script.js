@@ -247,8 +247,6 @@ const preencherInfoAtividade = (dados) => {
 
   document.querySelector("#descricaoAtividade").innerHTML = descricaoSemLinks;
   document.querySelector("#nomeAtividade").innerHTML = dados.titulo;
-
-  console.log(links);
 };
 
 const excluirAtividade = () => {
@@ -324,7 +322,6 @@ const concluirAtividade = async (form) => {
     
   
     if (completar.ok) {
-      console.log("Atividade concluída:", response);
       return response;
     } else if (completar.status === 400) {
       const { error } = response;
@@ -332,7 +329,6 @@ const concluirAtividade = async (form) => {
 
       if (userResponse) {
         const enviarAtividadeResponse = await enviarAtividade(form);
-        console.log(enviarAtividadeResponse);
 
         if (enviarAtividadeResponse !== null) {
           alert("Atividade enviada novamente com sucesso!");
@@ -370,7 +366,6 @@ const enviarArquivo = async (fileWithNewName) => {
     const arquivoResponse = await arquivo.status;
 
     if (arquivo.ok) {
-      console.log("Arquivo enviado com sucesso:", arquivoResponse);
       return arquivoResponse;
     } else {
       console.log("Erro ao enviar arquivo:", arquivoResponse);
@@ -394,8 +389,6 @@ const enviarAtividade = async (form) => {
 
   try {
     const completar = await fetch(uriCompletarAtividadeNovamente, optionsCompletar);
-    console.log(completar);
-
     if (completar.ok) {
       const resposta = await completar.json();
       return resposta;
@@ -430,7 +423,7 @@ const entregarAtividade = async () => {
   if (completarResponse !== null) {
     if (inpArquivo.value !== "") {
       const enviarArquivoResponse = await enviarArquivo(fileWithNewName);
-      if (enviarArquivoResponse !== null) {
+      if (enviarArquivoResponse === 200) {
         alert("Arquivo enviado com sucesso!");
       } else {
         alert("Ocorreu um erro ao enviar o arquivo. Por favor, tente novamente mais tarde.");
