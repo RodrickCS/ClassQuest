@@ -10,8 +10,3 @@ npm i -g prisma
 npx prisma migrate dev --name init
 npm i mysql express nodemon cors
 nodemon
-
-DATABASE_URL="mysql://root:@localhost:3306/ClassQuest"
-KEY= "asdfg"
-connectionString="DefaultEndpointsProtocol=https;AccountName=classquest;AccountKey=FnOA8mTXp/F7C2Hc4SdhlvgdqwkG9m9/ZDY0S7qxhuLtAPI+3G1QJwIoY+NZcK4iuQ+F8rCu0ed8+ASt9lBrvw==;EndpointSuffix=core.windows.net"
-containerName=data
