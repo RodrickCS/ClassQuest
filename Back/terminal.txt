@@ -8,4 +8,8 @@ nodemon
 
 npm i -g prisma
 npx prisma migrate dev --name init
+npm i mysql express nodemon cors
 nodemon
+
+DATABASE_URL="mysql://root:@localhost:3306/ClassQuest"
+KEY= "asdfg"
