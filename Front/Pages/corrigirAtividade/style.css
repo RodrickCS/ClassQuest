@@ -125,3 +125,8 @@ main {
   border-radius: 12px;
   background-color: #6fddeb;
 }
+
+.model {
+  display: none;
+  visibility: hidden;
+}

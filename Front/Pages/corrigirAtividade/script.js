@@ -1,5 +1,8 @@
 const uriReadAtividadesConcluidas = "http://localhost:3000/atividades/viewAtividades"
 
+var dadosConcluidas = []
+var infoAtividade = []
+
 const fetchAtividadesConcluidas = () => {
   const options = {
     method: "GET"
@@ -7,11 +10,15 @@ const fetchAtividadesConcluidas = () => {
   fetch(uriReadAtividadesConcluidas, options)
     .then(resp => { return resp.json() })
     .then(data => {
-      console.log(data)
+      data.forEach(dado => {
+        infoAtividade = dado.atividades_concluidas
+      });
+      dadosConcluidas = data
+      console.log(data);
+
       buildAtividadesCard(data)
     })
 }
-
 
 const buildAtividadesCard = (dados) => {
   dados.forEach((elemento) => {
@@ -29,7 +36,7 @@ const buildAtividadesCard = (dados) => {
     divPai.appendChild(divBody)
     divBody.appendChild(h1Title)
     divBody.appendChild(h1NomeTurma)
-    divBody.appendChild(h1NomeAluno) 
+    divBody.appendChild(h1NomeAluno)
 
     divPai.classList.add("atividade_card")
     divHeader.classList.add("card_header")
@@ -62,7 +69,7 @@ const buildAtividadesCard = (dados) => {
     divHeader.style.height = "100px"
     h1Title.innerHTML = elemento.titulo + " - "
     h1NomeTurma.innerHTML = " - " + elemento.turma.nome
-    divPai.setAttribute("id", elemento.id_atividade)
+    divPai.setAttribute("id", elemento.atividades_concluidas.id_atividade)
 
     divPai.addEventListener("click", (event) => {
       document.querySelector(".atividadeInfo").classList.remove("model")
