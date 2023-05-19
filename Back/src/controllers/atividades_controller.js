@@ -67,7 +67,6 @@ const excluir = async (req, res) => {
 };
 
 const concluirTarefa = async (req, res) => {
-  console.log(req.body.id_aluno);
   try {
     const atividadeConcluida = await prisma.atividades_concluidas.findMany({
       where: {

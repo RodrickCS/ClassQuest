@@ -29,6 +29,7 @@ CREATE TABLE `atividades` (
     `titulo` VARCHAR(191) NOT NULL,
     `descricao` VARCHAR(191) NOT NULL,
     `prazo` DATETIME(3) NOT NULL,
+    `aberta` INTEGER NOT NULL DEFAULT 1,
     `pontos_conclusao` INTEGER NOT NULL DEFAULT 0,
 
     PRIMARY KEY (`id_atividade`)
@@ -96,7 +97,7 @@ CREATE TABLE `_professoresToturmas` (
 ALTER TABLE `atividades` ADD CONSTRAINT `atividades_id_turma_fkey` FOREIGN KEY (`id_turma`) REFERENCES `turmas`(`id_turma`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `atividades_concluidas` ADD CONSTRAINT `atividades_concluidas_id_atividade_fkey` FOREIGN KEY (`id_atividade`) REFERENCES `atividades`(`id_atividade`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `atividades_concluidas` ADD CONSTRAINT `atividades_concluidas_id_atividade_fkey` FOREIGN KEY (`id_atividade`) REFERENCES `atividades`(`id_atividade`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `atividades_concluidas` ADD CONSTRAINT `atividades_concluidas_id_aluno_fkey` FOREIGN KEY (`id_aluno`) REFERENCES `alunos`(`id_aluno`) ON DELETE RESTRICT ON UPDATE CASCADE;
