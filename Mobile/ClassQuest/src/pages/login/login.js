@@ -6,10 +6,10 @@ import { RadioButton } from "react-native-paper";
 import styles from "../login/style";
 
 export default function Login({ navigation }) {
-    const [Email, setEmail] = useState("ciclano@gmail.com");
-    const [Senha, setSenha] = useState("senaha1234");
+    const [Email, setEmail] = useState("pedro@gmail.com");
+    const [Senha, setSenha] = useState("senha1234");
     const [Msg, setMsg] = useState('');
-    const [checked, setChecked] = useState("aluno");
+    const [checked, setChecked] = useState("professor");
 
     function cadastro() {
         navigation.navigate('Cadastro');
@@ -52,8 +52,8 @@ export default function Login({ navigation }) {
                 console.log(data);
 
                 AsyncStorage.setItem("nome", JSON.stringify(data.info));
-                AsyncStorage.setItem("id_aluno", data.info.id_aluno);
-                AsyncStorage.setItem("token", data.token);
+                // AsyncStorage.setItem("id_aluno", data.info.id_aluno);
+                // AsyncStorage.setItem("token", data.token);
 
                 navigation.navigate(path);
             })
@@ -75,20 +75,13 @@ export default function Login({ navigation }) {
             </View>
             <View style={styles.divInputzinho}>
                 <TextInput
-                    keyboardType="email-address"
-                    style={styles.inputzinho}
-                    placeholder="Digite o email"
-                    value={Email}
-                    onChangeText={(val) => {
-                        setEmail(val);
-                    }}/>
+                    keyboardType="email-address" style={styles.inputzinho} 
+                    placeholder="Digite o email" value={Email}
+                    onChangeText={(val) => { setEmail(val) }}/>
                 <TextInput
                     secureTextEntry={true} style={styles.inputzinho}
                     placeholder="Digite a senha" value={Senha}
-                    onChangeText={(val1) => {
-                        setSenha(val1)
-                    }}/>
-                    
+                    onChangeText={(val1) => { setSenha(val1) }}/>
                 <Text style={styles.txtErr}>{Msg}</Text>
             </View>
             <View>
