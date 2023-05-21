@@ -4,8 +4,8 @@ import { Ionicons } from '@expo/vector-icons';
 
 const Drawer = createDrawerNavigator();
 
-import Perfil from '../../pages/perfilProf/perfilProf';
-import Professor from '../../pages/professorHome/professorHome';
+import Perfil from '../../pages/Professor/perfilProf/perfilProf';
+import Professor from '../../pages/Professor/professorHome/professorHome';
 
 
 export default function Menu({ navigation }) {
@@ -14,11 +14,13 @@ export default function Menu({ navigation }) {
     
     return (
         <Drawer.Navigator screenOptions={{ headerShown: false }}
-        initialRouteName='Professor'
+        // initialRouteName='Professor'
         >
             <Drawer.Screen name="Perfil" component={Perfil}
                 options={{
-                    drawerLabel: (() => <Text> Olá, {user.nome} </Text>),
+                    drawerLabel: (() => <Text> Olá, 
+                        {/* {user.nome} */}
+                         </Text>),
                 }}>
             </Drawer.Screen>
             <Drawer.Screen name="Professor" component={Professor}

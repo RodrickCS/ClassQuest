@@ -8,5 +8,6 @@ nodemon
 
 npm i -g prisma
 npx prisma migrate dev --name init
-npm i mysql express nodemon cors
+
+npm i
 nodemon
