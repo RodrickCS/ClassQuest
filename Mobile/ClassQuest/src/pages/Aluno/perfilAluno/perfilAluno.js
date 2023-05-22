@@ -6,7 +6,7 @@ export default function PerfilAluno({ navigation }) {
 
     // const [id_aluno, setId_aluno] = useState('');
     const [caixa, setCaixa] = useState('');
-    const [info, setInfo] = useState('');
+    const [info, setInfo] = useState([]);
     const [setinhaBaixo, setSetinhaBaixo] = useState(0);
     const [setinhaCima, setSetinhaCima] = useState(0);
     const images = [
@@ -33,13 +33,17 @@ export default function PerfilAluno({ navigation }) {
         clearInterval(myInterval)
     }
 
+    const teste = () => {
+        console.log(info);
+    }
+
     var user = JSON.parse(localStorage.getItem('nome'))
     var id_aluno = (user.id_aluno)
 
     function dados() {
-        let uri = `http://localhost:3000/alunos/readOne/` + id_aluno;
+        // let uri = `` + ;
 
-        fetch(uri)
+        fetch('http://localhost:3000/alunos/readOne/' + id_aluno)
             .then((resp) => {
                 return resp.json();
             })
@@ -47,7 +51,7 @@ export default function PerfilAluno({ navigation }) {
                 setInfo(data);
             })
     }
-
+    dados()
     return (
         <View>
             <ImageBackground source={require('../../../../assets/fundo.jpg')} resizeMode="cover" style={styles.imagem}></ImageBackground>
@@ -58,7 +62,8 @@ export default function PerfilAluno({ navigation }) {
                 <Text style={styles.txtEntrar}>Perfil</Text>
                 <Text style={styles.txtSair} onPress={() => { voltar() }}>Sair</Text>
             </View>
-            {
+            
+            {/* {
                 info.map((i, index) => {
                     return (
                         <View style={styles.dados}
@@ -77,7 +82,8 @@ export default function PerfilAluno({ navigation }) {
                         </View>
                     )
                 })
-            }
+            } */}
         </View>
     )
 }
+
