@@ -2,6 +2,7 @@ const uriReadAtividadesConcluidas = "http://localhost:3000/atividades/viewAtivid
 
 var dadosConcluidas = []
 var infoAtividade = []
+var dadosInfoAtividade = []
 
 const fetchAtividadesConcluidas = () => {
   const options = {
@@ -9,16 +10,17 @@ const fetchAtividadesConcluidas = () => {
   }
   fetch(uriReadAtividadesConcluidas, options)
     .then(resp => { return resp.json() })
-    .then(data => {
+    .then(data => {  
       data.forEach(dado => {
         infoAtividade = dado.atividades_concluidas
+        console.log(infoAtividade);
       });
       dadosConcluidas = data
-      console.log(data);
-
       buildAtividadesCard(data)
     })
 }
+
+
 
 const buildAtividadesCard = (dados) => {
   dados.forEach((elemento) => {
@@ -73,12 +75,18 @@ const buildAtividadesCard = (dados) => {
 
     divPai.addEventListener("click", (event) => {
       document.querySelector(".atividadeInfo").classList.remove("model")
-      const idDoCard = event.target.closest(".atividade_card").id
-      fetchOneAtividade(idDoCard)
+      dadosInfoAtividade = elemento.atividades_concluidas
+      console.log(dadosInfoAtividade);
+
     })
+
 
     document.querySelector("#atividadesConcluidas").appendChild(divPai)
   })
 }
+
+const preencherInfoAtividade = () => {
+}
+
 
 fetchAtividadesConcluidas()

@@ -151,7 +151,7 @@ const viewAtividadeConcluida = async (req, res) => {
         prazo: true,
         pontos_conclusao: true,
         turma: {
-          select:{
+          select: {
             nome: true,
           }
         },

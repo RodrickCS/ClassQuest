@@ -118,7 +118,7 @@ main {
   overflow-y: auto;
 }
 
-#atividadeInfo {
+.atividadeInfo {
   position: relative;
   width: 75%;
   height: 700px;
@@ -129,4 +129,4 @@ main {
 .model {
   display: none;
   visibility: hidden;
-} 
+}
