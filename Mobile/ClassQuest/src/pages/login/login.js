@@ -6,10 +6,10 @@ import { RadioButton } from "react-native-paper";
 import styles from "../login/style";
 
 export default function Login({ navigation }) {
-    const [Email, setEmail] = useState("pedro@gmail.com");
-    const [Senha, setSenha] = useState("senha1234");
+    const [Email, setEmail] = useState("ciclano@gmail.com");
+    const [Senha, setSenha] = useState("senaha1234");
     const [Msg, setMsg] = useState('');
-    const [checked, setChecked] = useState("professor");
+    const [checked, setChecked] = useState("aluno");
 
     function cadastro() {
         navigation.navigate('Cadastro');
@@ -50,10 +50,7 @@ export default function Login({ navigation }) {
             })
             .then((data) => {
                 console.log(data);
-
                 AsyncStorage.setItem("nome", JSON.stringify(data.info));
-                // AsyncStorage.setItem("id_aluno", data.info.id_aluno);
-                // AsyncStorage.setItem("token", data.token);
 
                 navigation.navigate(path);
             })
