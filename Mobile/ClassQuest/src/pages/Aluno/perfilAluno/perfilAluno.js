@@ -36,15 +36,6 @@ export default function PerfilAluno({ navigation }) {
     var user = JSON.parse(localStorage.getItem('nome'))
     var id_aluno = (user.id_aluno)
 
-    // useEffect(() => {
-    //     dados()
-    //     setInterval(() => {
-    //         console.log("atualiza");
-    //         dados()
-    //     }, 5000)
-    // }, [])
-    // 
-
     function dados() {
         let uri = `http://localhost:3000/alunos/readOne/` + id_aluno;
 
@@ -67,26 +58,26 @@ export default function PerfilAluno({ navigation }) {
                 <Text style={styles.txtEntrar}>Perfil</Text>
                 <Text style={styles.txtSair} onPress={() => { voltar() }}>Sair</Text>
             </View>
-             {/* {
+            {
                 info.map((i, index) => {
-                    return (  */}
-            <View style={styles.dados}
-            // key={index}
-            >
-                <TouchableOpacity style={styles.turma} onPress={switchImageBefore}>
-                    <Image style={styles.image} source={require('../../../../assets/favicon.png')} />
-                    <Text style={styles.titulo}>turminha do aluno</Text>
-                    <Image source={images[setinhaBaixo]} style={styles.image2} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.turma} onPress={switchImageNext}>
-                    <Image style={styles.image} source={require('../../../../assets/favicon.png')} />
-                    <Text style={styles.titulo}>turminha do aluno</Text>
-                    <Image source={images[setinhaCima]} style={styles.image2} />
-                </TouchableOpacity>
-            </View>
-             {/* )
+                    return (
+                        <View style={styles.dados}
+                            key={index}
+                        >
+                            <TouchableOpacity style={styles.turma} onPress={switchImageBefore}>
+                                <Image style={styles.image} source={require('../../../../assets/favicon.png')} />
+                                <Text style={styles.titulo}>turminha do aluno</Text>
+                                <Image source={images[setinhaBaixo]} style={styles.image2} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.turma} onPress={switchImageNext}>
+                                <Image style={styles.image} source={require('../../../../assets/favicon.png')} />
+                                <Text style={styles.titulo}>turminha do aluno</Text>
+                                <Image source={images[setinhaCima]} style={styles.image2} />
+                            </TouchableOpacity>
+                        </View>
+                    )
                 })
-            }  */}
+            }
         </View>
     )
 }
