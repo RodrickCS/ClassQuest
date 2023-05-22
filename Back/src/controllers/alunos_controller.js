@@ -55,6 +55,7 @@ const readOne = async (req, res) => {
     res.status(200).json(aluno).end();
   } catch (err) {
     res.status(500).json(err).end();
+    console.log(err);
   }
 };
 
