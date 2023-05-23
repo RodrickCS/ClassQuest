@@ -161,6 +161,11 @@ const viewAtividadeConcluida = async (req, res) => {
             id_atividade: true,
             data_concluida: true,
             arquivo: true,
+            aluno: {
+              select: {
+                nome: true,
+              }
+            },
           }
         },
       },

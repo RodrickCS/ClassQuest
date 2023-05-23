@@ -243,7 +243,6 @@ const preencherInfoAtividade = (dados) => {
   });
 
   document.querySelector(`#links`).innerHTML = "";
-  document.querySelector(`#links`);
 
   document.querySelector("#descricaoAtividade").innerHTML = descricaoSemLinks;
   document.querySelector("#nomeAtividade").innerHTML = dados.titulo;
