@@ -36,11 +36,22 @@ export default StyleSheet.create({
         fontSize: '12pt',
         marginLeft: '10px'
     },
+    textinho: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+    label: {
+        // marginBottom: '5px',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: '10pt',
+    },
     imagem: {
         flex: 2,
         width: 390,
         height: 900,
-      },
+    },
     buttonzinho: {
         backgroundColor: "#0f0",
         borderRadius: '10px',

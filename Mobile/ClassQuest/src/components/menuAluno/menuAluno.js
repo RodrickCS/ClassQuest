@@ -13,13 +13,11 @@ export default function Menu({ navigation }) {
 
     return (
         <Drawer.Navigator screenOptions={{ headerShown: false }} 
-        // initialRouteName='Home'
+        initialRouteName='Home'
         >
             <Drawer.Screen name="Perfil" component={Perfil}
                 options={{
-                    drawerLabel: (() => <Text> Olá, 
-                        {/* {user.nome}  */}
-                        </Text>),
+                    drawerLabel: (() => <Text> Olá, {user.nome}</Text>),
                 }}>
             </Drawer.Screen>
             <Drawer.Screen name="Home" component={Aluno}

@@ -81,23 +81,23 @@ export default function Login({ navigation }) {
                     onChangeText={(val1) => { setSenha(val1) }}/>
                 <Text style={styles.txtErr}>{Msg}</Text>
             </View>
-            <View>
-                <Text style={styles.label}>
-                    Sou:
+            <View style={styles.textinho}>
                     <Text style={styles.label}>
-                        <RadioButton value="aluno"
-                            status={checked === "aluno" ? "checked" : "unchecked"}
-                            onPress={() => setChecked("aluno")}/>{" "}
+                        Sou:
+                    </Text>
+                    <RadioButton value="aluno"
+                        status={checked === "aluno" ? "checked" : "unchecked"}
+                        onPress={() => setChecked("aluno")} />
+                    <Text style={styles.label}>
                         Aluno(a)
                     </Text>
+                    <RadioButton value="professor"
+                        status={checked === "professor" ? "checked" : "unchecked"}
+                        onPress={() => setChecked("professor")} />
                     <Text style={styles.label}>
-                        <RadioButton value="professor"
-                            status={checked === "professor" ? "checked" : "unchecked"}
-                            onPress={() => setChecked("professor")}/>{" "}
                         Professor(a)
                     </Text>
-                </Text>
-            </View>
+                </View>
             <View>
                 <TouchableOpacity
                     style={styles.buttonzinho}

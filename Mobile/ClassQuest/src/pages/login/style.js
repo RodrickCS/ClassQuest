@@ -30,7 +30,7 @@ export default StyleSheet.create({
     // boxShadow: '5px 1px 1px black',
     borderRadius: '10px',
     padding: '10px',
-    margin:'10px'
+    margin: '10px'
   },
   txtbutton: {
     color: "#fff",
@@ -63,6 +63,11 @@ export default StyleSheet.create({
   label: {
     padding: '5px',
     fontSize: '10pt',
+  },
+  textinho: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row'
   },
   image: {
     width: '70vw',
