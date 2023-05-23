@@ -25,6 +25,7 @@ export default StyleSheet.create({
     },
     inputzinho: {
         margin: '5px',
+        padding: '5px',
         backgroundColor: "#eef",
         borderRadius: '10px',
     },

@@ -82,21 +82,11 @@ export default function Login({ navigation }) {
                 <Text style={styles.txtErr}>{Msg}</Text>
             </View>
             <View style={styles.textinho}>
-                    <Text style={styles.label}>
-                        Sou:
-                    </Text>
-                    <RadioButton value="aluno"
-                        status={checked === "aluno" ? "checked" : "unchecked"}
-                        onPress={() => setChecked("aluno")} />
-                    <Text style={styles.label}>
-                        Aluno(a)
-                    </Text>
-                    <RadioButton value="professor"
-                        status={checked === "professor" ? "checked" : "unchecked"}
-                        onPress={() => setChecked("professor")} />
-                    <Text style={styles.label}>
-                        Professor(a)
-                    </Text>
+                    <Text style={styles.label}>Sou:</Text>
+                    <RadioButton value="aluno" status={checked === "aluno" ? "checked" : "unchecked"} onPress={() => setChecked("aluno")} />
+                    <Text style={styles.label}>Aluno(a)</Text>
+                    <RadioButton value="professor" status={checked === "professor" ? "checked" : "unchecked"} onPress={() => setChecked("professor")} />
+                    <Text style={styles.label}>Professor(a)</Text>
                 </View>
             <View>
                 <TouchableOpacity
