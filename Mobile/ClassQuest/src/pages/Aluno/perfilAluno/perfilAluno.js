@@ -4,10 +4,11 @@ import styles from './style'
 
 export default function PerfilAluno({ navigation }) {
 
-    // const [id_aluno, setId_aluno] = useState('');
     const [caixa, setCaixa] = useState('');
-    const [info, setInfo] = useState([]);
-    const [setinhaBaixo, setSetinhaBaixo] = useState(0);
+    const [info, setInfo] = useState({ "turma": [] })
+
+    // console.log(info);
+    // const [setinhaBaixo, setSetinhaBaixo] = useState(0);
     const [setinhaCima, setSetinhaCima] = useState(0);
     var dadinhos = info.turma
     const images = [
@@ -16,20 +17,22 @@ export default function PerfilAluno({ navigation }) {
     ];
     const myInterval = setInterval(() => {
         dados()
-    }, 3000)
+    }, 50000)
 
     useEffect(() => {
         dados()
+        myInterval
     }, []);
 
-
-    const switchImageNext = () => {
+    const switchImage = (index) => {
+        console.log(index);
         setSetinhaCima((prevImage) => (prevImage + 1) % images.length)
+
     };
 
-    const switchImageBefore = () => {
-        setSetinhaBaixo((prevImage) => prevImage === 0 ? images.length - 1 : prevImage - 1)
-    }
+    // const switchImageBefore = () => {
+    //     setSetinhaBaixo((prevImage) => prevImage === 0 ? images.length - 1 : prevImage - 1)
+    // }
 
     const menu = () => {
         navigation.openDrawer();
@@ -40,17 +43,10 @@ export default function PerfilAluno({ navigation }) {
         clearInterval(myInterval)
     }
 
-    const teste = () => {
-        info.turma.map((dado, index) => {
-            console.log(dado);
-        })
-    }
-
     var user = JSON.parse(localStorage.getItem('nome'))
     var id_aluno = (user.id_aluno)
 
     function dados() {
-
         fetch('http://localhost:3000/alunos/readOne/' + id_aluno)
             .then((resp) => {
                 return resp.json();
@@ -64,39 +60,31 @@ export default function PerfilAluno({ navigation }) {
         <View>
             <ImageBackground source={require('../../../../assets/fundo.jpg')} resizeMode="cover" style={styles.imagem}></ImageBackground>
             <View style={styles.divizinha}>
-                <TouchableOpacity onPress={() => { teste() }}>
+                <TouchableOpacity onPress={() => { menu() }}>
                     <Image style={styles.image} source={require('../../../../assets/favicon.png')} />
                 </TouchableOpacity>
                 <Text style={styles.txtEntrar}>Perfil</Text>
                 <Text style={styles.txtSair} onPress={() => { voltar() }}>Sair</Text>
             </View>
-            {
-                console.log(info.turma)
-            /* {
-                info.map((i, index) => {
-                    return (
-                        <View style={styles.dados}
-                        key={index}
-
-                        >
-                            <TouchableOpacity style={styles.turma}
-                                onPress={switchImageBefore}
-                                // onPress={() => { teste() }}
-                            >
-                                <Image style={styles.image} source={require('../../../../assets/favicon.png')} />
-                                <Text style={styles.titulo}>turminha do aluno</Text>
-                                <Image source={images[setinhaBaixo]} style={styles.image2} />
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.turma} onPress={switchImageNext}>
-                                <Image style={styles.image} source={require('../../../../assets/favicon.png')} />
-                                <Text style={styles.titulo}>turminha do aluno</Text>
-                                <Image source={images[setinhaCima]} style={styles.image2} />
-                            </TouchableOpacity>
-                        </View>
-
-                    )
-                })
-            } */}
+            <View style={styles.dados}>
+                {
+                    dadinhos.map((dado, index) => {
+                        return (
+                            <View key={index}>
+                                <TouchableOpacity style={styles.turma} onPress={() => { 
+                                    where
+                                    setSetinhaCima((prevImage) => (prevImage + 1) % images.length) 
+                                    }}>
+                                    <Image style={styles.image} source={require('../../../../assets/favicon.png')} />
+                                    <Text style={styles.titulo}>{dado.nome}</Text>
+                                    <Text style={styles.titulo}> - {dado.id_turma}</Text>
+                                    <Image source={images[setinhaCima]} style={styles.image2} />
+                                </TouchableOpacity>
+                            </View>
+                        )
+                    })
+                }
+            </View>
         </View>
     )
 }
