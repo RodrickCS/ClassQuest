@@ -4,7 +4,7 @@ import styles from '../alunoHome/style'
 
 export default function Aluno({ navigation }) {
 
-    const [Aluno, setaddAluno] = useState([])
+    const [Aluno, setAddAluno] = useState([])
     const [modalVisible, setModalVisible] = useState(false);
     const [Codigo, setCodigo] = useState("");
 
@@ -24,11 +24,11 @@ export default function Aluno({ navigation }) {
     // }, [])
 
     const addAluno = () => {
-        
+
         fetch('http://localhost:3000/adicionarAluno/'+ id_turma)
             .then(res => { return res.json() })
             .then(data => {
-                setaddAluno(data)
+                setAddAluno(data)
             })
     }
     const ModalContent = () => {

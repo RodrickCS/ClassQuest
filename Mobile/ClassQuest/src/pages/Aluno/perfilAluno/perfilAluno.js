@@ -71,7 +71,7 @@ export default function PerfilAluno({ navigation }) {
                             <View key={index}>
                                 <TouchableOpacity style={styles.turma} onPress={() => { 
                                     // if((dado.id_turma)===(index+1)){
-                                        setSetinhaCima((prevImage) => (prevImage + 1) % images.length) 
+                                        setSetinhaCima((prevImage) => (prevImage + 1) % images.length)
                                     // }
                                     }}>
                                     <Image style={styles.image} source={require('../../../../assets/favicon.png')} />
