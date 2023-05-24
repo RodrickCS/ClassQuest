@@ -143,7 +143,7 @@ const readPendentes = async (req, res) => {
 
 const viewAtividadeConcluida = async (req, res) => {
   try {
-    let atividade = await prisma.atividades.findMany({
+    const atividades = await prisma.atividades.findMany({
       select: {
         id_turma: true,
         titulo: true,
@@ -166,11 +166,16 @@ const viewAtividadeConcluida = async (req, res) => {
                 nome: true,
               }
             },
-          }
+          },
+          orderBy: {
+            data_concluida: "desc"
+          },
+          take: 1
         },
       },
     });
-    res.status(200).json(atividade);
+    
+    res.status(200).json(atividades);
   } catch (err) {
     res.status(500).json(err);
     console.log(err);
