@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { useState, useEffect } from "react";
 import styles from './style'
+import cardPerfilAluno from '../../../components/cardPerfilAluno/cardPerfilAluno'
 
 export default function PerfilAluno({ navigation }) {
 
@@ -28,10 +29,6 @@ export default function PerfilAluno({ navigation }) {
         setSetinhaCima((prevImage) => (prevImage + 1) % images.length)
     };
 
-    // const switchImageBefore = () => {
-    //     setSetinhaBaixo((prevImage) => prevImage === 0 ? images.length - 1 : prevImage - 1)
-    // }
-
     const menu = () => {
         navigation.openDrawer();
     }
@@ -54,6 +51,7 @@ export default function PerfilAluno({ navigation }) {
                 console.log(data);
             })
     }
+
     return (
         <View>
             <ImageBackground source={require('../../../../assets/fundo.jpg')} resizeMode="cover" style={styles.imagem}></ImageBackground>
@@ -68,18 +66,7 @@ export default function PerfilAluno({ navigation }) {
                 {
                     dadinhos.map((dado, index) => {
                         return (
-                            <View key={index}>
-                                <TouchableOpacity style={styles.turma} onPress={() => { 
-                                    // if((dado.id_turma)===(index+1)){
-                                        setSetinhaCima((prevImage) => (prevImage + 1) % images.length)
-                                    // }
-                                    }}>
-                                    <Image style={styles.image} source={require('../../../../assets/favicon.png')} />
-                                    <Text style={styles.titulo}>{dado.nome}</Text>
-                                    <Text style={styles.titulo}> - {dado.id_turma}</Text>
-                                    <Image source={images[setinhaCima]} style={styles.image2} />
-                                </TouchableOpacity>
-                            </View>
+                           <cardPerfilAluno key={index} />
                         )
                     })
                 }
