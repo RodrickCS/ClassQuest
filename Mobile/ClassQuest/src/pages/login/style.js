@@ -20,14 +20,13 @@ export default StyleSheet.create({
     margin: '5px',
     backgroundColor: "#eef",
     borderRadius: '10px',
+    borderWidth: 0
   },
   divInputzinho: {
     padding: '10vh',
   },
   buttonzinho: {
     backgroundColor: "#f00",
-    // width: '30vw',
-    // boxShadow: '5px 1px 1px black',
     borderRadius: '10px',
     padding: '10px',
     margin: '10px'
@@ -41,18 +40,20 @@ export default StyleSheet.create({
   },
   txtCad: {
     color: "#0000FF",
-    textDecorationLine: 'underline',
     textAlign: 'center',
     justifyContent: 'center',
     fontSize: '10pt',
-    // paddingBottom:'10px',
   },
   divInputzinho: {
-    marginBottom: '5vh',
+    margin: '5vh',
   },
   imagenzinha: {
-    alignItems: 'center',
-    padding: '5vh',
+    marginTop: '10px',
+    paddingTop: '10px',
+  },
+  image: {
+    width: '85vw',
+    height: '10vh',
   },
   txtAbaixo: {
     padding: '5px',
@@ -68,10 +69,6 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row'
-  },
-  image: {
-    width: '70vw',
-    height: '10vh',
   },
   txtErr: {
     color: 'red',

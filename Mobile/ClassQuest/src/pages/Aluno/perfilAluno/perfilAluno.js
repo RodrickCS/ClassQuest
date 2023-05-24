@@ -24,10 +24,8 @@ export default function PerfilAluno({ navigation }) {
         myInterval
     }, []);
 
-    const switchImage = (index) => {
-        console.log(index);
+    const switchImage = () => {
         setSetinhaCima((prevImage) => (prevImage + 1) % images.length)
-
     };
 
     // const switchImageBefore = () => {
@@ -72,8 +70,9 @@ export default function PerfilAluno({ navigation }) {
                         return (
                             <View key={index}>
                                 <TouchableOpacity style={styles.turma} onPress={() => { 
-                                    // where
-                                    setSetinhaCima((prevImage) => (prevImage + 1) % images.length) 
+                                    // if((dado.id_turma)===(index+1)){
+                                        setSetinhaCima((prevImage) => (prevImage + 1) % images.length) 
+                                    // }
                                     }}>
                                     <Image style={styles.image} source={require('../../../../assets/favicon.png')} />
                                     <Text style={styles.titulo}>{dado.nome}</Text>

@@ -20,11 +20,8 @@ export default function Login({ navigation }) {
             email: Email,
             senha: Senha,
         };
-
-        let uri =
-            checked === "professor" ? "http://localhost:3000/professores/login" : "http://localhost:3000/alunos/login";
+        let uri = checked === "professor" ? "http://localhost:3000/professores/login" : "http://localhost:3000/alunos/login";
         let path = checked === "professor" ? "MenuProfessor" : "MenuAluno";
-
         const options = {
             method: "POST",
             headers: {
@@ -32,7 +29,6 @@ export default function Login({ navigation }) {
             },
             body: JSON.stringify(form),
         };
-
         fetch(uri, options)
             .then((resp) => {
                 if (resp.ok) {
@@ -49,9 +45,7 @@ export default function Login({ navigation }) {
                 }
             })
             .then((data) => {
-                console.log(data);
                 AsyncStorage.setItem("nome", JSON.stringify(data.info));
-
                 navigation.navigate(path);
             })
             .catch((error) => {
@@ -61,46 +55,28 @@ export default function Login({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <ImageBackground
-                source={require("../../../assets/fundo.jpg")}
-                resizeMode="cover"
-                style={styles.imagem}></ImageBackground>
+            <ImageBackground source={require("../../../assets/fundo.jpg")} resizeMode="cover" style={styles.imagem}></ImageBackground>
             <View style={styles.imagenzinha}>
-                <Image
-                    style={styles.image}
-                    source={require("../../../assets/logo.png")}/>
+                <Image style={styles.image} source={require("../../../assets/logo.png")}/>
             </View>
             <View style={styles.divInputzinho}>
-                <TextInput
-                    keyboardType="email-address" style={styles.inputzinho} 
-                    placeholder="Digite o email" value={Email}
-                    onChangeText={(val) => { setEmail(val) }}/>
-                <TextInput
-                    secureTextEntry={true} style={styles.inputzinho}
-                    placeholder="Digite a senha" value={Senha}
-                    onChangeText={(val1) => { setSenha(val1) }}/>
+                <TextInput keyboardType="email-address" style={styles.inputzinho} placeholder="Digite o email" value={Email} onChangeText={(val) => { setEmail(val) }}/>
+                <TextInput secureTextEntry={true} style={styles.inputzinho} placeholder="Digite a senha" value={Senha} onChangeText={(val1) => { setSenha(val1) }}/>
                 <Text style={styles.txtErr}>{Msg}</Text>
             </View>
             <View style={styles.textinho}>
-                    <Text style={styles.label}>Sou:</Text>
-                    <RadioButton value="aluno" status={checked === "aluno" ? "checked" : "unchecked"} onPress={() => setChecked("aluno")} />
-                    <Text style={styles.label}>Aluno(a)</Text>
-                    <RadioButton value="professor" status={checked === "professor" ? "checked" : "unchecked"} onPress={() => setChecked("professor")} />
-                    <Text style={styles.label}>Professor(a)</Text>
-                </View>
+                <Text style={styles.label}>Sou:</Text>
+                <RadioButton value="aluno" status={checked === "aluno" ? "checked" : "unchecked"} onPress={() => setChecked("aluno")} />
+                <Text style={styles.label}>Aluno(a)</Text>
+                <RadioButton value="professor" status={checked === "professor" ? "checked" : "unchecked"} onPress={() => setChecked("professor")} />
+                <Text style={styles.label}>Professor(a)</Text>
+            </View>
             <View>
-                <TouchableOpacity
-                    style={styles.buttonzinho}
-                    onPress={() => {
-                        login();
-                    }}>
+                <TouchableOpacity style={styles.buttonzinho} onPress={() => { login() }}>
                     <Text style={styles.txtbutton}>Login</Text>
                 </TouchableOpacity>
                 <Text style={styles.txtAbaixo}>ou</Text>
-                <TouchableOpacity
-                    onPress={() => {
-                        cadastro();
-                    }}>
+                <TouchableOpacity onPress={() => { cadastro() }}>
                     <Text style={styles.txtCad}>Cadastre-se</Text>
                 </TouchableOpacity>
             </View>
