@@ -48,6 +48,14 @@ export default function Aluno({ navigation }) {
         );
       };
 
+      const texto = () => {
+        return (
+          <View style={styles.modalTotal}>
+            <Text style={styles.txtSair}>Digite o codigo da turma:</Text>
+          </View>
+        );
+      };
+
     return (
         <View style={styles.container}>
             <Modal visible={modalVisible} animationType="slide" transparent>
@@ -67,9 +75,9 @@ export default function Aluno({ navigation }) {
             </View>
             <View style={styles.turmas}>
                 <View style={styles.turma}>
-                    <View style={styles.divImage2}>
+                    <TouchableOpacity style={styles.divImage2} onPress={texto()}>
                         <Image style={styles.image2} source={require('../../../../assets/pontinhos.png')} />
-                    </View>
+                    </TouchableOpacity>
                     <Image style={styles.image} source={require('../../../../assets/favicon.png')} />
                     <Text>turminha</Text>
                 </View>
