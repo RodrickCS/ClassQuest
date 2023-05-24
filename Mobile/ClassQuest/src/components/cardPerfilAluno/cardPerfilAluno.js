@@ -1,6 +1,5 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Text } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Text, Image, TouchableOpacity } from 'react-native';
+import { useState } from 'react';
 
 const Drawer = createDrawerNavigator();
 
@@ -8,8 +7,15 @@ import Perfil from '../../pages/Aluno/perfilAluno/perfilAluno';
 import Aluno from '../../pages/Aluno/alunoHome/alunoHome';
 
 export default function Menu({ navigation }) {
+    
+    const [setinhaCima, setSetinhaCima] = useState(0);
 
-    var user = JSON.parse(localStorage.getItem('nome'))
+    const images = [
+        require('../../../../assets/setaBaixo.png'),
+        require('../../../../assets/setaCima.png'),
+    ];
+
+    const cardPerfilAluno = () => {
 
     return (
         <View >
@@ -21,4 +27,5 @@ export default function Menu({ navigation }) {
         </TouchableOpacity>
     </View>
     )
+    }
 }

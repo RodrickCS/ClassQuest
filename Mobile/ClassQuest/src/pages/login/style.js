@@ -8,6 +8,7 @@ export default StyleSheet.create({
   },
   container: {
     alignItems: 'center',
+    // justifyContent: 'center'
   },
   titulo: {
     color: "#15f",

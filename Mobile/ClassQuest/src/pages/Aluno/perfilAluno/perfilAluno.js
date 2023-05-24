@@ -1,21 +1,14 @@
 import { View, Text, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { useState, useEffect } from "react";
 import styles from './style'
-import cardPerfilAluno from '../../../components/cardPerfilAluno/cardPerfilAluno'
+// import cardPerfilAluno from '../../../components/cardPerfilAluno/cardPerfilAluno'
 
 export default function PerfilAluno({ navigation }) {
 
     const [caixa, setCaixa] = useState('');
     const [info, setInfo] = useState({ "turma": [] })
-
-    // console.log(info);
-    // const [setinhaBaixo, setSetinhaBaixo] = useState(0);
-    const [setinhaCima, setSetinhaCima] = useState(0);
     var dadinhos = info.turma
-    const images = [
-        require('../../../../assets/setaBaixo.png'),
-        require('../../../../assets/setaCima.png'),
-    ];
+    
     const myInterval = setInterval(() => {
         dados()
     }, 50000)
@@ -25,9 +18,9 @@ export default function PerfilAluno({ navigation }) {
         myInterval
     }, []);
 
-    const switchImage = () => {
-        setSetinhaCima((prevImage) => (prevImage + 1) % images.length)
-    };
+    // const switchImage = () => {
+    //     setSetinhaCima((prevImage) => (prevImage + 1) % images.length)
+    // };
 
     const menu = () => {
         navigation.openDrawer();
@@ -74,4 +67,3 @@ export default function PerfilAluno({ navigation }) {
         </View>
     )
 }
-
