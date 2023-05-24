@@ -136,3 +136,56 @@ main {
   display: none;
   visibility: hidden;
 }
+
+.botao-info {
+  padding: 8px 16px;
+  background-color: #87CEEB;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.botao-info:hover {
+  background-color: #A0E8EC;
+}
+
+dialog {
+  width: 300px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(100%, -59%);
+}
+
+dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+
+dialog label {
+  font-weight: bold;
+}
+
+dialog input[type="number"] {
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+dialog button {
+  padding: 10px;
+  background-color: #19dde0;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+dialog button[type="submit"] {
+  background-color: #4caf50;
+}
+
+dialog button[type="button"] {
+  background-color: #f44336;
+}
