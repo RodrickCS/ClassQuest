@@ -24,7 +24,6 @@ export default function Cadastro({ navigation }) {
         };
 
         let uri = checked === "professor" ? "http://localhost:3000/professores/create" : "http://localhost:3000/alunos/create";
-        // let path = checked === "Login";
 
         const options = {
             method: "POST",
@@ -41,19 +40,29 @@ export default function Cadastro({ navigation }) {
             })
             .then((data) => {
                 setModalVisible(!modalVisible)
-                console.log(data.msg);
                 setCad(data.msg)
-                navigation.navigate("Login");
             })
     }
+    const ModalContent = () => {
+        return (
+          <View style={styles.modalTotal}>
+            <Text style={styles.txtCad}>{Cad}</Text>
+            <View style={styles.botoes}>
+                <TouchableOpacity style={styles.sairBotao} onPress={() => setModalVisible(false)}>
+                <Text style={styles.txtFechar}>Fechar</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.okBotao}>
+                    <Text style={styles.txtOk} onPress={() => navigation.navigate("Login")}>Ok</Text>
+                </TouchableOpacity>
+                </View>
+          </View>
+        );
+      };
 
     return (
         <View style={styles.container}>
-            <Modal
-             animationType="slide"
-             transparent={false}
-             visible={modalVisible}>
-                <Text>{Cad}</Text>
+            <Modal visible={modalVisible} animationType="slide" transparent>
+                <ModalContent />
             </Modal>
             <ImageBackground source={require("../../../assets/fundo.jpg")} resizeMode="cover" style={styles.imagem}></ImageBackground>
             <View style={styles.divizinha}>
@@ -88,9 +97,7 @@ export default function Cadastro({ navigation }) {
                 </View>
             </View>
             <View style={styles.cadastro}>
-                <TouchableOpacity style={styles.buttonzinho}
-                onPress={() => { cadastrar() }}
-                >
+                <TouchableOpacity style={styles.buttonzinho} onPress={() => { cadastrar() }}>
                     <Text style={styles.txtbutton}>Cadastrar</Text>
                 </TouchableOpacity>
             </View>

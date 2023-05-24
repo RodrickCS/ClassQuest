@@ -5,9 +5,11 @@ export default StyleSheet.create({
         backgroundColor: '#fff',
     },
     titulo: {
-        color: '#3a3',
         fontSize: '25pt',
         marginLeft: '30vw',
+        color: '#ddd',
+        paddingRight: '15px',
+        textShadow: '1px 1px 1px #000',
     },
     divizinha: {
         justifyContent: 'space-between',
@@ -43,7 +45,6 @@ export default StyleSheet.create({
         flexDirection: 'row'
     },
     label: {
-        // marginBottom: '5px',
         alignItems: 'center',
         justifyContent: 'center',
         fontSize: '10pt',
@@ -65,5 +66,45 @@ export default StyleSheet.create({
         textAlign: 'center',
         justifyContent: 'center',
         fontSize: '15pt',
+    }, 
+    modal: {
+        justifyContent: 'center', 
+        alignItems: 'center' 
+    },
+    modalTotal: {
+        marginTop:'250px',
+        justifyContent: 'center', 
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        borderRadius: 10,
+        padding: 20,
+    },
+    txtFechar: {
+        color: '#f00',
+        fontSize: '12pt',
+    },
+    txtOk: {
+        color: '#FFF',
+        fontSize: '12pt',
+    },
+    sairBotao:{
+        backgroundColor: "#ddd",
+        borderRadius: '10px',
+        padding: '10px',
+        margin: '10px',
+    },
+    okBotao:{
+        backgroundColor: "#0f0",
+        borderRadius: '10px',
+        padding: '10px',
+        margin: '10px',
+        textAlign: 'center'
+    },
+    botoes:{
+        flexDirection: 'row'
+    },
+    txtCad:{
+        color: '#FFF',
+        fontSize: '12pt',
     }
 });
