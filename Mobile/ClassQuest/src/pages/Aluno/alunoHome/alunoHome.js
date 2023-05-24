@@ -1,43 +1,64 @@
-import { View, Text, TouchableOpacity, Image, ImageBackground } from 'react-native';
+import { View, Text, Modal, TouchableOpacity, Image, ImageBackground, TextInput } from 'react-native';
 import { useState, useEffect } from 'react'
 import styles from '../alunoHome/style'
 
 export default function Aluno({ navigation }) {
 
-    const [Aluno, setCadAluno] = useState([])
+    const [Aluno, setaddAluno] = useState([])
+    const [modalVisible, setModalVisible] = useState(false);
+    const [Codigo, setCodigo] = useState("");
 
     const voltar = () => {
         navigation.navigate('Login')
 
     }
-
     const menu = () => {
         navigation.openDrawer();
     }
+    // const myInterval = setInterval(() => {
+    //     addAluno()
+    // }, 3000)
+    // useEffect(() => {
+    //     addAluno()
+    //     myInterval
+    // }, [])
 
-    useEffect(() => {
-        // cadAluno()
-        setInterval(() => {
-            // cadAluno()
-        }, 3000)
-    }, [])
-
-    const cadAluno = () => {
-        fetch('http://localhost:3000/adicionarAluno/:id_turma')
+    const addAluno = () => {
+        
+        fetch('http://localhost:3000/adicionarAluno/'+ id_turma)
             .then(res => { return res.json() })
             .then(data => {
-                setCadAluno(data)
+                setaddAluno(data)
             })
     }
+    const ModalContent = () => {
+        return (
+          <View style={styles.modalTotal}>
+            <Text style={styles.txtCad}>Digite o codigo da turma:</Text>
+            <TextInput value={Codigo} onChangeText={(val) => { setNome(val) }} style={styles.inputzinho}></TextInput>
+            <View style={styles.botoes}>
+                <TouchableOpacity style={styles.sairBotao} onPress={() => setModalVisible(false)}>
+                    <Text style={styles.txtFechar}>Fechar</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.okBotao}>
+                    <Text style={styles.txtOk} onPress={addAluno}>Ok</Text>
+                </TouchableOpacity>
+                </View>
+          </View>
+        );
+      };
 
     return (
         <View style={styles.container}>
+            <Modal visible={modalVisible} animationType="slide" transparent>
+                <ModalContent />
+            </Modal>
             <ImageBackground source={require('../../../../assets/fundo.jpg')} resizeMode="cover" style={styles.imagem}></ImageBackground>
             <View style={styles.divizinha}>
                 <TouchableOpacity style={styles.imagenzinha} onPress={() => { menu() }}>
                     <Image style={styles.image} source={require('../../../../assets/favicon.png')} />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>{setModalVisible(!modalVisible)}}>
                     <Text style={styles.txtEntrar}> Entrar em uma turma </Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => { voltar() }}>

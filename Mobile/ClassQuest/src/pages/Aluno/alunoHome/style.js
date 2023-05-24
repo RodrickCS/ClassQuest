@@ -54,5 +54,51 @@ export default StyleSheet.create({
     flexDirection: 'row',
     display: 'flex',
     flexWrap: 'wrap'
-  },
+  }, 
+  inputzinho: {
+    margin: '5px',
+    padding: '5px',
+    backgroundColor: "#eef",
+    borderRadius: '10px',
+},
+    modal: {
+        justifyContent: 'center', 
+        alignItems: 'center' 
+    },
+    modalTotal: {
+        marginTop:'250px',
+        justifyContent: 'center', 
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        borderRadius: 10,
+        padding: 20,
+    },
+    txtFechar: {
+        color: '#f00',
+        fontSize: '12pt',
+    },
+    txtOk: {
+        color: '#FFF',
+        fontSize: '12pt',
+    },
+    sairBotao:{
+        backgroundColor: "#ddd",
+        borderRadius: '10px',
+        padding: '10px',
+        margin: '10px',
+    },
+    okBotao:{
+        backgroundColor: "#0f0",
+        borderRadius: '10px',
+        padding: '10px',
+        margin: '10px',
+        textAlign: 'center'
+    },
+    botoes:{
+        flexDirection: 'row'
+    },
+    txtCad:{
+        color: '#FFF',
+        fontSize: '12pt',
+    }
 });
