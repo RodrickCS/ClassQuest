@@ -35,7 +35,7 @@ model atividades {
   prazo                 DateTime
   aberta                Int                     @default(1)
   pontos_conclusao      Int                     @default(0)
-  turma                 turmas                  @relation(fields: [id_turma], references: [id_turma])
+  turma                 turmas                  @relation(fields: [id_turma], references: [id_turma], onDelete: Cascade)
   atividades_concluidas atividades_concluidas[]
 }
 
@@ -65,7 +65,7 @@ model premios {
   id_turma          Int
   descricao         String
   pontos_requeridos Float
-  turma             turmas @relation(fields: [id_turma], references: [id_turma])
+  turma             turmas @relation(fields: [id_turma], references: [id_turma], onDelete: Cascade)
 }
 
 model pontos {
@@ -74,5 +74,5 @@ model pontos {
   id_turma Int
   qtd      Float? @default(0)
   alunos   alunos @relation(fields: [id_aluno], references: [id_aluno])
-  turma    turmas @relation(fields: [id_turma], references: [id_turma])
+  turma    turmas @relation(fields: [id_turma], references: [id_turma], onDelete: Cascade)
 }

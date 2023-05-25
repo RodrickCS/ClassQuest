@@ -170,7 +170,6 @@ const viewAtividadeConcluida = async (req, res) => {
           orderBy: {
             data_concluida: "desc"
           },
-          take: 1
         },
       },
     });

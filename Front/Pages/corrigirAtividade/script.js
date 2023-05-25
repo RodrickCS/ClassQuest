@@ -18,7 +18,6 @@ const fetchAtividadesConcluidas = () => {
     .then(resp => { return resp.json() })
     .then(data => {
       data.forEach(dado => {
-        console.log(dado);
         infoAtividade = dado.atividades_concluidas
       });
       dadosConcluidas = data
@@ -162,9 +161,6 @@ const criarBotaoAtribuirPontos = (idAluno, idTurma) => {
   buttonAtribuirPontos.classList.add("botao-info");
   buttonAtribuirPontos.textContent = "Atribuir Pontos";
 
-  console.log(idAluno);
-  console.log(idTurma);
-
   const abrirDialog = () => {
     dialog.showModal();
   };
@@ -193,30 +189,33 @@ const criarBotaoAtribuirPontos = (idAluno, idTurma) => {
     e.preventDefault();
     const quantidadePontos = input.value;
 
-    const options = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify({
-        qtd: quantidadePontos,
-      }),
-    };
+    if (e.submitter === confirmButton) {
+      const options = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          qtd: quantidadePontos,
+        }),
+      };
 
-    fetch(uriAddPoints + idAluno + "/" + idTurma, options)
-      .then(response => response.json())
-      .then(data => {
-        if (data.msg === "Pontos atribuídos") {
-          alert("Pontos atribuídos com sucesso");
-        } else {
-          alert("Erro ao atribuir pontos");
-          console.log(data);
-        }
-      })
-      .catch(error => {
-        console.error("Erro ao atribuir pontos:", error);
-      });
+      fetch(uriAddPoints + idAluno + "/" + idTurma, options)
+        .then(response => response.json())
+        .then(data => {
+          console.log(idAluno, idTurma);
+          if (data.msg === "Pontos atribuídos") {
+            alert("Pontos atribuídos com sucesso");
+          } else {
+            alert("Erro ao atribuir pontos");
+            console.log(data);
+          }
+        })
+        .catch(error => {
+          console.error("Erro ao atribuir pontos:", error);
+        });
+    }
 
     fecharDialog();
   });

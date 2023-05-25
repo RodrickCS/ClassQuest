@@ -138,6 +138,7 @@ main {
 }
 
 .botao-info {
+  width: 100px;
   padding: 8px 16px;
   background-color: #87CEEB;
   color: #000;

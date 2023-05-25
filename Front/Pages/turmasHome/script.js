@@ -6,6 +6,7 @@ const uriCompletarAtividade = "http://localhost:3000/atividades/concluir";
 const uriCompletarAtividadeNovamente = "http://localhost:3000/atividades/concluirNovamente";
 const uriEnviarArquivo = "http://localhost:3000/arquivos/enviar";
 const uriAddPoints = "http://localhost:3000/pontos/addPoints/";
+const uriExcluirTurma = "http://localhost:3000/turmas/delete/"
 var textAreaLinks = [];
 var dadosAtividade = [];
 var dadosTurma = [];
@@ -40,6 +41,7 @@ const checkUser = () => {
     if (checkIfProfessor.id_prof) {
       document.querySelector("#btExcluiAtividade").classList.remove("model");
       document.querySelector("#btCorrigirAtividade").classList.remove("model");
+      document.querySelector(".nav-item").classList.remove("model");
     } else {
       document.querySelector(".remove").classList.add("model");
       document.querySelector("#btEntregaAtividade").classList.remove("model");
@@ -318,8 +320,8 @@ const concluirAtividade = async (form) => {
   try {
     const completar = await fetch(uriCompletarAtividade, optionsCompletar);
     const response = await completar.json();
-    
-  
+
+
     if (completar.ok) {
       return response;
     } else if (completar.status === 400) {
@@ -359,19 +361,13 @@ const enviarArquivo = async (fileWithNewName) => {
     },
     body: formData,
   };
+  const arquivo = await fetch("http://localhost:3000/arquivos/enviar", optionsEnviarArquivo);
+  const arquivoResponse = await arquivo.status;
 
-  try {
-    const arquivo = await fetch("http://localhost:3000/arquivos/enviar", optionsEnviarArquivo);
-    const arquivoResponse = await arquivo.status;
-
-    if (arquivo.ok) {
-      return arquivoResponse;
-    } else {
-      console.log("Erro ao enviar arquivo:", arquivoResponse);
-      return null;
-    }
-  } catch (err) {
-    console.error("Erro ao enviar arquivo:", err);
+  if (arquivo.ok) {
+    return arquivoResponse;
+  } else {
+    console.log("Erro ao enviar arquivo:", arquivoResponse);
     return null;
   }
 };
@@ -431,28 +427,29 @@ const entregarAtividade = async () => {
   }
 };
 
-const atribuirPontos = (id) => {
-  const options = {
-    method: "POST",
-    headers: {
-      authorization: "Bearer " + localStorage.getItem("token"),
-    },
-    body: {
-      qtd: dadosAtividade.pontos_conclusao,
-    },
-  };
-
-  fetch(uriAddPoints + id, options)
-    .then((resp) => {
-      return resp.json();
-    })
-    .then((data) => {
-      console.log(data);
-    });
-};
-
 const corrigirAtividade = () => {
   window.location.href = "../corrigirAtividade/index.html";
 };
+
+
+const excluirTurma = () => {
+  if ( confirm("Tem certaza de que deseja excluir a turma?")) {
+    let id = localStorage.getItem("id_turma")
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("token"),
+      },
+    }
+    fetch(uriExcluirTurma + id, options)
+      .then(resp => { return resp.status })
+      .then(data => {
+        console.log(data);
+        if(data === 204)
+        window.location.href = "../professoresHome/index.html"
+      })
+  }
+}
 
 fetchAtividades();
