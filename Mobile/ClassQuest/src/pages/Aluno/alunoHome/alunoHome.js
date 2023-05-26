@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, Text, Modal, TouchableOpacity, Image, ImageBackground, TextInput } from 'react-native';
 import { useState, useEffect } from 'react'
 import styles from '../alunoHome/style'
@@ -7,22 +8,46 @@ export default function Aluno({ navigation }) {
     const [Aluno, setAddAluno] = useState([])
     const [modalVisible, setModalVisible] = useState(false);
     const [Codigo, setCodigo] = useState("");
-
-    const voltar = () => {
-        navigation.navigate('Login')
-
-    }
+    const [info, setInfo] = useState({ turma: [{atividades:[]}] });
+    const [myInterval, setMyInterval] = useState(null)
+  
+    useEffect(() => {
+      dados();
+      setMyInterval(setInterval(() => {
+        dados();
+      }, 5000));
+    }, []);
+  
     const menu = () => {
-        navigation.openDrawer();
+      clearInterval(myInterval);
+      navigation.openDrawer();
+    };
+  
+    const voltar = () => {
+      clearInterval(myInterval);
+      navigation.navigate("Login");
+    };
+  
+    async function dados() {
+      try {
+        const userString = await AsyncStorage.getItem("nome");
+        if (userString) {
+          const user = JSON.parse(userString);
+          const id_aluno = user.id_aluno;
+          fetch("http://localhost:3000/alunos/readOne/" + id_aluno)
+            .then((resp) => {
+              return resp.json();
+            })
+            .then((data) => {
+              setInfo(data);
+              console.log(data);
+            });
+        } 
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
-    // const myInterval = setInterval(() => {
-    //     addAluno()
-    // }, 3000)
-    // useEffect(() => {
-    //     addAluno()
-    //     myInterval
-    // }, [])
-
+ 
     const addAluno = () => {
 
         fetch('http://localhost:3000/adicionarAluno/'+ id_turma)
@@ -75,7 +100,7 @@ export default function Aluno({ navigation }) {
             </View>
             <View style={styles.turmas}>
                 <View style={styles.turma}>
-                    <TouchableOpacity style={styles.divImage2} onPress={texto()}>
+                    <TouchableOpacity style={styles.divImage2} onPress={texto}>
                         <Image style={styles.image2} source={require('../../../../assets/pontinhos.png')} />
                     </TouchableOpacity>
                     <Image style={styles.image} source={require('../../../../assets/favicon.png')} />

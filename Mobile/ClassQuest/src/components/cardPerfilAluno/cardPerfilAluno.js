@@ -1,31 +1,45 @@
-import { Text, Image, TouchableOpacity } from 'react-native';
-import { useState } from 'react';
+import { Text, Image, TouchableOpacity, View } from "react-native";
+import { useState } from "react";
+import styles from "./style";
 
-const Drawer = createDrawerNavigator();
+const CardPerfilAluno = ({ item }) => {
+  const [setinhaCima, setSetinhaCima] = useState(0);
+  const [showModal, setShowModal] = useState(false)
 
-import Perfil from '../../pages/Aluno/perfilAluno/perfilAluno';
-import Aluno from '../../pages/Aluno/alunoHome/alunoHome';
+  const images = [
+    require("../../../assets/setaBaixo.png"),
+    require("../../../assets/setaCima.png")
+  ];
 
-export default function Menu({ navigation }) {
-    
-    const [setinhaCima, setSetinhaCima] = useState(0);
+  function opcoes() {
+    setSetinhaCima((prevImage) => (prevImage + 1) % images.length);
+    setShowModal(!showModal)
+  }
 
-    const images = [
-        require('../../../../assets/setaBaixo.png'),
-        require('../../../../assets/setaCima.png'),
-    ];
-
-    const cardPerfilAluno = () => {
-
-    return (
-        <View >
-        <TouchableOpacity style={styles.turma} onPress={() => { setSetinhaCima((prevImage) => (prevImage + 1) % images.length)}}>
-            <Image style={styles.image} source={require('../../../../assets/favicon.png')} />
-            <Text style={styles.titulo}>{dado.nome}</Text>
-            <Text style={styles.titulo}> - {dado.id_turma}</Text>
-            <Image source={images[setinhaCima]} style={styles.image2} />
-        </TouchableOpacity>
+  return (
+    <View style={{marginBottom: '10px', backgroundColor: '#ddd', borderRadius: '10px'}}>
+      <TouchableOpacity style={styles.turma} onPress={opcoes}>
+        <Image
+          style={styles.image}
+          source={require("../../../assets/favicon.png")}
+        />
+        <Text>{item.nome}</Text>
+        <Image source={images[setinhaCima]} style={styles.image2} />
+      </TouchableOpacity>
+      <View style={{...styles.divTxtAtt, display: showModal ? 'flex' : 'none'}}>
+        {item.atividades.map((a, index) => {
+          return (
+            <View style={styles.txtAtt} key={index}>
+              <Text>Nome: {a.titulo}</Text>
+              <Text>Descrição: {a.descricao}</Text>
+              <Text>Pontos de conclusão: {a.pontos_conclusao} pontos</Text>
+              <Text>Prazo: { a.prazo.toLocaleString("pt-BR", { timeZone: "UTC" }).split("T")[0]}</Text>
+            </View>
+          );
+        })}
+      </View>
     </View>
-    )
-    }
-}
+  );
+};
+
+export default CardPerfilAluno;
