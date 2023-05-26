@@ -1,74 +1,34 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-  container: {
-    // alignItems: 'center',
-  },
-  imagem: {
-    flex: 2,
-    width: 390,
-    height: 900,
-  },
   image: {
-    width: '49px',
-    height: '50px',
-    margin: '5px',
-    marginEnd: '10px'
+    width: "49px",
+    height: "50px",
+    margin: "5px",
+    marginEnd: "10px"
   },
   image2: {
-    width: '10px',
-    height: '10px',
-    margin: '5px',
-    position: 'absolute',
-    right: 0,
+    width: "10px",
+    height: "10px",
+    margin: "5px",
+    position: "absolute",
+    right: 0
   },
-  divizinha: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-    backgroundColor: '#6fddeb',
-    margin: '10px',
-    borderRadius: '10px'
+  txtAtt: {
+    padding: "5px",
+    border: "1px solid",
+    borderRadius: '10px',
+    margin: "5px",
   },
-  txtEntrar: {
-    color: '#ddd',
-    fontSize: '15pt',
-    paddingRight: '15px',
-    textShadow: '1px 1px 1px #000',
-  },
-  txtSair: {
-    color: '#f00',
-    fontSize: '12pt',
-    padding: '15px',
-    textShadow: '1px 1px 1px #000',
-  },
-  dados: {
-    // backgroundColor: '#6fddeb',
-    margin: '10px',
+  divTxtAtt: {
+    alignItems: "left",
+    position: 'relative',
   },
   turma: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-beteween',
-    margin: '5px',
-    backgroundColor: '#fff',
-    borderRadius: '10px',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-beteween",
+    backgroundColor: "#fff",
+    borderRadius: "10px"
   },
-  coisinhas: {
-    flexDirection: 'row',
-  },
-  botaozinho: {
-    backgroundColor: "#0f0",
-    borderRadius: '10px',
-    padding: '10px',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  txtbutton: {
-    color: "#fff",
-    fontWeight: 'bold',
-    textAlign: 'center',
-    justifyContent: 'center',
-    fontSize: '15pt',
-  }
 });

@@ -1,95 +1,118 @@
-import { View, Text, Modal, TouchableOpacity, Image, ImageBackground, TextInput, Alert } from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from 'react'
+import { View, Text, Modal, TouchableOpacity, Image, ImageBackground, TextInput } from 'react-native';
 import styles from '../alunoHome/style'
 
 export default function Aluno({ navigation }) {
 
     const [modalVisible, setModalVisible] = useState(false);
     // const [VisibleTurma, setVisibleTurma] = useState(true);
-    const [Codigo, setCodigo] = useState("");
+    const [Codigo, setCodigo] = useState(""); 
     const [SairTurma, setSairTurma] = useState("");
 
     const uriCheckTurma = "http://localhost:3000/turmas/checkTurma";
     const uriAddAluno = "http://localhost:3000/turmas/adicionarAluno/";
 
     const entrarTurma = () => {
-        checkUser();
-
-        let form = {
+        if (checkUser()) {
+          let form = {
             codigo: Codigo,
-        };
-
-        const options = {
+          };
+      
+          const options = {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
-                authorization: "Bearer " + localStorage.getItem("token"),
+              "Content-Type": "application/json",
+              authorization: "Bearer " + AsyncStorage.getItem("token"),
             },
             body: JSON.stringify(form),
-        };
-
-        fetch(uriCheckTurma, options)
+          };
+      
+          fetch(uriCheckTurma, options)
             .then((resp) => {
-                return resp.json();
+              return resp.json();
             })
             .then((data) => {
-                if (data.length === 1) {
-                    adicionarAluno(data[0].id_turma, aluno.id_aluno);
-                    // window.location.reload();
-                } else {
-                    Alert.alert("Hove um erro tentando entrar na turma");
-                }
+              if (data.length === 1) {
+                adicionarAluno(data[0].id_turma, aluno.id_aluno);
+                // window.location.reload();
+              } else {
+                Alert.alert("Houve um erro tentando entrar na turma");
+              }
             });
-    };
+        }
+      };      
 
     const checkUser = () => {
-        if (localStorage.getItem("token") !== null) {
-            const tokenJWT = localStorage.getItem("token");
-            const info = localStorage.getItem("info_user_login");
-
-            let nome = JSON.parse(info).nome;
-
-            document.querySelector(".nomeAluno").innerHTML = nome;
-
-            try {
-                const payload = JSON.parse(
-                    atob(encodeURIComponent(tokenJWT).split(".")[1])
-                );
-                console.log(payload);
-                const expiracao = payload.exp;
-                const agora = Math.floor(Date.now() / 1000);
-
-                if (agora >= expiracao) {
-                    // logout();
-                    return false;
-                }
-
-                return true;
-            } catch (err) {
-                // logout();
-                return false;
+        if (token !== null) { // Supondo que a variável 'token' esteja definida corretamente
+          const tokenJWT = token;
+          const info = AsyncStorage.getItem("nome"); // Usando AsyncStorage em vez de localStorage
+      
+          let nome = JSON.parse(info).nome;
+      
+          try {
+            const payload = JSON.parse(
+              atob(encodeURIComponent(tokenJWT).split(".")[1])
+            );
+            console.log(payload);
+            const expiracao = payload.exp;
+            const agora = Math.floor(Date.now() / 1000);
+      
+            if (agora >= expiracao) {
+              // logout();
+              return false;
             }
-        } else {
-            // window.location.href = "../login/index.html";
+      
+            return true;
+          } catch (err) {
+            // logout();
+            return false;
+          }
         }
+      };
+      
+    const [info, setInfo] = useState({ turma: [] });
+    const [myInterval, setMyInterval] = useState(null)
+    const [id_turma, setId_turma] = useState()
+
+    useEffect(() => {
+        dados();
+        setMyInterval(setInterval(() => {
+            dados();
+        }, 5000));
+    }, []);
+
+
+    const menu = () => {
+        clearInterval(myInterval);
+        navigation.openDrawer();
     };
 
-    // const [Aluno, setAddAluno] = useState([])
-
     const voltar = () => {
-        navigation.navigate('Login')
+        clearInterval(myInterval);
+        navigation.navigate("Login");
+    };
 
+    async function dados() {
+        try {
+            const userString = await AsyncStorage.getItem("nome");
+            if (userString) {
+                const user = JSON.parse(userString);
+                const id_aluno = user.id_aluno;
+                fetch("http://localhost:3000/alunos/readOne/" + id_aluno)
+                    .then((resp) => {
+                        return resp.json();
+                    })
+                    .then((data) => {
+                        setInfo(data);
+                        // setId_turma(data.turma[0].id_turma);
+                        console.log();
+                    });
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
     }
-    const menu = () => {
-        navigation.openDrawer();
-    }
-    // const myInterval = setInterval(() => {
-    //     addAluno()
-    // }, 3000)
-    // useEffect(() => {
-    //     addAluno()
-    //     myInterval
-    // }, [])
 
     const addAluno = () => {
 
