@@ -7,22 +7,46 @@ export default function Aluno({ navigation }) {
     const [Aluno, setAddAluno] = useState([])
     const [modalVisible, setModalVisible] = useState(false);
     const [Codigo, setCodigo] = useState("");
-
-    const voltar = () => {
-        navigation.navigate('Login')
-
-    }
+    const [info, setInfo] = useState({ turma: [{atividades:[]}] });
+    const [myInterval, setMyInterval] = useState(null)
+  
+    useEffect(() => {
+      dados();
+      setMyInterval(setInterval(() => {
+        dados();
+      }, 5000));
+    }, []);
+  
     const menu = () => {
-        navigation.openDrawer();
+      clearInterval(myInterval);
+      navigation.openDrawer();
+    };
+  
+    const voltar = () => {
+      clearInterval(myInterval);
+      navigation.navigate("Login");
+    };
+  
+    async function dados() {
+      try {
+        const userString = await AsyncStorage.getItem("nome");
+        if (userString) {
+          const user = JSON.parse(userString);
+          const id_aluno = user.id_aluno;
+          fetch("http://localhost:3000/alunos/readOne/" + id_aluno)
+            .then((resp) => {
+              return resp.json();
+            })
+            .then((data) => {
+              setInfo(data);
+              console.log(data);
+            });
+        } 
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
-    // const myInterval = setInterval(() => {
-    //     addAluno()
-    // }, 3000)
-    // useEffect(() => {
-    //     addAluno()
-    //     myInterval
-    // }, [])
-
+ 
     const addAluno = () => {
 
         fetch('http://localhost:3000/adicionarAluno/'+ id_turma)

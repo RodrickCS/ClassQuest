@@ -12,14 +12,10 @@ export default function Menu({ navigation }) {
     var user = JSON.parse(localStorage.getItem('nome'))
 
     return (
-        <Drawer.Navigator screenOptions={{ headerShown: false }} 
-        initialRouteName='Home'
-        >
+        <Drawer.Navigator screenOptions={{ headerShown: false }} initialRouteName='Home'>
             <Drawer.Screen name="Perfil" component={Perfil}
                 options={{
-                    drawerLabel: (() => <Text> Olá, 
-                        {/* {user.nome} */}
-                        </Text>),
+                    drawerLabel: (() => <Text> Olá, {user.nome}</Text>),
                 }}>
             </Drawer.Screen>
             <Drawer.Screen name="Home" component={Aluno}
