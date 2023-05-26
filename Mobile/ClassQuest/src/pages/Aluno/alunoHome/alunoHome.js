@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, Text, Modal, TouchableOpacity, Image, ImageBackground, TextInput } from 'react-native';
 import { useState, useEffect } from 'react'
 import styles from '../alunoHome/style'
@@ -99,7 +100,7 @@ export default function Aluno({ navigation }) {
             </View>
             <View style={styles.turmas}>
                 <View style={styles.turma}>
-                    <TouchableOpacity style={styles.divImage2} onPress={texto()}>
+                    <TouchableOpacity style={styles.divImage2} onPress={texto}>
                         <Image style={styles.image2} source={require('../../../../assets/pontinhos.png')} />
                     </TouchableOpacity>
                     <Image style={styles.image} source={require('../../../../assets/favicon.png')} />
