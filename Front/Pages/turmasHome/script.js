@@ -41,7 +41,7 @@ const checkUser = () => {
     if (checkIfProfessor.id_prof) {
       document.querySelector("#btExcluiAtividade").classList.remove("model");
       document.querySelector("#btCorrigirAtividade").classList.remove("model");
-      document.querySelector(".nav-item").classList.remove("model");
+      document.querySelector(".hideBtExcluir").classList.remove("model");
     } else {
       document.querySelector(".remove").classList.add("model");
       document.querySelector("#btEntregaAtividade").classList.remove("model");
