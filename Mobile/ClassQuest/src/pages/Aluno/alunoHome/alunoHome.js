@@ -8,8 +8,9 @@ export default function Aluno({ navigation }) {
     const [Aluno, setAddAluno] = useState([])
     const [modalVisible, setModalVisible] = useState(false);
     const [Codigo, setCodigo] = useState("");
-    const [info, setInfo] = useState({ turma: [{atividades:[]}] });
+    const [info, setInfo] = useState({ turma: [] });
     const [myInterval, setMyInterval] = useState(null)
+    const [id_turma, setId_turma] = useState()
   
     useEffect(() => {
       dados();
@@ -40,7 +41,8 @@ export default function Aluno({ navigation }) {
             })
             .then((data) => {
               setInfo(data);
-              console.log(data);
+              // setId_turma(data.turma[0].id_turma);
+              console.log();
             });
         } 
       } catch (error) {
