@@ -1,14 +1,22 @@
 import { View, Text, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { useState, useEffect } from "react";
 import styles from './style'
-// import cardPerfilAluno from '../../../components/cardPerfilAluno/cardPerfilAluno'
+import CardPerfilAluno from '../../../components/cardPerfilAluno/cardPerfilAluno'
 
 export default function PerfilAluno({ navigation }) {
 
     const [caixa, setCaixa] = useState('');
     const [info, setInfo] = useState({ "turma": [] })
     var dadinhos = info.turma
-    
+    var user = JSON.parse(localStorage.getItem('nome'))
+    var id_aluno = (user.id_aluno)
+    // const [setinhaCima, setSetinhaCima] = useState(0);
+
+    // const images = [
+    //     require('../../../assets/setaBaixo.png'),
+    //     require('../../../assets/setaCima.png'),
+    // ];
+
     const myInterval = setInterval(() => {
         dados()
     }, 50000)
@@ -17,6 +25,17 @@ export default function PerfilAluno({ navigation }) {
         dados()
         myInterval
     }, []);
+
+    function dados() {
+        fetch('http:localhost:3000/alunos/readOne/' + 1)
+            .then((resp) => {
+                return resp.json();
+            })
+            .then((data) => {
+                setInfo(data);
+                console.log(data);
+            })
+    }
 
     // const switchImage = () => {
     //     setSetinhaCima((prevImage) => (prevImage + 1) % images.length)
@@ -31,20 +50,6 @@ export default function PerfilAluno({ navigation }) {
         clearInterval(myInterval)
     }
 
-    var user = JSON.parse(localStorage.getItem('nome'))
-    var id_aluno = (user.id_aluno)
-
-    function dados() {
-        fetch('http://localhost:3000/alunos/readOne/' + id_aluno)
-            .then((resp) => {
-                return resp.json();
-            })
-            .then((data) => {
-                setInfo(data);
-                console.log(data);
-            })
-    }
-
     return (
         <View>
             <ImageBackground source={require('../../../../assets/fundo.jpg')} resizeMode="cover" style={styles.imagem}></ImageBackground>
@@ -57,9 +62,12 @@ export default function PerfilAluno({ navigation }) {
             </View>
             <View style={styles.dados}>
                 {
-                    dadinhos.map((dado, index) => {
+                    dadinhos.map((item, index) => {
                         return (
-                           <cardPerfilAluno key={index} />
+                            <View key={index}>
+                                <CardPerfilAluno item={item} />
+                            </View>
+
                         )
                     })
                 }

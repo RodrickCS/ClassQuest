@@ -1,9 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  container: {
-    // alignItems: 'center',
-  },
+  container: {},
   imagem: {
     flex: 2,
     width: 390,
@@ -16,7 +14,7 @@ export default StyleSheet.create({
   image2: {
     width: '15px',
     height: '15px',
-    margin: '5px'
+    margin: '5px',
   },
   divImage2:{
     position: 'absolute',
@@ -49,6 +47,7 @@ export default StyleSheet.create({
     padding: '24px',
     borderRadius: '10px',
     margin: '10px',
+    position: 'relative'
   },
   turmas:{
     flexDirection: 'row',
@@ -100,5 +99,14 @@ export default StyleSheet.create({
     txtCad:{
         color: '#FFF',
         fontSize: '12pt',
-    }
+    }, 
+    txtSairTurma: {
+      color: '#f00',
+      // fontSize: '12pt',
+      // padding: '15px',
+      position: 'absolute',
+      backgroundColor: '#fff',
+      // display: 'inline',
+      marginStart: "20px",
+    },
 });

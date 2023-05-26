@@ -1,31 +1,45 @@
-import { Text, Image, TouchableOpacity } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from "react";
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+// import React, { Component } from 'react';
+import styles from './style'
 
-const Drawer = createDrawerNavigator();
+// class CardPerfilAluno extends Component {
 
-import Perfil from '../../pages/Aluno/perfilAluno/perfilAluno';
-import Aluno from '../../pages/Aluno/alunoHome/alunoHome';
-
-export default function Menu({ navigation }) {
-    
+const CardPerfilAluno = ({ item }) => {
     const [setinhaCima, setSetinhaCima] = useState(0);
 
     const images = [
-        require('../../../../assets/setaBaixo.png'),
-        require('../../../../assets/setaCima.png'),
+        require('../../../assets/setaBaixo.png'),
+        require('../../../assets/setaCima.png'),
     ];
 
-    const cardPerfilAluno = () => {
+    const switchImage = () => {
+        setSetinhaCima((prevImage) => (prevImage + 1) % images.length)
+    };
 
     return (
-        <View >
-        <TouchableOpacity style={styles.turma} onPress={() => { setSetinhaCima((prevImage) => (prevImage + 1) % images.length)}}>
-            <Image style={styles.image} source={require('../../../../assets/favicon.png')} />
-            <Text style={styles.titulo}>{dado.nome}</Text>
-            <Text style={styles.titulo}> - {dado.id_turma}</Text>
-            <Image source={images[setinhaCima]} style={styles.image2} />
-        </TouchableOpacity>
-    </View>
+        <View>
+            <TouchableOpacity style={styles.turma} onPress={switchImage}>
+                <Image style={styles.image} source={require('../../../assets/favicon.png')} />
+                <Text style={styles.titulo}>{item.nome}</Text>
+                <Image source={images[setinhaCima]} style={styles.image2} />
+            </TouchableOpacity>
+        </View>
     )
-    }
 }
+
+export default CardPerfilAluno;
+
+
+
+// render() {
+//     return (
+//         <View>
+//             <TouchableOpacity style={styles.turma} onPress={switchImage}>
+//                 <Image style={styles.image} source={require('../../../assets/favicon.png')} />
+//                 <Text style={styles.titulo}>{dado.nome}</Text>
+//                 <Image source={images[setinhaCima]} style={styles.image2} />
+//             </TouchableOpacity>
+//         </View>
+//     )
+// }
