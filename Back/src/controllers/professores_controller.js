@@ -1,27 +1,27 @@
-const { PrismaClient } = require("@prisma/client");
-const jwt = require("jsonwebtoken");
-const prisma = new PrismaClient();
+const { PrismaClient } = require("@prisma/client")
+const jwt = require("jsonwebtoken")
+const prisma = new PrismaClient()
 
-require("dotenv").config();
+require("dotenv").config()
 
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt")
 
 async function hashSenha(senha) {
-  const saltRounds = 14;
-  const salt = await bcrypt.genSalt(saltRounds);
-  const senhaCriptografada = await bcrypt.hash(senha, salt);
-  return senhaCriptografada;
+  const saltRounds = 14
+  const salt = await bcrypt.genSalt(saltRounds)
+  const senhaCriptografada = await bcrypt.hash(senha, salt)
+  return senhaCriptografada
 }
 
 const read = async (req, res) => {
   try {
-    let professor = await prisma.professores.findMany();
-    res.status(200).json(professor).end();
+    let professor = await prisma.professores.findMany()
+    res.status(200).json(professor).end()
   } catch (err) {
-    res.status(500).json(err).end();
-    console.log(err);
+    res.status(500).json(err).end()
+    console.log(err)
   }
-};
+}
 
 const readOne = async (req, res) => {
   try {
@@ -36,15 +36,15 @@ const readOne = async (req, res) => {
         nivel_de_acesso: true,
         turma: true,
       },
-    });
-    res.status(200).json(professor).end();
+    })
+    res.status(200).json(professor).end()
   } catch (err) {
-    res.status(500).json(err).end();
+    res.status(500).json(err).end()
   }
-};
+}
 
 const create = async (req, res) => {
-  const senhaCrypt = await hashSenha(req.body.senha);
+  const senhaCrypt = await hashSenha(req.body.senha)
   try {
     let professor = await prisma.professores.create({
       data: {
@@ -52,28 +52,28 @@ const create = async (req, res) => {
         email: req.body.email,
         senha: senhaCrypt,
       },
-    });
+    })
 
-    res.status(201).json({ msg: "professor cadastrado com sucesso" });
+    res.status(201).json({ msg: "professor cadastrado com sucesso" })
   } catch (err) {
-    res.status(500).json(err).end();
-    console.log(err);
+    res.status(500).json(err).end()
+    console.log(err)
   }
-};
+}
 
 const login = async (req, res) => {
   const professor = await prisma.professores.findUnique({
     where: {
       email: req.body.email,
     },
-  });
+  })
   if (!professor) {
-    return res.status(404).json({ msg: "Professor não encontrado" }).end();
+    return res.status(404).json({ msg: "Professor não encontrado" }).end()
   }
-  const checkPswd = await bcrypt.compare(req.body.senha, professor.senha);
+  const checkPswd = await bcrypt.compare(req.body.senha, professor.senha)
 
   if (!checkPswd) {
-    res.status(401).json({ msg: "Senha incorreta" }).end();
+    res.status(401).json({ msg: "Senha incorreta" }).end()
   } else {
     jwt.sign(
       { ...professor },
@@ -81,8 +81,8 @@ const login = async (req, res) => {
       { expiresIn: "5h" },
       function (err, token) {
         if (err == null) {
-          professor["token"] = token;
-          delete professor.senha;
+          professor["token"] = token
+          delete professor.senha
           res
             .status(200)
             .json({
@@ -90,15 +90,15 @@ const login = async (req, res) => {
               info: { id_prof: professor.id_prof, nome: professor.nome },
               token: token,
             })
-            .end();
+            .end()
         } else {
-          res.status(500).json(err).end();
-          console.log(err);
+          res.status(500).json(err).end()
+          console.log(err)
         }
       }
-    );
+    )
   }
-};
+}
 
 const excluir = async (req, res) => {
   try {
@@ -106,18 +106,18 @@ const excluir = async (req, res) => {
       where: {
         id_prof: Number(req.params.id_prof),
       },
-    });
-    res.status(204).json(professor).end();
+    })
+    res.status(204).json(professor).end()
   } catch (err) {
-    res.status(500).json(err).end();
-    console.log(err);
+    res.status(500).json(err).end()
+    console.log(err)
   }
-};
+}
 
 const update = async (req, res) => {
   if (req.body.senha) {
-    const senhaCrypt = await hashSenha(req.body.senha);
-    req.body.senha = senhaCrypt;
+    const senhaCrypt = await hashSenha(req.body.senha)
+    req.body.senha = senhaCrypt
   }
   try {
     let professor = await prisma.professores.update({
@@ -125,12 +125,12 @@ const update = async (req, res) => {
         id_prof: Number(req.params.id_prof),
       },
       data: req.body,
-    });
-    res.status(200).json(professor).end();
+    })
+    res.status(200).json(professor).end()
   } catch (err) {
-    res.status(500).json(err).end();
+    res.status(500).json(err).end()
   }
-};
+}
 
 module.exports = {
   read,
@@ -139,4 +139,4 @@ module.exports = {
   login,
   excluir,
   update,
-};
+}

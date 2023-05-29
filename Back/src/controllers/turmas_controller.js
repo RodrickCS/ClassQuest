@@ -1,15 +1,15 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const { PrismaClient } = require("@prisma/client")
+const prisma = new PrismaClient()
 
 const read = async (req, res) => {
   try {
-    let turma = await prisma.turmas.findMany();
-    res.status(200).json(turma).end();
+    let turma = await prisma.turmas.findMany()
+    res.status(200).json(turma).end()
   } catch (err) {
-    res.status(500).json(err).end();
-    console.error(err);
+    res.status(500).json(err).end()
+    console.error(err)
   }
-};
+}
 
 const readOne = async (req, res) => {
   try {
@@ -38,12 +38,12 @@ const readOne = async (req, res) => {
         },
         premios: true,
       },
-    });
-    res.status(200).json(turma).end();
+    })
+    res.status(200).json(turma).end()
   } catch (err) {
-    res.status(500).json(err).end();
+    res.status(500).json(err).end()
   }
-};
+}
 
 const readAluno = async (req, res) => {
   try {
@@ -60,13 +60,13 @@ const readAluno = async (req, res) => {
           },
         },
       },
-    });
-    res.status(200).json(turma).end();
+    })
+    res.status(200).json(turma).end()
   } catch (err) {
-    res.status(500).json(err).end();
-    console.error(err);
+    res.status(500).json(err).end()
+    console.error(err)
   }
-};
+}
 
 const readProf = async (req, res) => {
   try {
@@ -83,13 +83,13 @@ const readProf = async (req, res) => {
           },
         },
       },
-    });
-    res.status(200).json(turma).end();
+    })
+    res.status(200).json(turma).end()
   } catch (err) {
-    res.status(500).json(err).end();
-    console.error(err);
+    res.status(500).json(err).end()
+    console.error(err)
   }
-};
+}
 
 const readAtividades = async (req, res) => {
   try {
@@ -107,13 +107,13 @@ const readAtividades = async (req, res) => {
           },
         },
       },
-    });
-    res.status(200).json(turma).end();
+    })
+    res.status(200).json(turma).end()
   } catch (err) {
-    res.status(500).json(err).end();
-    console.error(err);
+    res.status(500).json(err).end()
+    console.error(err)
   }
-};
+}
 
 const readPremios = async (req, res) => {
   try {
@@ -130,13 +130,13 @@ const readPremios = async (req, res) => {
           },
         },
       },
-    });
-    res.status(200).json(turma).end();
+    })
+    res.status(200).json(turma).end()
   } catch (err) {
-    res.status(500).json(err).end();
-    console.error(err);
+    res.status(500).json(err).end()
+    console.error(err)
   }
-};
+}
 
 const readPontos = async (req, res) => {
   try {
@@ -154,23 +154,23 @@ const readPontos = async (req, res) => {
           },
         },
       },
-    });
-    res.status(200).json(turma).end();
+    })
+    res.status(200).json(turma).end()
   } catch (err) {
-    res.status(500).json(err).end();
-    console.error(err);
+    res.status(500).json(err).end()
+    console.error(err)
   }
-};
+}
 
 const generateRandomString = () => {
-  const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
-  let randomString = "";
+  const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789"
+  let randomString = ""
   for (let i = 0; i < 5; i++) {
-    const randomIndex = Math.floor(Math.random() * alphabet.length);
-    randomString += alphabet[randomIndex];
+    const randomIndex = Math.floor(Math.random() * alphabet.length)
+    randomString += alphabet[randomIndex]
   }
-  return randomString;
-};
+  return randomString
+}
 
 const create = async (req, res) => {
   try {
@@ -179,14 +179,14 @@ const create = async (req, res) => {
         nome: req.body.nome,
         codigo: generateRandomString(),
       },
-    }); 
+    }) 
     
-    res.status(201).json(turma).end();
+    res.status(201).json(turma).end()
   } catch (err) {
-    res.status(500).json(err).end();
-    console.log(err);
+    res.status(500).json(err).end()
+    console.log(err)
   }
-};
+}
 
 const adicionarAluno = async (req, res) => {
   try {
@@ -201,21 +201,21 @@ const adicionarAluno = async (req, res) => {
           },
         },
       },
-    });
+    })
 
     let pontos = await prisma.pontos.create({
       data: {
         id_aluno: req.body.id_aluno,
         id_turma: Number(req.params.id_turma),
       },
-    });
+    })
 
-    res.status(200).json(pontos).end();
+    res.status(200).json(pontos).end()
   } catch (err) {
-    res.status(500).json(err).end();
-    console.log(err);
+    res.status(500).json(err).end()
+    console.log(err)
   }
-};
+}
 
 const adicionarProfessor = async (req, res) => {
   try {
@@ -230,13 +230,13 @@ const adicionarProfessor = async (req, res) => {
           },
         },
       },
-    });
-    res.status(200).json(turma).end();
+    })
+    res.status(200).json(turma).end()
   } catch (err) {
-    res.status(500).json(err).end();
-    console.log(err);
+    res.status(500).json(err).end()
+    console.log(err)
   }
-};
+}
 
 const update = async (req, res) => {
   try {
@@ -245,12 +245,12 @@ const update = async (req, res) => {
         id_turma: Number(req.params.id_turma),
       },
       data: req.body,
-    });
-    res.status(200).json(turma).end();
+    })
+    res.status(200).json(turma).end()
   } catch (err) {
-    res.status(500).json(err).end();
+    res.status(500).json(err).end()
   }
-};
+}
 
 const excluir = async (req, res) => {
   try {
@@ -258,23 +258,23 @@ const excluir = async (req, res) => {
       where: {
         id_turma: Number(req.params.id_turma),
       },
-    });
-    res.status(204).json(turma).end();
+    })
+    res.status(204).json(turma).end()
   } catch (err) {
-    res.status(500).json(err).end();
-    console.log(err);
+    res.status(500).json(err).end()
+    console.log(err)
   }
-};
+}
 
 const checkTurma = async (req, res) => {
   try {
     let turma =
-      await prisma.$queryRaw`SELECT * FROM turmas WHERE codigo = ${req.body.codigo}`;
-    res.status(200).json(turma).end();
+      await prisma.$queryRaw`SELECT * FROM turmas WHERE codigo = ${req.body.codigo}`
+    res.status(200).json(turma).end()
   } catch (err) {
-    res.status(500).json(err).end();
+    res.status(500).json(err).end()
   }
-};
+}
 
 module.exports = {
   readAluno,
@@ -290,4 +290,4 @@ module.exports = {
   readPremios,
   readPontos,
   checkTurma,
-};
+}

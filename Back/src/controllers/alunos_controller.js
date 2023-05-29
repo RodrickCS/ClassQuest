@@ -1,16 +1,16 @@
-const { PrismaClient } = require("@prisma/client");
-const jwt = require("jsonwebtoken");
-const prisma = new PrismaClient();
+const { PrismaClient } = require("@prisma/client")
+const jwt = require("jsonwebtoken")
+const prisma = new PrismaClient()
 
-require("dotenv").config();
+require("dotenv").config()
 
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt")
 
 async function hashSenha(senha) {
-  const saltRounds = 14;
-  const salt = await bcrypt.genSalt(saltRounds);
-  const senhaCriptografada = await bcrypt.hash(senha, salt);
-  return senhaCriptografada;
+  const saltRounds = 14
+  const salt = await bcrypt.genSalt(saltRounds)
+  const senhaCriptografada = await bcrypt.hash(senha, salt)
+  return senhaCriptografada
 }
 
 const read = async (req, res) => {
@@ -23,13 +23,13 @@ const read = async (req, res) => {
         nivel_de_acesso: true,
         pontos: true,
       },
-    });
-    res.status(200).json(aluno).end();
+    })
+    res.status(200).json(aluno).end()
   } catch (err) {
-    res.status(500).json(err).end();
-    console.log(err);
+    res.status(500).json(err).end()
+    console.log(err)
   }
-};
+}
 
 const readOne = async (req, res) => {
   try {
@@ -51,16 +51,16 @@ const readOne = async (req, res) => {
           },
         },
       },
-    });
-    res.status(200).json(aluno).end();
+    })
+    res.status(200).json(aluno).end()
   } catch (err) {
-    res.status(500).json(err).end();
-    console.log(err);
+    res.status(500).json(err).end()
+    console.log(err)
   }
-};
+}
 
 const create = async (req, res) => {
-  const senhaCrypt = await hashSenha(req.body.senha);
+  const senhaCrypt = await hashSenha(req.body.senha)
   try {
     let aluno = await prisma.alunos.create({
       data: {
@@ -68,28 +68,28 @@ const create = async (req, res) => {
         email: req.body.email,
         senha: senhaCrypt,
       },
-    });
+    })
 
-    res.status(201).json({ msg: "Aluno cadastrado com sucesso" });
+    res.status(201).json({ msg: "Aluno cadastrado com sucesso" })
   } catch (err) {
-    res.status(500).json(err).end();
-    console.log(err);
+    res.status(500).json(err).end()
+    console.log(err)
   }
-};
+}
 
 const login = async (req, res) => {
   const aluno = await prisma.alunos.findUnique({
     where: {
       email: req.body.email,
     },
-  });
+  })
   if (!aluno) {
-    return res.status(404).json({ msg: "Aluno não encontrado" }).end();
+    return res.status(404).json({ msg: "Aluno não encontrado" }).end()
   }
-  const checkPswd = await bcrypt.compare(req.body.senha, aluno.senha);
+  const checkPswd = await bcrypt.compare(req.body.senha, aluno.senha)
 
   if (!checkPswd) {
-    res.status(401).json({ msg: "Senha incorreta" }).end();
+    res.status(401).json({ msg: "Senha incorreta" }).end()
   } else {
     jwt.sign(
       { ...aluno },
@@ -97,8 +97,8 @@ const login = async (req, res) => {
       { expiresIn: "3h" },
       function (err, token) {
         if (err == null) {
-          aluno["token"] = token;
-          delete aluno.senha;
+          aluno["token"] = token
+          delete aluno.senha
           res
             .status(200)
             .json({
@@ -110,15 +110,15 @@ const login = async (req, res) => {
               },
               token: token,
             })
-            .end();
+            .end()
         } else {
-          res.status(500).json(err).end();
-          console.log(err);
+          res.status(500).json(err).end()
+          console.log(err)
         }
       }
-    );
+    )
   }
-};
+}
 
 const excluir = async (req, res) => {
   try {
@@ -126,13 +126,13 @@ const excluir = async (req, res) => {
       where: {
         id_aluno: Number(req.params.id_aluno),
       },
-    });
-    res.status(204).json(aluno).end();
+    })
+    res.status(204).json(aluno).end()
   } catch (err) {
-    res.status(500).json(err).end();
-    console.log(err);
+    res.status(500).json(err).end()
+    console.log(err)
   }
-};
+}
 
 const update = async (req, res) => {
   try {
@@ -141,13 +141,13 @@ const update = async (req, res) => {
         id_aluno: Number(req.params.id_aluno),
       },
       data: req.body,
-    });
-    res.status(200).json(aluno).end();
+    })
+    res.status(200).json(aluno).end()
   } catch (err) {
-    res.status(500).json(err).end();
-    console.log(err);
+    res.status(500).json(err).end()
+    console.log(err)
   }
-};
+}
 
 module.exports = {
   read,
@@ -156,4 +156,4 @@ module.exports = {
   login,
   excluir,
   update,
-};
+}

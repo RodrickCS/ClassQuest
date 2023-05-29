@@ -1,110 +1,121 @@
-const uriGetTurma = "http://localhost:3000/turmas/readOne/";
-const uriCreateAtividade = "http://localhost:3000/atividades/create";
-const uriReadOneAtividade = "http://localhost:3000/atividades/readOne/";
-const uriExcluirAtividade = "http://localhost:3000/atividades/excluir/";
-const uriCompletarAtividade = "http://localhost:3000/atividades/concluir";
-const uriCompletarAtividadeNovamente = "http://localhost:3000/atividades/concluirNovamente";
-const uriEnviarArquivo = "http://localhost:3000/arquivos/enviar";
-const uriAddPoints = "http://localhost:3000/pontos/addPoints/";
+const uriGetTurma = "http://localhost:3000/turmas/readOne/"
+const uriCreateAtividade = "http://localhost:3000/atividades/create"
+const uriReadOneAtividade = "http://localhost:3000/atividades/readOne/"
+const uriExcluirAtividade = "http://localhost:3000/atividades/excluir/"
+const uriCompletarAtividade = "http://localhost:3000/atividades/concluir"
+const uriCompletarAtividadeNovamente = "http://localhost:3000/atividades/concluirNovamente"
+const uriEnviarArquivo = "http://localhost:3000/arquivos/enviar"
+const uriAddPoints = "http://localhost:3000/pontos/addPoints/"
 const uriExcluirTurma = "http://localhost:3000/turmas/delete/"
-var textAreaLinks = [];
-var dadosAtividade = [];
-var dadosTurma = [];
+var textAreaLinks = []
+var dadosAtividade = []
+var dadosTurma = []
 
 const openModalAddAtividade = () => {
-  document.querySelector(".back_modal").classList.remove("model");
-  document.querySelector(".modalAddAtividade").classList.remove("model");
-};
+  document.querySelector(".back_modal").classList.remove("model")
+  document.querySelector(".modalAddAtividade").classList.remove("model")
+}
 
 const closeModalAddAtividade = () => {
-  document.querySelector(".back_modal").classList.add("model");
-  document.querySelector(".modalAddAtividade").classList.add("model");
-};
+  document.querySelector(".back_modal").classList.add("model")
+  document.querySelector(".modalAddAtividade").classList.add("model")
+}
 
 const openModalEntregarAtividade = () => {
-  document.querySelector(".back_modal").classList.remove("model");
-  document.querySelector(".modalEntregarAtividade").classList.remove("model");
-};
+  document.querySelector(".back_modal").classList.remove("model")
+  document.querySelector(".modalEntregarAtividade").classList.remove("model")
+}
 
 const closeModalEntregarAtividade = () => {
-  document.querySelector(".back_modal").classList.add("model");
-  document.querySelector(".modalEntregarAtividade").classList.add("model");
-};
+  document.querySelector(".back_modal").classList.add("model")
+  document.querySelector(".modalEntregarAtividade").classList.add("model")
+}
+
+const openPremios = () => {
+  document.querySelector(".premios").classList.remove("model")
+  document.querySelector(".atividades").classList.add("model")
+  document.querySelector(".atividadeInfo").classList.add("model")
+}
+
+const closePremios = () => {
+  document.querySelector(".premios").classList.add("model")
+  document.querySelector(".atividades").classList.remove("model")
+}
 
 const checkUser = () => {
   if (localStorage.getItem("token") !== null) {
-    const tokenJWT = localStorage.getItem("token");
-    const info = localStorage.getItem("info_user_login");
+    const tokenJWT = localStorage.getItem("token")
+    const info = localStorage.getItem("info_user_login")
 
-    let checkIfProfessor = JSON.parse(info);
+    let checkIfProfessor = JSON.parse(info)
 
     if (checkIfProfessor.id_prof) {
-      document.querySelector("#btExcluiAtividade").classList.remove("model");
-      document.querySelector("#btCorrigirAtividade").classList.remove("model");
-      document.querySelector(".hideBtExcluir").classList.remove("model");
+      document.querySelector("#btExcluiAtividade").classList.remove("model")
+      document.querySelector("#btCorrigirAtividade").classList.remove("model")
+      document.querySelector(".hideBtExcluir").classList.remove("model")
     } else {
-      document.querySelector(".remove").classList.add("model");
-      document.querySelector("#btEntregaAtividade").classList.remove("model");
+      document.querySelector(".remove").classList.add("model")
+      document.querySelector("#btEntregaAtividade").classList.remove("model")
     }
 
     try {
-      const payload = JSON.parse(atob(tokenJWT.split(".")[1]));
-      const expiracao = payload.exp;
-      const agora = Math.floor(Date.now() / 1000);
+      const payload = JSON.parse(atob(tokenJWT.split(".")[1]))
+      const expiracao = payload.exp
+      const agora = Math.floor(Date.now() / 1000)
 
       if (agora >= expiracao) {
-        logout();
-        return false;
+        logout()
+        return false
       }
 
-      return true;
+      return true
     } catch (err) {
-      logout();
-      return false;
+      logout()
+      return false
     }
   } else {
-    window.location.href = "../login/index.html";
+    window.location.href = "../login/index.html"
   }
-};
+}
 
-checkUser();
+checkUser()
 
 const fetchAtividades = () => {
-  let id = localStorage.getItem("id_turma");
+  let id = localStorage.getItem("id_turma")
   const options = {
     method: "GET",
-  };
+  }
   fetch(uriGetTurma + id, options)
     .then((resp) => {
-      return resp.json();
+      return resp.json()
     })
     .then((data) => {
-      dadosTurma = data;
-      document.querySelector("#codigoTurma").innerHTML += " " + data.codigo;
-      buildAtividadesCard(data.atividades);
-    });
-};
+      dadosTurma = data
+      document.querySelector("#codigoTurma").innerHTML += " " + data.codigo
+      buildAtividadesCard(data.atividades)
+    })
+}
 
 const voltar = () => {
-  let info = JSON.parse(localStorage.getItem("info_user_login"));
+  let info = JSON.parse(localStorage.getItem("info_user_login"))
   if (info.id_prof) {
-    window.location.href = "../professoresHome/index.html";
+    window.location.href = "../professoresHome/index.html"
   } else {
-    window.location.href = "../alunosHome/index.html";
+    window.location.href = "../alunosHome/index.html"
   }
-};
+}
 
 const adicionarAtividade = () => {
-  let inpPrazo = document.querySelector("#inpData");
-  let inpDescricao = document.querySelector("#textArea");
-  let inpPontos = document.querySelector("#inpPontos");
-  let inpTitle = document.querySelector("#inpTitle");
+  let inpPrazo = document.querySelector("#inpData")
+  let inpDescricao = document.querySelector("#textArea")
+  let inpPontos = document.querySelector("#inpPontos")
+  let inpTitle = document.querySelector("#inpTitle")
 
-  inpPrazo = new Date();
-  var offset = inpPrazo.getTimezoneOffset() / 60;
-  var horas = inpPrazo.getHours() - offset;
-  inpPrazo.setHours(horas);
-  var dataFormatada = inpPrazo.toISOString();
+  inpPrazo = new Date()
+  var offset = inpPrazo.getTimezoneOffset() / 60
+  var horas = inpPrazo.getHours() - offset
+  inpPrazo.setHours(horas)
+  var dataFormatada = inpPrazo.toISOString()
 
   let form = {
     id_turma: dadosTurma.id_turma,
@@ -112,7 +123,7 @@ const adicionarAtividade = () => {
     descricao: inpDescricao.value,
     prazo: dataFormatada,
     pontos_conclusao: Number(inpPontos.value),
-  };
+  }
 
   const options = {
     method: "POST",
@@ -121,190 +132,190 @@ const adicionarAtividade = () => {
       authorization: "Bearer " + localStorage.getItem("token"),
     },
     body: JSON.stringify(form),
-  };
+  }
 
   fetch(uriCreateAtividade, options)
     .then((resp) => {
-      return resp.status;
+      return resp.status
     })
     .then((data) => {
       if (data === 201) {
-        window.location.reload();
+        window.location.reload()
       }
-    });
-};
+    })
+}
 
 const buildAtividadesCard = (dados) => {
   dados.forEach((elemento) => {
-    const divPai = document.createElement("div");
-    const divHeader = document.createElement("div");
-    const imgHeader = document.createElement("img");
-    const divBody = document.createElement("div");
+    const divPai = document.createElement("div")
+    const divHeader = document.createElement("div")
+    const imgHeader = document.createElement("img")
+    const divBody = document.createElement("div")
 
-    const h1 = document.createElement("h1");
+    const h1 = document.createElement("h1")
 
-    divHeader.appendChild(imgHeader);
-    divPai.appendChild(divHeader);
-    divPai.appendChild(divBody);
-    divBody.appendChild(h1);
+    divHeader.appendChild(imgHeader)
+    divPai.appendChild(divHeader)
+    divPai.appendChild(divBody)
+    divBody.appendChild(h1)
 
-    divPai.classList.add("turma_card");
-    divHeader.classList.add("card_header");
-    divBody.classList.add("card_body");
-    imgHeader.classList.add("card_img");
+    divPai.classList.add("turma_card")
+    divHeader.classList.add("card_header")
+    divBody.classList.add("card_body")
+    imgHeader.classList.add("card_img")
 
-    imgHeader.src = "../../Assets/icone.png";
-    imgHeader.style.width = "90px";
+    imgHeader.src = "../../Assets/icone.png"
+    imgHeader.style.width = "90px"
 
-    divPai.style.width = "100%";
+    divPai.style.width = "100%"
 
-    divPai.style.backgroundColor = "#FFFFFF";
-    divPai.style.height = "100px";
-    divPai.style.display = "flex";
-    divPai.style.cursor = "pointer";
-    divPai.style.alignItems = "center";
-    divPai.style.borderRadius = "12px";
-    divPai.style.marginBottom = "12px";
+    divPai.style.backgroundColor = "#FFFFFF"
+    divPai.style.height = "100px"
+    divPai.style.display = "flex"
+    divPai.style.cursor = "pointer"
+    divPai.style.alignItems = "center"
+    divPai.style.borderRadius = "12px"
+    divPai.style.marginBottom = "12px"
 
-    divBody.style.width = "100%";
+    divBody.style.width = "100%"
 
-    divBody.style.display = "flex";
-    divBody.style.height = "100%";
-    divBody.style.alignItems = "center";
-    divBody.style.justifyContent = "center";
-    divBody.style.backgroundColor = "#19dde0";
-    divBody.style.borderRadius = "12px";
-    divBody.style.padding = "12px";
+    divBody.style.display = "flex"
+    divBody.style.height = "100%"
+    divBody.style.alignItems = "center"
+    divBody.style.justifyContent = "center"
+    divBody.style.backgroundColor = "#19dde0"
+    divBody.style.borderRadius = "12px"
+    divBody.style.padding = "12px"
 
-    divHeader.style.height = "100px";
-    h1.innerHTML = elemento.titulo;
-    divPai.setAttribute("id", elemento.id_atividade);
+    divHeader.style.height = "100px"
+    h1.innerHTML = elemento.titulo
+    divPai.setAttribute("id", elemento.id_atividade)
 
     divPai.addEventListener("click", (event) => {
-      document.querySelector(".atividadeInfo").classList.remove("model");
-      const idDoCard = event.target.closest(".turma_card").id;
-      fetchOneAtividade(idDoCard);
-    });
+      document.querySelector(".atividadeInfo").classList.remove("model")
+      const idDoCard = event.target.closest(".turma_card").id
+      fetchOneAtividade(idDoCard)
+    })
 
-    document.querySelector("#atividades").appendChild(divPai);
-  });
-};
+    document.querySelector(".atividades").appendChild(divPai)
+  })
+}
 
 const fetchOneAtividade = (id) => {
   const options = {
     method: "GET",
-  };
+  }
   fetch(uriReadOneAtividade + id, options)
     .then((resp) => {
-      return resp.json();
+      return resp.json()
     })
     .then((data) => {
-      dadosAtividade = data;
-      preencherInfoAtividade(data);
-      converterMarkdown();
-    });
-};
+      dadosAtividade = data
+      preencherInfoAtividade(data)
+      converterMarkdown()
+    })
+}
 
 const preencherInfoAtividade = (dados) => {
-  const descricaoComLinks = dados.descricao;
+  const descricaoComLinks = dados.descricao
   const links =
-    descricaoComLinks.match(/(https?:\/\/[^\s]+)|(ftp:\/\/[^\s]+)/g) || [];
+    descricaoComLinks.match(/(https?:\/\/[^\s]+)|(ftp:\/\/[^\s]+)/g) || []
   const descricaoSemLinks = descricaoComLinks.replace(
     /(https?:\/\/[^\s]+)|(ftp:\/\/[^\s]+)/g,
     ""
-  );
+  )
 
-  document.querySelector("#descricaoAtividade").innerHTML = descricaoSemLinks;
-  document.querySelector("#nomeAtividade").innerHTML = dados.titulo;
+  document.querySelector("#descricaoAtividade").innerHTML = descricaoSemLinks
+  document.querySelector("#nomeAtividade").innerHTML = dados.titulo
   document.querySelector("#pontos_conclusao").innerHTML =
-    +" " + dados.pontos_conclusao;
+    +" " + dados.pontos_conclusao
 
   const imagens = links.map(async (link) => {
     const response = await fetch(
       `https://api.apiflash.com/v1/urltoimage?access_key=5c38e433a59b42b0aac2052e7959a67b&url=${link}&format=png&width=500&height=500 `
-    );
-    const blob = await response.blob();
-    return URL.createObjectURL(blob);
-  });
+    )
+    const blob = await response.blob()
+    return URL.createObjectURL(blob)
+  })
 
   Promise.all(imagens).then((urlImagens) => {
     urlImagens.forEach((urlImagem, index) => {
-      const img = document.createElement("img");
-      img.src = urlImagem;
-      img.alt = `Imagem ${index + 1}`;
+      const img = document.createElement("img")
+      img.src = urlImagem
+      img.alt = `Imagem ${index + 1}`
 
-      const div = document.createElement("div");
-      const p = document.createElement("p");
-      p.innerHTML = `<a href="${links[index]}">${links[index]}</a>`;
-      div.setAttribute("class", "divLink");
-      div.appendChild(img);
-      div.appendChild(p);
+      const div = document.createElement("div")
+      const p = document.createElement("p")
+      p.innerHTML = `<a href="${links[index]}">${links[index]}</a>`
+      div.setAttribute("class", "divLink")
+      div.appendChild(img)
+      div.appendChild(p)
 
-      document.querySelector(`#links`).appendChild(div);
-    });
-  });
+      document.querySelector(`#links`).appendChild(div)
+    })
+  })
 
-  document.querySelector(`#links`).innerHTML = "";
+  document.querySelector(`#links`).innerHTML = ""
 
-  document.querySelector("#descricaoAtividade").innerHTML = descricaoSemLinks;
-  document.querySelector("#nomeAtividade").innerHTML = dados.titulo;
-};
+  document.querySelector("#descricaoAtividade").innerHTML = descricaoSemLinks
+  document.querySelector("#nomeAtividade").innerHTML = dados.titulo
+}
 
 const excluirAtividade = () => {
-  let id = dadosAtividade.id_atividade;
+  let id = dadosAtividade.id_atividade
   const options = {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       authorization: "Bearer " + localStorage.getItem("token"),
     },
-  };
+  }
   fetch(uriExcluirAtividade + Number(id), options)
     .then((response) => {
-      return response.status;
+      return response.status
     })
     .then((data) => {
       if (data === 204) {
-        window.location.reload();
+        window.location.reload()
       } else {
-        alert("Ocorreu um erro");
-        console.log(data);
+        alert("Ocorreu um erro")
+        console.log(data)
       }
-    });
-};
+    })
+}
 
 const generateRandomString = () => {
-  const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
-  let randomString = "";
+  const alphabet = "abcdefghijklmnopqrstuvwxyz0123456789"
+  let randomString = ""
   for (let i = 0; i < 5; i++) {
-    const randomIndex = Math.floor(Math.random() * alphabet.length);
-    randomString += alphabet[randomIndex];
+    const randomIndex = Math.floor(Math.random() * alphabet.length)
+    randomString += alphabet[randomIndex]
   }
-  return randomString;
-};
+  return randomString
+}
 
 const formatDate = (data) => {
-  data = new Date();
+  data = new Date()
 
-  var offset = data.getTimezoneOffset() / 60;
-  var horas = data.getHours() - offset;
+  var offset = data.getTimezoneOffset() / 60
+  var horas = data.getHours() - offset
 
-  data.setHours(horas);
+  data.setHours(horas)
 
-  var dataFormatada = data.toISOString();
+  var dataFormatada = data.toISOString()
 
-  return dataFormatada;
-};
+  return dataFormatada
+}
 
 function removerAcento(str) {
-  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
 }
 
 function converterMarkdown() {
-  var markdownContent = document.getElementById("descricaoAtividade").innerHTML;
-  var md = window.markdownit();
-  var htmlContent = md.render(markdownContent);
-  document.getElementById("descricaoAtividade").innerHTML = htmlContent;
+  var markdownContent = document.getElementById("descricaoAtividade").innerHTML
+  var md = window.markdownit()
+  var htmlContent = md.render(markdownContent)
+  document.getElementById("descricaoAtividade").innerHTML = htmlContent
 }
 
 const concluirAtividade = async (form) => {
@@ -315,44 +326,44 @@ const concluirAtividade = async (form) => {
       "Authorization": "Bearer " + localStorage.getItem("token"),
     },
     body: JSON.stringify(form),
-  };
+  }
 
   try {
-    const completar = await fetch(uriCompletarAtividade, optionsCompletar);
-    const response = await completar.json();
+    const completar = await fetch(uriCompletarAtividade, optionsCompletar)
+    const response = await completar.json()
 
 
     if (completar.ok) {
-      return response;
+      return response
     } else if (completar.status === 400) {
-      const { error } = response;
-      const userResponse = confirm(`${error} Deseja enviar novamente?`);
+      const { error } = response
+      const userResponse = confirm(`${error} Deseja enviar novamente?`)
 
       if (userResponse) {
-        const enviarAtividadeResponse = await enviarAtividade(form);
+        const enviarAtividadeResponse = await enviarAtividade(form)
 
         if (enviarAtividadeResponse !== null) {
-          alert("Atividade enviada novamente com sucesso!");
+          alert("Atividade enviada novamente com sucesso!")
         } else {
-          alert("Ocorreu um erro ao enviar a atividade novamente. Por favor, tente novamente mais tarde.");
+          alert("Ocorreu um erro ao enviar a atividade novamente. Por favor, tente novamente mais tarde.")
         }
       } else {
-        console.log("Envio novamente cancelado pelo usuário");
-        return null;
+        console.log("Envio novamente cancelado pelo usuário")
+        return null
       }
     } else {
-      console.error("Erro ao concluir a atividade:", response);
-      return null;
+      console.error("Erro ao concluir a atividade:", response)
+      return null
     }
   } catch (err) {
-    console.error("Erro ao concluir a atividade:", err);
-    return null;
+    console.error("Erro ao concluir a atividade:", err)
+    return null
   }
-};
+}
 
 const enviarArquivo = async (fileWithNewName) => {
-  const formData = new FormData();
-  formData.append("file", fileWithNewName);
+  const formData = new FormData()
+  formData.append("file", fileWithNewName)
 
   const optionsEnviarArquivo = {
     method: "POST",
@@ -360,17 +371,17 @@ const enviarArquivo = async (fileWithNewName) => {
       "Authorization": "Bearer " + localStorage.getItem("token"),
     },
     body: formData,
-  };
-  const arquivo = await fetch("http://localhost:3000/arquivos/enviar", optionsEnviarArquivo);
-  const arquivoResponse = await arquivo.status;
+  }
+  const arquivo = await fetch("http://localhost:3000/arquivos/enviar", optionsEnviarArquivo)
+  const arquivoResponse = await arquivo.status
 
   if (arquivo.ok) {
-    return arquivoResponse;
+    return arquivoResponse
   } else {
-    console.log("Erro ao enviar arquivo:", arquivoResponse);
-    return null;
+    console.log("Erro ao enviar arquivo:", arquivoResponse)
+    return null
   }
-};
+}
 
 const enviarAtividade = async (form) => {
   const optionsCompletar = {
@@ -380,60 +391,60 @@ const enviarAtividade = async (form) => {
       "Authorization": "Bearer " + localStorage.getItem("token"),
     },
     body: JSON.stringify(form),
-  };
+  }
 
   try {
-    const completar = await fetch(uriCompletarAtividadeNovamente, optionsCompletar);
+    const completar = await fetch(uriCompletarAtividadeNovamente, optionsCompletar)
     if (completar.ok) {
-      const resposta = await completar.json();
-      return resposta;
+      const resposta = await completar.json()
+      return resposta
     } else {
-      return null;
+      return null
     }
   } catch (err) {
-    console.log(err);
-    return null;
+    console.log(err)
+    return null
   }
-};
+}
 
 const entregarAtividade = async () => {
-  const idAluno = JSON.parse(localStorage.getItem("info_user_login"));
-  const inpArquivo = document.querySelector("#inpArquivo");
+  const idAluno = JSON.parse(localStorage.getItem("info_user_login"))
+  const inpArquivo = document.querySelector("#inpArquivo")
 
-  const fileName = generateRandomString() + "_" + inpArquivo.value.split("\\")[2];
-  const file = inpArquivo.files[0];
+  const fileName = generateRandomString() + "_" + inpArquivo.value.split("\\")[2]
+  const file = inpArquivo.files[0]
   const fileWithNewName = new File([file], removerAcento(fileName), {
     type: file.type,
-  });
+  })
 
   const form = {
     id_atividade: dadosAtividade.id_atividade,
     id_aluno: idAluno.id_aluno,
     data_concluida: formatDate(new Date()),
     arquivo: removerAcento(fileName),
-  };
+  }
 
-  const completarResponse = await concluirAtividade(form);
+  const completarResponse = await concluirAtividade(form)
 
   if (completarResponse !== null) {
     if (inpArquivo.value !== "") {
-      const enviarArquivoResponse = await enviarArquivo(fileWithNewName);
+      const enviarArquivoResponse = await enviarArquivo(fileWithNewName)
       if (enviarArquivoResponse === 200) {
-        alert("Arquivo enviado com sucesso!");
+        alert("Arquivo enviado com sucesso!")
       } else {
-        alert("Ocorreu um erro ao enviar o arquivo. Por favor, tente novamente mais tarde.");
+        alert("Ocorreu um erro ao enviar o arquivo. Por favor, tente novamente mais tarde.")
       }
     }
   }
-};
+}
 
 const corrigirAtividade = () => {
-  window.location.href = "../corrigirAtividade/index.html";
-};
+  window.location.href = "../corrigirAtividade/index.html"
+}
 
 
 const excluirTurma = () => {
-  if ( confirm("Tem certaza de que deseja excluir a turma?")) {
+  if (confirm("Tem certaza de que deseja excluir a turma?")) {
     let id = localStorage.getItem("id_turma")
     const options = {
       method: "DELETE",
@@ -445,11 +456,11 @@ const excluirTurma = () => {
     fetch(uriExcluirTurma + id, options)
       .then(resp => { return resp.status })
       .then(data => {
-        console.log(data);
-        if(data === 204)
-        window.location.href = "../professoresHome/index.html"
+        console.log(data)
+        if (data === 204)
+          window.location.href = "../professoresHome/index.html"
       })
   }
 }
 
-fetchAtividades();
+fetchAtividades()
