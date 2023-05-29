@@ -18,10 +18,6 @@ router.post("/create", Middleware.validaAcesso, turma.create);
 router.post("/checkTurma", turma.checkTurma);
 router.put("/update/:id_turma", Middleware.validaAcesso, turma.update);
 router.put("/adicionarAluno/:id_turma", turma.adicionarAluno);
-router.put(
-  "/adicionarProfessor/:id_turma",
-  Middleware.validaAcesso,
-  turma.adicionarProfessor
-);
+router.put("/adicionarProfessor/:id_turma", Middleware.validaAcesso, turma.adicionarProfessor);
 
 module.exports = router;

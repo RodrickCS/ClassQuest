@@ -1,86 +1,33 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from 'react'
-import { View, Text, Modal, TouchableOpacity, Image, ImageBackground, TextInput } from 'react-native';
+import { View, Text, Modal, TouchableOpacity, Image, ImageBackground, TextInput, Alert } from 'react-native';
 import styles from '../alunoHome/style'
+import CardAlunoHome from '../../../components/atividade/atividade'
 
 export default function Aluno({ navigation }) {
 
     const [modalVisible, setModalVisible] = useState(false);
     // const [VisibleTurma, setVisibleTurma] = useState(true);
-    const [Codigo, setCodigo] = useState(""); 
-    const [SairTurma, setSairTurma] = useState("");
+    const [Codigo, setCodigo] = useState("");
+    const [showModal, setShowModal] = useState(false)
+    const [Token, setToken] = useState("");
 
     const uriCheckTurma = "http://localhost:3000/turmas/checkTurma";
-    const uriAddAluno = "http://localhost:3000/turmas/adicionarAluno/";
+    // const uriAddAluno = "http://localhost:3000/turmas/adicionarAluno/";
 
-    const entrarTurma = () => {
-        if (checkUser()) {
-          let form = {
-            codigo: Codigo,
-          };
-      
-          const options = {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              authorization: "Bearer " + AsyncStorage.getItem("token"),
-            },
-            body: JSON.stringify(form),
-          };
-      
-          fetch(uriCheckTurma, options)
-            .then((resp) => {
-              return resp.json();
-            })
-            .then((data) => {
-              if (data.length === 1) {
-                adicionarAluno(data[0].id_turma, aluno.id_aluno);
-                // window.location.reload();
-              } else {
-                Alert.alert("Houve um erro tentando entrar na turma");
-              }
-            });
-        }
-      };      
+    setToken(AsyncStorage.getItem("token"))
+    console.log(Token)
 
-    const checkUser = () => {
-        if (token !== null) { // Supondo que a variável 'token' esteja definida corretamente
-          const tokenJWT = token;
-          const info = AsyncStorage.getItem("nome"); // Usando AsyncStorage em vez de localStorage
-      
-          let nome = JSON.parse(info).nome;
-      
-          try {
-            const payload = JSON.parse(
-              atob(encodeURIComponent(tokenJWT).split(".")[1])
-            );
-            console.log(payload);
-            const expiracao = payload.exp;
-            const agora = Math.floor(Date.now() / 1000);
-      
-            if (agora >= expiracao) {
-              // logout();
-              return false;
-            }
-      
-            return true;
-          } catch (err) {
-            // logout();
-            return false;
-          }
-        }
-      };
-      
     const [info, setInfo] = useState({ turma: [] });
     const [myInterval, setMyInterval] = useState(null)
     const [id_turma, setId_turma] = useState()
 
-    useEffect(() => {
-        dados();
-        setMyInterval(setInterval(() => {
-            dados();
-        }, 5000));
-    }, []);
+    // useEffect(() => {
+    //     dados();
+    //     setMyInterval(setInterval(() => {
+    //         dados();
+    //     }, 5000));
+    // }, []);
 
 
     const menu = () => {
@@ -98,6 +45,7 @@ export default function Aluno({ navigation }) {
             const userString = await AsyncStorage.getItem("nome");
             if (userString) {
                 const user = JSON.parse(userString);
+                const token = user.token;
                 const id_aluno = user.id_aluno;
                 fetch("http://localhost:3000/alunos/readOne/" + id_aluno)
                     .then((resp) => {
@@ -114,14 +62,6 @@ export default function Aluno({ navigation }) {
         }
     }
 
-    const addAluno = () => {
-
-        fetch('http://localhost:3000/adicionarAluno/' + id_turma)
-            .then(res => { return res.json() })
-            .then(data => {
-                setAddAluno(data)
-            })
-    }
     const ModalContent = () => {
         return (
             <View style={styles.modalTotal}>
@@ -131,16 +71,12 @@ export default function Aluno({ navigation }) {
                     <TouchableOpacity style={styles.sairBotao} onPress={() => setModalVisible(false)}>
                         <Text style={styles.txtFechar}>Fechar</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.okBotao}>
-                        <Text style={styles.txtOk} onPress={addAluno}>Ok</Text>
+                    <TouchableOpacity style={styles.okBotao} onPress={dados()}>
+                        <Text style={styles.txtOk}>Ok</Text>
                     </TouchableOpacity>
                 </View>
             </View>
         );
-    };
-
-    const Texto = () => {
-        SairTurma !== '' ? (setSairTurma("")) : (setSairTurma("Excluir"))
     };
 
     return (
@@ -161,22 +97,9 @@ export default function Aluno({ navigation }) {
                 </TouchableOpacity>
             </View>
             <View style={styles.turmas}>
-                <View style={styles.turma}>
-                    <TouchableOpacity style={styles.divImage2} onPress={() => { SairTurma !== '' ? (setSairTurma("")) : (setSairTurma("Excluir")) }}>
-                        <Image style={styles.image2} source={require('../../../../assets/pontinhos.png')} />
-                        <Text style={styles.txtSairTurma}>{SairTurma}</Text>
-                    </TouchableOpacity>
-                    <Image style={styles.image} source={require('../../../../assets/favicon.png')} />
-                    <Text>turminha</Text>
-                </View>
-                <View style={styles.turma}>
-                    <TouchableOpacity style={styles.divImage2} onPress={() => { SairTurma !== '' ? (setSairTurma("")) : (setSairTurma("Excluir")) }}>
-                        <Image style={styles.image2} source={require('../../../../assets/pontinhos.png')} />
-                        <Text style={styles.txtSairTurma}>{SairTurma}</Text>
-                    </TouchableOpacity>
-                    <Image style={styles.image} source={require('../../../../assets/favicon.png')} />
-                    <Text>turminha</Text>
-                </View>
+                {/* {info.map((att, index) => {
+                    return <CardAlunoHome key={index} item={att} />
+                })} */}
             </View>
         </View>
     )
