@@ -45,7 +45,9 @@ export default function Login({ navigation }) {
                 }
             })
             .then((data) => {
+                AsyncStorage.setItem("info", JSON.stringify(data.info));
                 AsyncStorage.setItem("nome", JSON.stringify(data.info));
+                AsyncStorage.setItem("token", JSON.stringify(data.info));
                 navigation.navigate(path);
             })
             .catch((error) => {

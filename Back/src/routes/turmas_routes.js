@@ -24,4 +24,5 @@ router.put(
   turma.adicionarProfessor
 )
 
+
 module.exports = router
