@@ -7,6 +7,7 @@ const uriCompletarAtividadeNovamente = "http://localhost:3000/atividades/conclui
 const uriEnviarArquivo = "http://localhost:3000/arquivos/enviar"
 const uriAddPoints = "http://localhost:3000/pontos/addPoints/"
 const uriExcluirTurma = "http://localhost:3000/turmas/delete/"
+const uriGetPremios = "http://localhost:3000/premios/readOne/"
 var textAreaLinks = []
 var dadosAtividade = []
 var dadosTurma = []
@@ -260,6 +261,85 @@ const preencherInfoAtividade = (dados) => {
   document.querySelector("#descricaoAtividade").innerHTML = descricaoSemLinks
   document.querySelector("#nomeAtividade").innerHTML = dados.titulo
 }
+
+const fetchPremios = () => {
+  const idTurma = localStorage.getItem("id_turma")
+  const options = {
+    method: "GET",
+  }
+  fetch(uriGetPremios + idTurma, options)
+    .then(resp => { return resp.json() })
+    .then(data => {
+      buildPremiosCard(data)
+    })
+}
+fetchPremios()
+
+const buildPremiosCard = (dados) => {
+  const premiosContainer = document.querySelector(".premioContent");
+
+  dados.forEach((elemento) => {
+    const divPai = document.createElement("div");
+    const divHeader = document.createElement("div");
+    const imgHeader = document.createElement("img");
+    const divBody = document.createElement("div");
+
+    const h1 = document.createElement("h2");
+    const pontosRequeridos = document.createElement("p");
+    const buttonResgatar = document.createElement("button");
+
+    divHeader.appendChild(imgHeader);
+    divPai.appendChild(divHeader);
+    divPai.appendChild(divBody);
+    divBody.appendChild(h1);
+    divBody.appendChild(buttonResgatar);
+    divBody.appendChild(pontosRequeridos);
+
+    divPai.classList.add("turma_card");
+    divHeader.classList.add("card_header");
+    divBody.classList.add("card_body");
+    imgHeader.classList.add("card_img");
+
+    imgHeader.src = "../../Assets/icone.png";
+    imgHeader.style.width = "90px";
+
+    divPai.style.width = "50%";
+
+    divPai.style.backgroundColor = "#FFFFFF";
+    divPai.style.height = "100px";
+    divPai.style.display = "flex";
+    divPai.style.alignItems = "center";
+    divPai.style.borderRadius = "12px";
+    divPai.style.marginBottom = "12px";
+
+    divBody.style.width = "100%";
+
+    divBody.style.display = "flex";
+    divBody.style.height = "100%";
+    divBody.style.alignItems = "center";
+    divBody.style.justifyContent = "space-between";
+    divBody.style.backgroundColor = "#19dde0";
+    divBody.style.borderRadius = "12px";
+    divBody.style.padding = "30px";
+
+    divHeader.style.height = "100px";
+    h1.innerHTML = elemento.descricao;
+    divPai.setAttribute("id", elemento.id_premio);
+
+
+    pontosRequeridos.innerHTML = `Pts. ${elemento.pontos_requeridos}`;
+
+    buttonResgatar.innerHTML = "Resgatar Prêmio";
+    buttonResgatar.classList.add("resgatar-btn");
+    buttonResgatar.addEventListener("click", (event) => {
+      const idDoPremio = event.target.closest(".turma_card").id;
+      resgatarPremio(idDoPremio); 
+    });
+
+    premiosContainer.appendChild(divPai);
+  });
+};
+
 
 const excluirAtividade = () => {
   let id = dadosAtividade.id_atividade

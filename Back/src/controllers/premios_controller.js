@@ -21,7 +21,6 @@ const read = async (req, res) => {
   }
 }
 
-
 const update = async (req, res) => {
   try {
     let premio = await prisma.premios.update({
@@ -53,7 +52,6 @@ const readOne = async (req, res) => {
   try {
     let premio = await prisma.premios.findMany({
       where: {
-        id_premio: Number(req.params.id_premio),
         id_turma: Number(req.params.id_turma)
       }
     })
@@ -67,5 +65,6 @@ module.exports = {
   read,
   create,
   update,
-  excluir
+  excluir,
+  readOne
 }
