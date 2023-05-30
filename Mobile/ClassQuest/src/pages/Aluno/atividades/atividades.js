@@ -1,12 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  ImageBackground
-} from "react-native";
+import { View, Text, TouchableOpacity, Image, ImageBackground } from "react-native";
 import styles from "./style";
 import CardAlunoHome from "../../../components/cardPerfilAluno/cardPerfilAluno";
 
@@ -74,7 +68,7 @@ export default function Atividades({ navigation }) {
         </TouchableOpacity>
       </View>
       {info.turma.map((att, index) => {
-          return <CardAlunoHome style={{ flexDirection: 'column' }} key={index} item={att} />;
+          return <CardAlunoHome key={index} item={att} />;
         })}
     </View>
   );
