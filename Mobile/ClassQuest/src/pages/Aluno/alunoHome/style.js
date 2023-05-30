@@ -47,12 +47,14 @@ export default StyleSheet.create({
     padding: '24px',
     borderRadius: '10px',
     margin: '10px',
-    position: 'relative'
+    // position: 'relative'
   },
   turmas:{
     flexDirection: 'row',
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    flexDirection: 'column',
+    padding: '5px',
   }, 
   inputzinho: {
     margin: '5px',

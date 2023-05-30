@@ -6,7 +6,7 @@ const connectionString = process.env.connectionString
 const containerName = process.env.containerName
 
 
-const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString)
+// const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString)
 
 
 const uploadAzure = async (req, res) => {

@@ -1,27 +1,23 @@
-import { Text, Image, TouchableOpacity, View } from "react-native";
-import { useState } from "react";
+import { Text, View } from "react-native";
 import styles from "./style";
 
-const Atividade = ({ att }) => {
-
-    const [showModal, setShowModal] = useState(false)
-
-    function opcoes() {
-        setShowModal(!showModal)
-    }
-
-    return (
-        <View style={styles.turma}>
-            <TouchableOpacity style={styles.divImage2} onPress={opcoes}>
-                <Image style={styles.image2} source={require('../../../assets/pontinhos.png')} />
-                {/* <TouchableOpacity style={{ display: showModal ? 'flex' : 'none' }} onPress={sairTurma}>
-                    <Text style={styles.txtSairTurma}>Excluir turma</Text>
-                </TouchableOpacity> */}
-            </TouchableOpacity>
-            <Image style={styles.image} source={require('../../../assets/favicon.png')} />
-            <Text>turminha</Text>
-        </View >
-    );
-}
+const Atividade = ({ item }) => {
+  return (
+    <View style={styles.txtAtt}>
+      <Text>
+        Nome: {item.titulo}
+      </Text>
+      <Text>
+        Descrição: {item.descricao}
+      </Text>
+      <Text>
+        Pontos de conclusão: {item.pontos_conclusao} pontos
+      </Text>
+      <Text>
+        Prazo: {item.prazo.toLocaleString("pt-BR", { timeZone: "UTC" }).split("T")[0]}
+      </Text>
+    </View>
+  );
+};
 
 export default Atividade;
