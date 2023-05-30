@@ -7,6 +7,8 @@ import CardAlunoHome from "../../../components/cardPerfilAluno/cardPerfilAluno";
 export default function Atividades({ navigation }) {
   const [info, setInfo] = useState({ turma: [] });
   const [myInterval, setMyInterval] = useState(null);
+  const addConcluir = "/concluir";
+  const addConcluirDnv = "/concluirNovamente"
 
   const menu = () => {
     // clearInterval(myInterval);
@@ -19,6 +21,40 @@ export default function Atividades({ navigation }) {
   };
 
   async function dados() {
+    try {
+      const userString = await AsyncStorage.getItem("nome");
+      if (userString) {
+        const user = JSON.parse(userString);
+        const id_aluno = user.id_aluno;
+        fetch("http://localhost:3000/alunos/readOne/" + id_aluno)
+          .then((resp) => resp.json())
+          .then((data) => {
+            setInfo(data);
+          });
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  async function atividades() {
+    try {
+      const userString = await AsyncStorage.getItem("nome");
+      if (userString) {
+        const user = JSON.parse(userString);
+        const id_aluno = user.id_aluno;
+        fetch("http://localhost:3000/alunos/readOne/" + id_aluno)
+          .then((resp) => resp.json())
+          .then((data) => {
+            setInfo(data);
+          });
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  async function enviarImagem() {
     try {
       const userString = await AsyncStorage.getItem("nome");
       if (userString) {
