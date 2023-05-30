@@ -8,9 +8,12 @@ const uriEnviarArquivo = "http://localhost:3000/arquivos/enviar"
 const uriAddPoints = "http://localhost:3000/pontos/addPoints/"
 const uriExcluirTurma = "http://localhost:3000/turmas/delete/"
 const uriGetPremios = "http://localhost:3000/premios/readOne/"
+const uriExcluirPremio = "http://localhost:3000/premios/excluir/"
 var textAreaLinks = []
 var dadosAtividade = []
 var dadosTurma = []
+
+var info_user_login = JSON.parse(localStorage.getItem("info_user_login"))
 
 const openModalAddAtividade = () => {
   document.querySelector(".back_modal").classList.remove("model")
@@ -273,7 +276,6 @@ const fetchPremios = () => {
       buildPremiosCard(data)
     })
 }
-fetchPremios()
 
 const buildPremiosCard = (dados) => {
   const premiosContainer = document.querySelector(".premioContent");
@@ -287,13 +289,18 @@ const buildPremiosCard = (dados) => {
     const h1 = document.createElement("h2");
     const pontosRequeridos = document.createElement("p");
     const buttonResgatar = document.createElement("button");
+    const buttonExcluir = document.createElement("button");
 
     divHeader.appendChild(imgHeader);
     divPai.appendChild(divHeader);
     divPai.appendChild(divBody);
     divBody.appendChild(h1);
     divBody.appendChild(buttonResgatar);
+    divBody.appendChild(buttonExcluir);
     divBody.appendChild(pontosRequeridos);
+
+    buttonResgatar.style.display = info_user_login.id_prof ? "none" : "block";
+    buttonExcluir.style.display = info_user_login.id_prof ? "block" : "none";
 
     divPai.classList.add("turma_card");
     divHeader.classList.add("card_header");
@@ -303,29 +310,8 @@ const buildPremiosCard = (dados) => {
     imgHeader.src = "../../Assets/icone.png";
     imgHeader.style.width = "90px";
 
-    divPai.style.width = "50%";
-
-    divPai.style.backgroundColor = "#FFFFFF";
-    divPai.style.height = "100px";
-    divPai.style.display = "flex";
-    divPai.style.alignItems = "center";
-    divPai.style.borderRadius = "12px";
-    divPai.style.marginBottom = "12px";
-
-    divBody.style.width = "100%";
-
-    divBody.style.display = "flex";
-    divBody.style.height = "100%";
-    divBody.style.alignItems = "center";
-    divBody.style.justifyContent = "space-between";
-    divBody.style.backgroundColor = "#19dde0";
-    divBody.style.borderRadius = "12px";
-    divBody.style.padding = "30px";
-
-    divHeader.style.height = "100px";
     h1.innerHTML = elemento.descricao;
     divPai.setAttribute("id", elemento.id_premio);
-
 
     pontosRequeridos.innerHTML = `Pts. ${elemento.pontos_requeridos}`;
 
@@ -333,11 +319,46 @@ const buildPremiosCard = (dados) => {
     buttonResgatar.classList.add("resgatar-btn");
     buttonResgatar.addEventListener("click", (event) => {
       const idDoPremio = event.target.closest(".turma_card").id;
-      resgatarPremio(idDoPremio); 
+      resgatarPremio(idDoPremio);
+    });
+
+    buttonExcluir.innerHTML = "Excluir Prêmio";
+    buttonExcluir.classList.add("excluir-btn");
+    buttonExcluir.addEventListener("click", (event) => {
+      const idDoPremio = event.target.closest(".turma_card").id;
+      excluirPremio(idDoPremio);
     });
 
     premiosContainer.appendChild(divPai);
   });
+};
+
+const excluirPremio = (idPremio) => {
+
+  const confirmacao = window.confirm("Tem certeza de que deseja excluir este prêmio?");
+
+  if (confirmacao) {
+
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    }
+
+    fetch(uriExcluirPremio + idPremio, options)
+      .then((response) => {
+        if (response.ok) {
+          window.location.reload();
+        } else {
+          alert(`Erro ao excluir o prêmio com ID ${idPremio}.`);
+        }
+      })
+      .catch((error) => {
+        alert(`Erro na requisição ao excluir o prêmio: ${error}`);
+      });
+  }
 };
 
 
@@ -544,3 +565,5 @@ const excluirTurma = () => {
 }
 
 fetchAtividades()
+fetchPremios()
+

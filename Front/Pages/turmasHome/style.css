@@ -493,3 +493,71 @@ pre {
     background: #9baecf;
   }
 }
+
+.turma_card {
+  width: 50%;
+  background-color: #FFFFFF;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.card_header {
+  height: 100px;
+}
+
+.card_body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  background-color: #19dde0;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.card_img {
+  width: 90px;
+}
+
+.resgatar-btn {
+  background-color: #2196F3;
+  color: #FFFFFF;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.resgatar-btn:hover {
+  background-color: #1976D2;
+}
+
+.resgatar-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #1976D2;
+}
+
+.excluir-btn {
+  background-color: #FF0000;
+  color: #FFFFFF;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.excluir-btn:hover {
+  background-color: #C62828;
+}
+
+.excluir-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #C62828;
+}
