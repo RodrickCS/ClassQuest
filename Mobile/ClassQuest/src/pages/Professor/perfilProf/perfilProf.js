@@ -4,7 +4,7 @@ import styles from './style'
 
 export default function PerfilProf({ navigation }) {
 
-    const [info, setInfo] = useState('');
+    const [info, setInfo] = useState({turma: []});
 
     const menu = () => {
         navigation.openDrawer();
