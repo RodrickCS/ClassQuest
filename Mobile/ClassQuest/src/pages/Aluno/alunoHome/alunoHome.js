@@ -36,7 +36,7 @@ export default function Aluno({ navigation }) {
 
   useEffect(() => {
     dados();
-  }, []); //
+  }, []); 
 
   async function dados() {
     try {
