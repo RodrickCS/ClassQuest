@@ -9,6 +9,7 @@ const uriAddPoints = "http://localhost:3000/pontos/addPoints/"
 const uriExcluirTurma = "http://localhost:3000/turmas/delete/"
 const uriGetPremios = "http://localhost:3000/premios/readOne/"
 const uriExcluirPremio = "http://localhost:3000/premios/excluir/"
+const uriCriarPremio = "http://localhost:3000/premios/create"
 var textAreaLinks = []
 var dadosAtividade = []
 var dadosTurma = []
@@ -44,6 +45,15 @@ const openPremios = () => {
 const closePremios = () => {
   document.querySelector(".premios").classList.add("model")
   document.querySelector(".atividades").classList.remove("model")
+}
+
+const openModalAddPremio = () => {
+  document.querySelector(".back_modal").classList.remove("model")
+  document.querySelector(".modalCadastrarPremio").classList.remove("model")
+}
+const closeModalAddPremio = () => {
+  document.querySelector(".back_modal").classList.add("model")
+  document.querySelector(".modalCadastrarPremio").classList.add("model")
 }
 
 const checkUser = () => {
@@ -563,6 +573,41 @@ const excluirTurma = () => {
       })
   }
 }
+
+
+const criarPremio = () => {
+  const id = localStorage.getItem("id_turma")
+  let inpPontosRequeridos = document.querySelector("#inpPontosPremio")
+  let textAreaPremio = document.querySelector("#inpPremioDesc")
+
+  var form = {
+    id_turma: Number(id),
+    descricao: textAreaPremio.value,
+    pontos_requeridos: Number(inpPontosRequeridos.value),
+  }
+
+  console.log(form);
+
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + localStorage.getItem("token"), 
+    },
+    body: JSON.stringify(form)
+  }
+
+  fetch(uriCriarPremio, options)
+    .then(resp => { return resp.status })
+    .then(data => {
+      if (data === 201 ){
+        window.location.reload()
+      } else {
+        alert("Ocorreu um erro tente novamente mais tarde")
+      }
+    })
+}
+
 
 fetchAtividades()
 fetchPremios()

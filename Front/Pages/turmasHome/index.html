@@ -125,7 +125,9 @@
       <section class="premios model">
         <div class="premiosHeader">
           <h1>Prêmios</h1>
-          <button class="btPremio">adicionar um prêmio</button>
+          <button class="btPremio" onclick="openModalAddPremio()">
+            adicionar um prêmio
+          </button>
           <button class="btClose" onclick="closePremios()">X</button>
         </div>
         <div class="premioContent"></div>
@@ -182,9 +184,26 @@
           <button onclick="entregarAtividade()" class="btCriar">Enviar</button>
         </div>
 
-        < class="modalCadastrarPremio">
-          
-        </ div>
+        <div class="modalCadastrarPremio model">
+          <h1 style="margin-bottom: 26px">Adicionar um premio</h1>
+          <button onclick="closeModalAddPremio()" class="btClose">X</button>
+
+          <div class="group">
+            <input id="inpPremioDesc" type="text" required />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label class="inputLabel">Premio</label>
+          </div>
+
+          <div class="group">
+            <input id="inpPontosPremio" type="text" required />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label class="inputLabel">Pontos requeridos</label>
+          </div>
+
+          <button onclick="criarPremio()" class="btCriar">Criar</button>
+        </div>
       </div>
     </main>
   </body>

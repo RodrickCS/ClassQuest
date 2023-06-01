@@ -9,6 +9,7 @@ const create = async (req, res) => {
     res.status(201).json(premio).end()
   } catch (err) {
     res.status(500).json(err).end()
+    console.log(err);
   }
 }
 
