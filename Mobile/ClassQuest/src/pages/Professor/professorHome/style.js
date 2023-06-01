@@ -8,15 +8,15 @@ export default StyleSheet.create({
   },
   image: {
     width: "49px",
-    height: "50px"
+    height: "50px",
   },
   image2: {
     width: "10px",
     height: "10px",
     margin: "5px",
-    // position: "absolute",
-    // right: 0,
-    // top: 0
+    position: "absolute",
+    right: 0,
+    top: 0
   },
   divizinha: {
     justifyContent: "space-between",
@@ -49,20 +49,17 @@ export default StyleSheet.create({
   turma: {
     backgroundColor: "#6fddeb",
     borderRadius: "10px",
-    margin: "10px"
-  },
-  turminha: {
-    backgroundColor: "#6fddeb",
-    paddingBottom: "20px",
-    paddingLeft: "20px",
-    paddingRight: "20px",
-    borderRadius: "10px",
+    padding: "20px",
     margin: "10px",
-    alignItems: 'center'
+    // textAlign: 'center',
+    // justifyContent:'center',
+    // alignItems: 'center',
+    // alignSelf: 'center',
+    // alignContent: 'center'
   },
   turmas: {
     flexDirection: "row",
-    display: "flex",
+    // display: "flex",
     flexWrap: "wrap"
   },
   inputzinho: {

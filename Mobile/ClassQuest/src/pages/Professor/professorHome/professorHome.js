@@ -19,6 +19,7 @@ export default function Professor({ navigation }) {
   const [info, setInfo] = useState({ turma: [] });
   const [myInterval, setMyInterval] = useState(null);
   const [id_turma, setId_turma] = useState();
+  const [id_prof, setId_prof] = useState();
 
   const menu = () => {
     clearInterval(myInterval);
@@ -35,42 +36,61 @@ export default function Professor({ navigation }) {
   }, []);
 
   async function dados() {
-    let id_prof = 1;
-    // await AsyncStorage.getItem("nome");
-    fetch("http://localhost:3000/professores/readOne/" + id_prof)
-      .then((resp) => resp.json())
-      .then((data) => {
-        setInfo(data);
-        console.log(data);
-      });
+    try {
+      const userString = await AsyncStorage.getItem("nome");
+      if (userString) {
+        const user = JSON.parse(userString);
+        const idzinho = user.id_prof
+        setId_prof(idzinho);
+        fetch("http://localhost:3000/professores/readOne/" + idzinho)
+          .then((resp) => resp.json())
+          .then((data) => {
+            setInfo(data);
+          });
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   }
 
-  async function CriarTurma() {
-    let token = await AsyncStorage.getItem("token").split('"')[1];
-    fetch("http://localhost:3000/turmas/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token
-      },
-      body: JSON.stringify({
-        nome: Nome
-      })
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        setInfo(data);
-        console.log(data);
-      });
-  }
+  //   async function CriarTurma() {
+  //     try {
+  //       let token = await AsyncStorage.getItem("token");
+  //       console.log(token);
 
-  //   function listarTurmas() {
-  //     fetch("http://localhost:3000/turmas/readOne/" + id_turma)
-  //       .then((resp) => resp.json())
-  //       .then((data) => {
-  //         setInfo(data);
-  //         console.log(data);
-  //       });
+  //       fetch("http://localhost:3000/turmas/create", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: "Bearer " + token.split('"')[1]
+  //         },
+  //         body: JSON.stringify({
+  //           nome: Nome
+  //         })
+  //       })
+  //         .then((resp) => resp.json())
+  //         .then((data) => {
+  //           setInfo(data);
+  //           setId_turma(data.id_turma);
+
+  //           fetch("http://localhost:3000/turmas/adicionarProfessor/" + data.id_turma, {
+  //             method: "POST",
+  //             headers: {
+  //               "Content-Type": "application/json",
+  //               Authorization: "Bearer " + token.split('"')[1]
+  //             },
+  //             body: JSON.stringify({
+  //               id_prof: id_prof
+  //             })
+  //           })
+  //             .then((resp) => resp.json())
+  //             .then((data) => {
+  //               console.log(data);
+  //             });
+  //         });
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
   //   }
 
   //   function listarAlunos() {
@@ -93,6 +113,8 @@ export default function Professor({ navigation }) {
           onChangeText={(val) => {
             setNome(val);
           }}
+          autoFocus={true}
+          keyboardType="default"
           style={styles.inputzinho}
         ></TextInput>
         <View style={styles.botoes}>
@@ -178,16 +200,13 @@ export default function Professor({ navigation }) {
       <View style={styles.turmas}>
         {info.turma.map((att, index) => {
           return (
-            <View style={styles.turma} key={index}>
-              <View style={styles.emCima}>
-                <Text>Cod: {att.codigo}</Text>
+            <View style={styles.turma} key={index}>                
                 <Image
                   style={styles.image2}
                   source={require("../../../../assets/pontinhos.png")}
                 />
-              </View>
               <TouchableOpacity
-                style={styles.turminha}
+              style={{alignItems: 'center'}}
                 onPress={() => {
                   setModalAluno(!modalAluno);
                 }}
@@ -197,6 +216,7 @@ export default function Professor({ navigation }) {
                   source={require("../../../../assets/favicon.png")}
                 />
                 <Text>{att.nome}</Text>
+                <Text>Cod: {att.codigo}</Text>
               </TouchableOpacity>
             </View>
           );
