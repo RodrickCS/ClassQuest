@@ -72,27 +72,42 @@ export default StyleSheet.create({
         borderRadius: 10,
         padding: 20,
     },
-    txtFechar: {
+    Fechar: {
+      // position: 'absolute',
         color: '#f00',
-        fontSize: '12pt',
+        fontSize: '15pt',
+        position: 'relative',
+        right: 0,
+        top:0,
     },
     txtOk: {
-        color: '#FFF',
         fontSize: '12pt',
     },
     sairBotao:{
+      textAlign: 'center',
         backgroundColor: "#ddd",
         borderRadius: '10px',
-        padding: '10px',
-        margin: '10px',
+        position: 'absolute',
+        right: 0,
+        top:0,
+        padding: '5px',
+        paddingTop: 0,
+        margin: '5px',
     },
-    okBotao:{
+    EnviarBotao:{
         backgroundColor: "#0f0",
         borderRadius: '10px',
         padding: '10px',
         margin: '10px',
         textAlign: 'center'
     },
+    EscolherBotao:{
+      backgroundColor: "#ddd",
+      borderRadius: '10px',
+      padding: '10px',
+      margin: '10px',
+      textAlign: 'center'
+  },
     botoes:{
         flexDirection: 'row'
     },

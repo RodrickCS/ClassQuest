@@ -1,22 +1,32 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Image, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Modal,
+  Linking,
+  ImageBackground
+} from "react-native";
 import styles from "./style";
 import CardAlunoHome from "../../../components/cardPerfilAluno/cardPerfilAluno";
+import Atividade from "../../../components/atividade/atividade";
 
 export default function Atividades({ navigation }) {
   const [info, setInfo] = useState({ turma: [] });
+  const [Enviar, setEnviar] = useState();
   const [myInterval, setMyInterval] = useState(null);
+  const [modalAtividade, setModalAtividade] = useState(false);
   const addConcluir = "/concluir";
-  const addConcluirDnv = "/concluirNovamente"
 
   const menu = () => {
-    // clearInterval(myInterval);
+    // clearInterval(myInterval)
     navigation.openDrawer();
   };
 
   const voltar = () => {
-    // clearInterval(myInterval);
+    // clearInterval(myInterval)
     navigation.navigate("Login");
   };
 
@@ -54,29 +64,31 @@ export default function Atividades({ navigation }) {
     }
   }
 
-  async function enviarImagem() {
-    try {
-      const userString = await AsyncStorage.getItem("nome");
-      if (userString) {
-        const user = JSON.parse(userString);
-        const id_aluno = user.id_aluno;
-        fetch("http://localhost:3000/alunos/readOne/" + id_aluno)
-          .then((resp) => resp.json())
-          .then((data) => {
-            setInfo(data);
-          });
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  }
+  const enviarPg = async () => {
+    const url = `http://127.0.0.1:5500/Mobile/ClassQuest/src/pages/pag/upload.html`;
+    await Linking.openURL(url);
+  };
 
   useEffect(() => {
     dados();
   }, []);
 
+  const Att = () => {
+    return (
+      <View style={styles.modalTotal}>
+        <Text style={styles.txtCad}>Atividade:</Text>
+        <TouchableOpacity onPress={enviarPg}>
+          <Text style={{ color: "white" }}>Upload</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
+      <Modal visible={modalAtividade} animationType="slide" transparent>
+        <Att />
+      </Modal>
       <ImageBackground
         source={require("../../../../assets/fundo.jpg")}
         resizeMode="cover"
@@ -104,8 +116,13 @@ export default function Atividades({ navigation }) {
         </TouchableOpacity>
       </View>
       {info.turma.map((att, index) => {
-          return <CardAlunoHome key={index} item={att} />;
-        })}
+  return (
+    <View key={index}>
+      <CardAlunoHome item={att} />
+    </View>
+  );
+})}
+
     </View>
   );
 }

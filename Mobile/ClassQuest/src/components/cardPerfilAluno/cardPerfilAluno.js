@@ -21,7 +21,6 @@ const CardPerfilAluno = ({ item }) => {
     return (
       <View style={{ ...styles.divTxtAtt, display: showModal ? "flex" : "none" }}>
         {item.atividades.map((a, index) => {
-          // console.log(a);
           return <Atividade key={index} item={a} />;
         })}
       </View>

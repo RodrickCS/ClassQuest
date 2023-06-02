@@ -13,8 +13,8 @@ export default function App() {
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 {/* <Stack.Screen name="Login" component={Login} /> */}
                 {/* <Stack.Screen name="Cadastro" component={Cadastro} /> */}
-                {/* <Stack.Screen name="MenuAluno" component={MenuAluno} />  */}
-                <Stack.Screen name="MenuProfessor" component={MenuProfessor} /> 
+                <Stack.Screen name="MenuAluno" component={MenuAluno} /> 
+                {/* <Stack.Screen name="MenuProfessor" component={MenuProfessor} />  */}
             </Stack.Navigator>
         </NavigationContainer>
     );
