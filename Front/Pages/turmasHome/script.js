@@ -69,6 +69,7 @@ const checkUser = () => {
       document.querySelector(".hideBtExcluir").classList.remove("model")
     } else {
       document.querySelector(".remove").classList.add("model")
+      document.querySelector(".btPremio").classList.add("model")
       document.querySelector("#btEntregaAtividade").classList.remove("model")
     }
 
@@ -371,7 +372,6 @@ const excluirPremio = (idPremio) => {
   }
 };
 
-
 const excluirAtividade = () => {
   let id = dadosAtividade.id_atividade
   const options = {
@@ -553,7 +553,6 @@ const corrigirAtividade = () => {
   window.location.href = "../corrigirAtividade/index.html"
 }
 
-
 const excluirTurma = () => {
   if (confirm("Tem certaza de que deseja excluir a turma?")) {
     let id = localStorage.getItem("id_turma")
@@ -573,7 +572,6 @@ const excluirTurma = () => {
       })
   }
 }
-
 
 const criarPremio = () => {
   const id = localStorage.getItem("id_turma")
