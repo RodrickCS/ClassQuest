@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text, TouchableOpacity, View, Linking } from "react-native";
 import styles from "./style";
 import { format } from "date-fns";
@@ -19,7 +18,7 @@ const Atividade = ({ item }) => {
         <Text>Descrição: {item.descricao}</Text>
         <Text>Pontos de conclusão: {item.pontos_conclusao} pontos</Text>
         <Text>
-          Prazo: {format(new Date(item.prazo), "dd/MM/yyyy", { locale: ptBR })}
+          Prazo: {format(new Date(item.prazo), "dd/MM/yyyy - HH:mm", { locale: ptBR })}
         </Text>
       </TouchableOpacity>
     </View>
