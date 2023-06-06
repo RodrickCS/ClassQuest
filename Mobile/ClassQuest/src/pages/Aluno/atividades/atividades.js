@@ -5,13 +5,10 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  Modal,
-  Linking,
   ImageBackground
 } from "react-native";
 import styles from "./style";
 import CardAlunoHome from "../../../components/cardPerfilAluno/cardPerfilAluno";
-import Atividade from "../../../components/atividade/atividade";
 
 export default function Atividades({ navigation }) {
   const [info, setInfo] = useState({ turma: [] });
@@ -64,31 +61,12 @@ export default function Atividades({ navigation }) {
     }
   }
 
-  const enviarPg = async () => {
-    const url = `http://127.0.0.1:5500/Mobile/ClassQuest/src/pages/pag/upload.html`;
-    await Linking.openURL(url);
-  };
-
   useEffect(() => {
     dados();
   }, []);
 
-  const Att = () => {
-    return (
-      <View style={styles.modalTotal}>
-        <Text style={styles.txtCad}>Atividade:</Text>
-        <TouchableOpacity onPress={enviarPg}>
-          <Text style={{ color: "white" }}>Upload</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  };
-
   return (
     <View style={styles.container}>
-      <Modal visible={modalAtividade} animationType="slide" transparent>
-        <Att />
-      </Modal>
       <ImageBackground
         source={require("../../../../assets/fundo.jpg")}
         resizeMode="cover"
@@ -116,13 +94,8 @@ export default function Atividades({ navigation }) {
         </TouchableOpacity>
       </View>
       {info.turma.map((att, index) => {
-  return (
-    <View key={index}>
-      <CardAlunoHome item={att} />
-    </View>
-  );
-})}
-
+        return <CardAlunoHome key={index} item={att} />
+      })}
     </View>
   );
 }
