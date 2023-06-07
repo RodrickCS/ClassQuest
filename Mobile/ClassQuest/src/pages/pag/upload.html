@@ -58,7 +58,7 @@
     <main>
       <div id="centro">
         <input id="inpArquivo" type="file" />
-        <button id="enviar" onclick="enviarArquivo()">Enviar</button>
+        <button id="enviar" onclick="geral()">Enviar</button>
       </div>
     </main>
   </body>
@@ -67,67 +67,60 @@
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get("id");
     const currentDate = new Date();
-    // const day = String(currentDate.getDate()).padStart(2, '0');
-    // const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-    // const year = currentDate.getFullYear();
-    // const hours = String(currentDate.getHours()).padStart(2, '0');
-    // const minutes = String(currentDate.getMinutes()).padStart(2, '0');
-    // const formattedDate = `${day}/${month}/${year} - ${hours}:${minutes}`;
-    console.log(currentDate);
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const day = String(currentDate.getDate()).padStart(2, "0");
+    const hours = String(currentDate.getHours()).padStart(2, "0");
+    const minutes = String(currentDate.getMinutes()).padStart(2, "0");
+    const seconds = String(currentDate.getSeconds()).padStart(2, "0");
+    const milliseconds = String(currentDate.getMilliseconds()).padStart(3, "0");
+    const formattedDateTime = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}Z`;
+    function geral(){
+    enviarArquivo()
+    atividadeConcluida (id, inpArquivo)
+    }
+    const atividadeConcluida = (id, inpArquivo) => {
+      let form = {
+        id_atividade: id,
+        id_aluno: 1,
+        data_concluida: formattedDateTime,
+        arquivo: inpArquivo
+      };
+      const options = {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token")
+        },
+        body: form
+      };
 
-             const atividadeConcluida =(id) => {
-           let form = {
-            id_atividade: id,
-            id_aluno: 1,
-            data_concluida: currentDate,
-            arquivo: "naosei.png"
-           }
-           const options = {
-             method: "POST",
-             headers: {
-               Authorization: "Bearer " + localStorage.getItem("token")
-             },
-             body: form
-           };
+      fetch("http://localhost:3000/atividades/concluir", options);
+    };
 
-           const arquivoUri = fetch(
-             "http://localhost:3000/atividades/concluir",
-             options
-           );
+    const enviarArquivo = async () => {
+      const formData = new FormData();
+      formData.append("file", inpArquivo);
 
-           if (arquivo.ok) {
-             return arquivoResponse;
-           } else {
-             console.log("Erro");
-             return null;
-           }
-         };
+      const optionsEnviarArquivo = {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token")
+        },
+        body: formData
+      };
 
-           const enviarArquivo = async () => {
+      const arquivoUri = await fetch(
+        "http://localhost:3000/arquivos/enviar",
+        optionsEnviarArquivo
+      );
+      const arquivoResponse = await arquivoUri.status;
 
-             const formData = new FormData();
-             formData.append("file", inpArquivo);
-
-             const optionsEnviarArquivo = {
-               method: "POST",
-               headers: {
-                 Authorization: "Bearer " + localStorage.getItem("token")
-               },
-               body: formData
-             };
-
-             const arquivoUri = await fetch(
-               "http://localhost:3000/arquivos/enviar",
-               optionsEnviarArquivo
-             );
-             const arquivoResponse = await arquivoUri.status;
-
-             if (arquivo.ok) {
-               return arquivoResponse;
-             } else {
-               console.log("Erro");
-               return null;
-             }
-           };
+      if (arquivo.ok) {
+        return arquivoResponse;
+      } else {
+        console.log("Erro");
+        return null;
+      }
+    }
   </script>
 </html>
