@@ -59,6 +59,26 @@ const readOne = async (req, res) => {
   }
 }
 
+const readPontos = async (req, res) => {
+  try {
+    let aluno = await prisma.pontos.findMany({
+      where: {
+        id_aluno: Number(req.params.id_aluno),
+        id_turma: Number(req.params.id_turma),
+      },
+      select: {
+        id_aluno: true,
+        id_turma: true,
+        qtd: true
+      },
+    })
+    res.status(200).json(aluno).end()
+  } catch (err) {
+    res.status(500).json(err).end()
+    console.log(err)
+  }
+}
+
 const create = async (req, res) => {
   const senhaCrypt = await hashSenha(req.body.senha)
   try {
@@ -156,4 +176,5 @@ module.exports = {
   login,
   excluir,
   update,
+  readPontos
 }

@@ -10,7 +10,6 @@ const blobServiceClient = BlobServiceClient.fromConnectionString(connectionStrin
 
 
 const uploadAzure = async (req, res) => {
-  console.log(req.file);
   try {
     
     const file = req.file
