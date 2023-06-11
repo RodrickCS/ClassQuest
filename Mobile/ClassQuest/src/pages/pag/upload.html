@@ -1,69 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Upload de Imagens</title>
-  </head>
-  <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-image: url("../../../assets/fundo.jpg");
-      background-size: cover;
-      height: 750px;
-      background-repeat: no-repeat;
-    }
-    header {
-      height: 100px;
-      display: flex;
-      align-items: center;
-    }
-    img {
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 1px 1px 5px #000;
-    }
-    main {
-      flex-direction: column;
-      display: flex;
-      word-wrap: break-word;
-    }
-    h1 {
-      color: white;
-    }
-    #divizinha {
-      background-color: #6fddeb;
-      width: 350px;
-      text-align: center;
-      border-radius: 10px;
-    }
-    #inpArquivo {
-      flex-direction: column;
-      display: flex;
-      margin: 5px;
-    }
-    #enviar {
-      margin: 5px;
-    }
-  </style>
-  <body>
-    <header>
-      <div id="divizinha">
-        <h1>Arquivo</h1>
-      </div>
-    </header>
-    <main>
-      <div id="centro">
-        <input id="inpArquivo" type="file" />
-        <button id="enviar" onclick="geral()">Enviar</button>
-      </div>
-    </main>
-  </body>
-  <script>
-    var inpArquivo = document.querySelector("#inpArquivo").files[0];
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload de Imagens</title>
+</head>
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url("../../../assets/fundo.jpg");
+    background-size: cover;
+    height: 800px;
+    background-repeat: no-repeat;
+    margin: 0;
+  }
+
+  header {
+    height: 100px;
+    display: flex;
+    align-items: center;
+  }
+
+  img {
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 1px 1px 5px #000;
+  }
+
+  main {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+  }
+
+  h1 {
+    color: white;
+  }
+
+  #divizinha {
+    background-color: #6fddeb;
+    width: 350px;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  #inpArquivo {
+    flex-direction: column;
+    display: flex;
+    margin: 5px;
+  }
+
+  #enviar {
+    margin: 5px;
+  }
+</style>
+
+<body>
+  <header>
+    <div id="divizinha">
+      <h1>Arquivo</h1>
+    </div>
+  </header>
+  <main>
+    <!-- <div id="centro"> -->
+    <input id="inpArquivo" type="file" />
+    <button id="enviar" onclick="enviarPg()">Enviar</button>
+    <!-- </div> -->
+  </main>
+</body>
+<script>
+  const geral = async () => {
+    const inpArquivo = document.querySelector("#inpArquivo").files[0];
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get("id");
     const currentDate = new Date();
@@ -75,52 +86,76 @@
     const seconds = String(currentDate.getSeconds()).padStart(2, "0");
     const milliseconds = String(currentDate.getMilliseconds()).padStart(3, "0");
     const formattedDateTime = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}Z`;
-    function geral(){
-    enviarArquivo()
-    atividadeConcluida (id, inpArquivo)
-    }
-    const atividadeConcluida = (id, inpArquivo) => {
-      let form = {
+
+    await enviarArquivo(inpArquivo);
+    await atividadeConcluida(id, inpArquivo, formattedDateTime);
+  };
+
+  const enviarPg = () => {
+    const url = "http://localhost:19006/atividade";
+    window.location.replace(url);
+  };
+
+  const atividadeConcluida = async (id, inpArquivo, formattedDateTime) => {
+    try {
+      const userString = localStorage.getItem("nome");
+      const user = JSON.parse(userString);
+      const id_aluno = user.id_aluno;
+      const form = {
         id_atividade: id,
-        id_aluno: 1,
+        id_aluno: id_aluno,
         data_concluida: formattedDateTime,
-        arquivo: inpArquivo
+        arquivo: inpArquivo,
       };
       const options = {
         method: "POST",
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("token")
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          "Content-Type": "application/json",
         },
-        body: form
+        body: JSON.stringify(form),
       };
 
-      fetch("http://localhost:3000/atividades/concluir", options);
-    };
-
-    const enviarArquivo = async () => {
-      const formData = new FormData();
-      formData.append("file", inpArquivo);
-
-      const optionsEnviarArquivo = {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token")
-        },
-        body: formData
-      };
-
-      const arquivoUri = await fetch(
-        "http://localhost:3000/arquivos/enviar",
-        optionsEnviarArquivo
-      );
-      const arquivoResponse = await arquivoUri.status;
-
-      if (arquivo.ok) {
-        return arquivoResponse;
+      const response = await fetch("http://localhost:3000/atividades/concluir", options);
+      // Processar a resposta se necessário
+      if (response.ok) {
+        console.log("Atividade concluída com sucesso!");
+        enviarPg(); // Redirecionar apenas se a atividade for concluída com sucesso
       } else {
-        console.log("Erro");
-        return null;
+        console.error("Erro ao concluir a atividade.");
       }
+    } catch (error) {
+      console.error("Error:", error);
     }
-  </script>
+  };
+
+  const enviarArquivo = async (inpArquivo) => {
+  const formData = new FormData();
+  formData.append("file", inpArquivo);
+
+  const optionsEnviarArquivo = {
+    method: "POST",
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: formData,
+  };
+
+  const arquivoStatus = await fetch(
+    "http://localhost:3000/arquivos/enviar",
+    optionsEnviarArquivo
+  );
+
+  if (arquivoStatus.ok) {
+    console.log("Arquivo enviado com sucesso!");
+    const responseJson = await arquivoStatus.json();
+    const { id, formattedDateTime } = responseJson; // Extrair os valores necessários da resposta do servidor
+    atividadeConcluida(id, inpArquivo, formattedDateTime);
+  } else {
+    console.error("Erro ao enviar o arquivo.");
+  }
+};
+
+</script>
+
 </html>

@@ -1,5 +1,5 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { useState, useEffect } from "react"
 import {
   View,
   Text,
@@ -8,101 +8,97 @@ import {
   Image,
   ImageBackground,
   TextInput
-} from "react-native";
-import styles from "./style";
+} from "react-native"
+import styles from "./style"
 
 export default function Professor({ navigation }) {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalAluno, setModalAluno] = useState(false);
-  const [Nome, setNome] = useState("");
-  const [Codigozinho, setNomezinho] = useState("asdf");
-  const [info, setInfo] = useState({ turma: [] });
-  const [myInterval, setMyInterval] = useState(null);
-  const [id_turma, setId_turma] = useState();
-  const [id_prof, setId_prof] = useState();
-
-  const menu = () => {
-    clearInterval(myInterval);
-    navigation.openDrawer();
-  };
-
-  const voltar = () => {
-    clearInterval(myInterval);
-    navigation.navigate("Login");
-  };
+  const [modalVisible, setModalVisible] = useState(false)
+  const [modalAluno, setModalAluno] = useState(false)
+  const [Nome, setNome] = useState("")
+  const [info, setInfo] = useState({ turma: [] })
+  const [myInterval, setMyInterval] = useState(null)
 
   useEffect(() => {
-    dados();
-  }, []);
+    dados()
+    setMyInterval(setInterval(() => {
+      dados()
+    }, 5000))
+  }, [])
 
+  const menu = () => {
+    clearInterval(myInterval)
+    navigation.openDrawer()
+  }
+
+  const voltar = () => {
+    clearInterval(myInterval)
+    navigation.navigate("Login")
+  }
   async function dados() {
     try {
-      const userString = await AsyncStorage.getItem("nome");
+      const userString = await AsyncStorage.getItem("nome")
       if (userString) {
-        const user = JSON.parse(userString);
+        const user = JSON.parse(userString)
         const idzinho = user.id_prof
-        setId_prof(idzinho);
         fetch("http://localhost:3000/professores/readOne/" + idzinho)
           .then((resp) => resp.json())
           .then((data) => {
-            setInfo(data);
-          });
+            setInfo(data)
+          })
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error:", error)
     }
   }
 
-  //   async function CriarTurma() {
-  //     try {
-  //       let token = await AsyncStorage.getItem("token");
-  //       console.log(token);
+  async function criarRecurso() {
+    try {
+      const userString = await AsyncStorage.getItem("nome")
+      const user = JSON.parse(userString)
+      const id_prof = user.id_prof
+      let token = await AsyncStorage.getItem("token")
 
-  //       fetch("http://localhost:3000/turmas/create", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: "Bearer " + token.split('"')[1]
-  //         },
-  //         body: JSON.stringify({
-  //           nome: Nome
-  //         })
-  //       })
-  //         .then((resp) => resp.json())
-  //         .then((data) => {
-  //           setInfo(data);
-  //           setId_turma(data.id_turma);
+      const responsePost = await fetch("http://localhost:3000/turmas/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token.split('"')[1]
+        },
+        body: JSON.stringify({
+          nome: Nome
+        })
+      })
 
-  //           fetch("http://localhost:3000/turmas/adicionarProfessor/" + data.id_turma, {
-  //             method: "POST",
-  //             headers: {
-  //               "Content-Type": "application/json",
-  //               Authorization: "Bearer " + token.split('"')[1]
-  //             },
-  //             body: JSON.stringify({
-  //               id_prof: id_prof
-  //             })
-  //           })
-  //             .then((resp) => resp.json())
-  //             .then((data) => {
-  //               console.log(data);
-  //             });
-  //         });
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
+      if (responsePost.ok) {
+        const dataPost = await responsePost.json();
+        const resourceId = dataPost.id_turma;
 
-  //   function listarAlunos() {
-  //     fetch("http://localhost:3000/turmas/readAluno")
-  //       .then((resp) => {
-  //         return resp.json();
-  //       })
-  //       .then((data) => {
-  //         setInfo(data);
-  //         console.log(data);
-  //       });
-  //   }
+        const responsePut = await fetch(`http://localhost:3000/turmas/adicionarProfessor/${resourceId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token.split('"')[1]
+          },
+          body: JSON.stringify({
+            id_prof: id_prof
+          })
+        });
+
+        if (responsePut.ok) {
+          const dataPut = await responsePut.json();
+          console.log("Recurso atualizado:", dataPut);
+          setModalVisible(false)
+          dados()
+        } else {
+          console.log("Erro ao atualizar o recurso.");
+        }
+      } else {
+        console.log("Erro ao criar o recurso.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const ModalContent = () => {
     return (
@@ -111,7 +107,7 @@ export default function Professor({ navigation }) {
         <TextInput
           value={Nome}
           onChangeText={(val) => {
-            setNome(val);
+            setNome(val)
           }}
           autoFocus={true}
           keyboardType="default"
@@ -127,15 +123,15 @@ export default function Professor({ navigation }) {
           <TouchableOpacity
             style={styles.okBotao}
             onPress={() => {
-              CriarTurma();
+              criarRecurso()
             }}
           >
             <Text style={styles.txtOk}>Ok</Text>
           </TouchableOpacity>
         </View>
       </View>
-    );
-  };
+    )
+  }
 
   //   const Alunos = () => {
   //     return (
@@ -154,8 +150,8 @@ export default function Professor({ navigation }) {
   //           </TouchableOpacity>
   //         </View>
   //       </View>
-  //     );
-  //   };
+  //     )
+  //   }
 
   return (
     <View style={styles.container}>
@@ -174,7 +170,7 @@ export default function Professor({ navigation }) {
         <TouchableOpacity
           style={styles.imagenzinha}
           onPress={() => {
-            menu();
+            menu()
           }}
         >
           <Image
@@ -184,14 +180,14 @@ export default function Professor({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            setModalVisible(!modalVisible);
+            setModalVisible(!modalVisible)
           }}
         >
           <Text style={styles.txtEntrar}> Criar uma turma </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            voltar();
+            voltar()
           }}
         >
           <Text style={styles.txtSair}>Sair</Text>
@@ -200,15 +196,15 @@ export default function Professor({ navigation }) {
       <View style={styles.turmas}>
         {info.turma.map((att, index) => {
           return (
-            <View style={styles.turma} key={index}>                
-                <Image
-                  style={styles.image2}
-                  source={require("../../../../assets/pontinhos.png")}
-                />
+            <View style={styles.turma} key={index}>
+              <Image
+                style={styles.image2}
+                source={require("../../../../assets/pontinhos.png")}
+              />
               <TouchableOpacity
-              style={{alignItems: 'center'}}
+                style={{ alignItems: 'center' }}
                 onPress={() => {
-                  setModalAluno(!modalAluno);
+                  setModalAluno(!modalAluno)
                 }}
               >
                 <Image
@@ -219,9 +215,9 @@ export default function Professor({ navigation }) {
                 <Text>Cod: {att.codigo}</Text>
               </TouchableOpacity>
             </View>
-          );
+          )
         })}
       </View>
     </View>
-  );
+  )
 }
