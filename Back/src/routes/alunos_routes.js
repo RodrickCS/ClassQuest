@@ -8,6 +8,7 @@ const alunos = require("../controllers/alunos_controller")
 
 router.get("/read", alunos.read)
 router.get("/readOne/:id_aluno", alunos.readOne)
+router.get("/readPontos/:id_aluno/:id_turma", alunos.readPontos)
 router.delete("/delete/:id_aluno", Middleware.validaAcesso, alunos.excluir)
 router.post("/login", alunos.login)
 router.post("/create", alunos.create)
