@@ -50,7 +50,7 @@ export default StyleSheet.create({
     position: 'relative'
   },
   turmas:{
-    flexDirection: 'row',
+    flexDirection: 'column',
     display: 'flex',
     flexWrap: 'wrap'
   }, 

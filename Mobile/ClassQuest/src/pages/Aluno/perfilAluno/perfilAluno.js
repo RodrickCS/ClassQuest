@@ -122,16 +122,14 @@ export default function PerfilAluno({ navigation }) {
         <Text style={styles.txtSair} onPress={voltar}>Sair</Text>
       </View>
       <View style={styles.dados}>
-        {info.length > 0 ? (
-          <Image style={styles.image} source={require("../../../../assets/favicon.png")} />
-        ) : (
-          info.map((item, index) => (
+        {info.map((item, index) => {
+          return (
             <View key={index}>
-                <Text>{item.descricao}</Text>
-                <Text>{item.pontos_requeridos}</Text>
+              <Text>{item.descricao}</Text>
+              <Text>{item.pontos_requeridos}</Text>
             </View>
-          ))
-        )}
+          )
+        })}
       </View>
     </View>
   );

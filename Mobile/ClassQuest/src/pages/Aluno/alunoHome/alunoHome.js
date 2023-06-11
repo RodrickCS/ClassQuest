@@ -16,7 +16,6 @@ import CardAlunoHome from "../../../components/cardPerfilAluno/cardPerfilAluno"
 export default function Aluno({ navigation }) {
 
   const url = createURL('atividade', {})
-  // console.log(url);
 
   const [modalVisible, setModalVisible] = useState(false)
   const [Codigo, setCodigo] = useState("")
