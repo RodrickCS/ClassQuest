@@ -109,4 +109,42 @@ export default StyleSheet.create({
       // display: 'inline',
       marginStart: "20px",
     },
+    atividadeCard: {
+      backgroundColor: "#FFFFFF",
+      height: 100,
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      borderRadius: 12,
+      marginBottom: 12,
+      paddingHorizontal: 12,
+    },
+    cardHeader: {
+      height: 100,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    cardImg: {
+      width: 90,
+    },
+    cardBody: {
+      flex: 1,
+      display: "flex",
+      height: "100%",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: "#19dde0",
+      borderRadius: 12,
+      padding: 12,
+      marginLeft: 12,
+    },
+    title: {
+      fontSize: 16,
+      fontWeight: "bold",
+    },
+    nomeAluno: {
+      fontSize: 16,
+      marginTop: 8,
+    },
 });
