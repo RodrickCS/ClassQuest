@@ -42,16 +42,12 @@ export default StyleSheet.create({
     borderRadius: "10px",
     padding: "20px",
     margin: "10px",
+    width: "max-content"
     // textAlign: 'center',
     // justifyContent:'center',
     // alignItems: 'center',
     // alignSelf: 'center',
     // alignContent: 'center'
-  },
-  turmas: {
-    flexDirection: "row",
-    // display: "flex",
-    flexWrap: "wrap"
   },
   inputzinho: {
     margin: "5px",
@@ -142,14 +138,6 @@ export default StyleSheet.create({
     // backgroundColor: '#6fddeb',
     margin: '10px',
   },
-  turma: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-beteween',
-    margin: '5px',
-    backgroundColor: '#fff',
-    borderRadius: '10px',
-  },
   coisinhas: {
     flexDirection: 'row',
   },
@@ -166,5 +154,8 @@ export default StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
     fontSize: '15pt',
+  },
+  turmas: {
+    flexDirection: 'row'
   }
 });
