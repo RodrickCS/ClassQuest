@@ -6,8 +6,8 @@ import { RadioButton } from "react-native-paper";
 import styles from "../login/style";
 
 export default function Login({ navigation }) {
-    const [Email, setEmail] = useState("gus@gmail.com");
-    const [Senha, setSenha] = useState("senha1234");
+    const [Email, setEmail] = useState("");
+    const [Senha, setSenha] = useState("");
     const [Msg, setMsg] = useState('');
     const [checked, setChecked] = useState("aluno");
 
