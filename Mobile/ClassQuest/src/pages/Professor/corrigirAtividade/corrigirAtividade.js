@@ -1,26 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useState, useEffect } from "react"
-import { View, Text, TouchableOpacity, Image, ImageBackground, Modal } from "react-native"
+import { View, Text, TouchableOpacity, Image, ImageBackground, Modal, TextInput } from "react-native"
 import styles from "./style"
 import AtividadesConcluidas from "../../../components/ativadadesConcluidas/atividadesConcluida"
-//   async function criarAtt() {
 
-//     const responsePut = await fetch(`http://localhost:3000/premios/create`, {
-//           method: "POST",
-//           headers: {
-//             "Content-Type": "application/json",
-//             Authorization: "Bearer " + token.split('"')[1]
-//           },
-//           body: JSON.stringify({
-//             id_aluno: id_aluno
-//           })
-//         })
-
-//   }
 export default function Atividades({ navigation }) {
   const [myInterval, setMyInterval] = useState(null)
   const [atividadesConcluidas, setAtividadesConcluidas] = useState([]);
-  const [ModalVisible, setModalVisible] = useState(false)
+
   useEffect(() => {
     fetchAtividadesConcluidas()
     setMyInterval(setInterval(() => {
@@ -48,9 +35,6 @@ export default function Atividades({ navigation }) {
       });
   };
 
-
-
-
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -70,13 +54,8 @@ export default function Atividades({ navigation }) {
             source={require("../../../../assets/favicon.png")}
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            setModalVisible(!ModalVisible)
-          }}
-        >
-          <Text style={styles.txtEntrar}> Criar uma atividade </Text>
-        </TouchableOpacity>
+        <Text style={styles.txtEntrar}> Atividade </Text>
+
         <TouchableOpacity
           onPress={() => {
             voltar()
@@ -87,7 +66,14 @@ export default function Atividades({ navigation }) {
       </View>
       <View style={styles.turmas}>
         {atividadesConcluidas.map((item, index) => {
-          return <AtividadesConcluidas key={index} item={item} />
+          return (<TouchableOpacity
+            onPress={() => {
+              setModalShow(!ModalShow)
+              setId_turma(item.id_turma)
+            }}
+          >
+            <AtividadesConcluidas key={index} item={item} />
+          </TouchableOpacity>)
         })}
       </View>
     </View>

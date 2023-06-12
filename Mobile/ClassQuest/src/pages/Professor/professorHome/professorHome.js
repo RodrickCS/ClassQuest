@@ -13,10 +13,17 @@ import styles from "./style"
 
 export default function Professor({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false)
-  const [modalAluno, setModalAluno] = useState(false)
   const [Nome, setNome] = useState("")
   const [info, setInfo] = useState({ turma: [] })
   const [myInterval, setMyInterval] = useState(null)
+  const [dado, setDado] = useState(false)
+  const [ModalShow, setModalShow] = useState(true)
+  const [id_turma, setId_turma] = useState()
+  const [titulo, setTitulo] = useState("")
+  const [descricao, setDescricao] = useState("")
+  const [prazo, setPrazo] = useState()
+  const [pontos_conclusao, setPontos_conclusao] = useState()
+
 
   useEffect(() => {
     dados()
@@ -116,7 +123,7 @@ export default function Professor({ navigation }) {
         <View style={styles.botoes}>
           <TouchableOpacity
             style={styles.sairBotao}
-            onPress={() => setModalVisible(!modalVisible)}
+
           >
             <Text style={styles.txtFechar}>Fechar</Text>
           </TouchableOpacity>
@@ -133,34 +140,99 @@ export default function Professor({ navigation }) {
     )
   }
 
-  //   const Alunos = () => {
-  //     return (
-  //       <View style={styles.modalTotal}>
-  //         <Text style={styles.txtCad}>Alunos da turma:</Text>
-
-  //         <View style={styles.botoes}>
-  //           <TouchableOpacity
-  //             style={styles.sairBotao}
-  //             onPress={() => setModalAluno(false)}
-  //           >
-  //             <Text style={styles.txtFechar}>Fechar</Text>
-  //           </TouchableOpacity>
-  //           <TouchableOpacity style={styles.okBotao} onPress={dados()}>
-  //             <Text style={styles.txtOk}>Ok</Text>
-  //           </TouchableOpacity>
-  //         </View>
-  //       </View>
-  //     )
-  //   }
-
+  const ModalAtt = () => {
+    return (
+      <View style={{ ...styles.divTxtAtt, display: ModalShow ? "flex" : "none" }}>
+        <View key={index} style={{ flexDirection: 'row', paddingBottom: '5px' }}>
+          <Text style={styles.titulo}>Criar atividade: </Text>
+          <ImageBackground
+            source={require("../../../../assets/fundo.jpg")}
+            resizeMode="cover"
+            style={styles.imagem}
+          ></ImageBackground>
+          <View style={{ justifyContent: 'space-between', display: 'flex', alignItems: 'center', flexDirection: 'row', borderTop: '1px solid black', width: '300px' }}>
+            <Text>Titulo:</Text>
+            <TextInput
+              autoFocus={true}
+              keyboardType="default"
+              value={titulo}
+              onChangeText={(val) => {
+                setTitulo(val);
+              }}
+            ></TextInput>
+            <Text>Descrição:</Text>
+            <TextInput
+              autoFocus={true}
+              keyboardType="default"
+              value={descricao}
+              onChangeText={(val) => {
+                setDescricao(val);
+              }}
+            ></TextInput>
+            <Text>Prazo:</Text>
+            <TextInput
+              autoFocus={true}
+              keyboardType="default"
+              value={prazo}
+              onChangeText={(val) => {
+                setPrazo(val);
+              }}
+            ></TextInput>
+            <Text>Pontos de conclusão:</Text>
+            <TextInput
+              autoFocus={true}
+              keyboardType="default"
+              value={pontos_conclusao}
+              onChangeText={(val) => {
+                setPontos_conclusao(val);
+              }}
+            ></TextInput>
+            <View style={{ flexDirection: 'row', }}>
+              <TouchableOpacity onPress={() => {
+                infos()
+              }}>
+                <Text>Enviar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+                ShowModal(false)
+              }}>
+                <Text>Fechar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </View>
+    );
+  };
+  const infos = async () => {
+    let token = await AsyncStorage.getItem("token")
+    fetch("http://localhost:3000/atividades/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token.split('"')[1]
+      },
+      body: JSON.stringify({
+        id_turma: id_turma,
+        titulo: titulo,
+        descricao: descricao,
+        prazo: prazo,
+        pontos_conclusao: pontos_conclusao
+      })
+    })
+      .then(resp => resp.json())
+      .then(data => {
+        setDado(data);
+      })
+      .catch(error => {
+        console.error("Erro ao obter atividades concluídas:", error);
+      });
+  };
   return (
     <View style={styles.container}>
-      <Modal visible={modalVisible} animationType="slide" transparent>
+      <Modal visible={modalVisible} transparent>
         <ModalContent />
       </Modal>
-      {/* <Modal visible={modalAluno} animationType="slide" transparent>
-        <Alunos />
-      </Modal> */}
       <ImageBackground
         source={require("../../../../assets/fundo.jpg")}
         resizeMode="cover"
@@ -197,23 +269,13 @@ export default function Professor({ navigation }) {
         {info.turma.map((att, index) => {
           return (
             <View style={styles.turma} key={index}>
-              <Image
-                style={styles.image2}
-                source={require("../../../../assets/pontinhos.png")}
-              />
-              <TouchableOpacity
-                style={{ alignItems: 'center' }}
-                onPress={() => {
-                  setModalAluno(!modalAluno)
-                }}
-              >
                 <Image
                   style={styles.image}
                   source={require("../../../../assets/favicon.png")}
                 />
                 <Text>{att.nome}</Text>
                 <Text>Cod: {att.codigo}</Text>
-              </TouchableOpacity>
+
             </View>
           )
         })}

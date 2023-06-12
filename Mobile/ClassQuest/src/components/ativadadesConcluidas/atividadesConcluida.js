@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View, Image, Modal, Linking } from "react-native";
 import styles from "./style";
@@ -5,11 +6,6 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
 const cardAttAluno = ({ item }) => {
-
-    const ativadadeBaixar = async (arquivo) => {
-        const azureUrl = `https://classquest.blob.core.windows.net/data/${arquivo}`;
-        await Linking.openURL(azureUrl);
-    };
 
     const [setinhaCima, setSetinhaCima] = useState(0);
     const [showModal, setShowModal] = useState(false);
@@ -23,8 +19,14 @@ const cardAttAluno = ({ item }) => {
         require("../../../assets/setaCima.png")
     ];
 
+    const ativadadeBaixar = async (arquivo) => {
+        const azureUrl = `https://classquest.blob.core.windows.net/data/${arquivo}`;
+        await Linking.openURL(azureUrl);
+    };
+
     async function criarPontos(id_aluno, id_turma) {
         try {
+            let token = await AsyncStorage.getItem("token")
             const responsePontos = await fetch(`http://localhost:3000/pontos/create`, {
                 method: "POST",
                 headers: {
@@ -37,10 +39,11 @@ const cardAttAluno = ({ item }) => {
             });
 
             if (responsePontos.ok) {
-                await fetch(`http://localhost:3000/pontos/addPoints/${id_aluno}/${id_turma}`, {
+                 await fetch(`http://localhost:3000/pontos/addPoints/${id_aluno}/${id_turma}`, {
                     method: "PUT",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        Authorization: "Bearer " + token.split('"')[1]
                     },
                     body: JSON.stringify({
                         qtd: qtd
@@ -54,8 +57,8 @@ const cardAttAluno = ({ item }) => {
             // Handle network or other errors
             console.error("Error occurred while creating points:", error);
         }
+        
     }
-
     const ModalQtd = (id_aluno, id_turma) => {
 
         return (
@@ -85,30 +88,30 @@ const cardAttAluno = ({ item }) => {
             </View>
         );
     };
-
-    const opGeral = (id_aluno, id_turma) => {
-        setModalVisible(true)
-        setId_aluno(id_aluno)
-        ModalQtd(id_aluno, id_turma)
-    }
+    
     const ModalContent = () => {
         return (
             <View style={{ ...styles.divTxtAtt, display: showModal ? "flex" : "none" }}>
                 {item.atividades_concluidas.map((t, index) => {
 
                     return (
-                        <View key={index} style={{ flexDirection: 'row' }}>
-                            <Modal visible={modalVisible} animationType="slide" transparent>
+                        <View key={index} style={{ flexDirection: 'row', paddingBottom: '5px' }}>
+                            <Modal visible={modalVisible} transparent>
                                 <ModalQtd />
                             </Modal>
-                            <View style={{ justifyContent: 'center', flexDirection:'row', border: '1px solid black', width: '150px' }}>
+                            <View style={{ justifyContent: 'space-between',display: 'flex', alignItems: 'center', flexDirection:'row', borderTop: '1px solid black', width: '300px' }}>
                                 <Text>Nome: {t.aluno.nome}</Text>
+                                <View style={{ justifyContent: 'flex-end', alignItems: 'flex-end', flexDirection:'row',}}>
                                 <TouchableOpacity onPress={() => { ativadadeBaixar(t.arquivo) }}>
-                                    <Image source={require("../../../assets/download.png")} style={{ height: '15px', width: '15px', margin: '5px', justifyContent: 'flex-end' }} />
+                                    <Image source={require("../../../assets/download.png")} style={{ height: '15px', width: '15px', margin: '5px'}} />
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={() => { opGeral(t.id_aluno, id_turma) }}>
+                                <TouchableOpacity onPress={() => { 
+                                    setId_aluno(t.id_aluno)
+                                    ModalQtd(t.id_aluno, id_turma)
+                                    setModalVisible(!modalVisible) }}>
                                     <Image source={require("../../../assets/addPontos.png")} style={{ height: '15px', width: '15px', margin: '5px' }} />
                                 </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
                     );
@@ -129,7 +132,7 @@ const cardAttAluno = ({ item }) => {
                 onPress={() => opcoes(item.id_turma)}
             >
                 <Text style={{ textAlign: 'center' }}>{item.turma.nome}</Text>
-                <Text>Titulo:{item.titulo}</Text>
+                <Text>Titulo: {item.titulo}</Text>
                 <Text>Descrição: {item.descricao}</Text>
                 <Text>
                     Prazo: {format(new Date(item.prazo), "dd/MM/yyyy - HH:mm", { locale: ptBR })}

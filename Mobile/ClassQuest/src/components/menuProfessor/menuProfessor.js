@@ -16,7 +16,7 @@ export default function Menu({ navigation }) {
     return (
         <Drawer.Navigator
             screenOptions={{ headerShown: false }}
-            initialRouteName='Atividade'
+            initialRouteName='Home'
         >
             <Drawer.Screen
                 name="Perfil"
