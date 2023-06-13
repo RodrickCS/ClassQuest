@@ -51,7 +51,7 @@ const cardAttAluno = ({ item }) => {
       })
       .then((resp) => resp.json())
       .then((data) => {
-        // console.log("Atividade criada:", data);
+        console.log("Pontos atribuidos:", data);
         setModalVisible(false)
       });
     } catch (error) {
