@@ -10,9 +10,6 @@ export default function Atividades({ navigation }) {
 
   useEffect(() => {
     fetchAtividadesConcluidas()
-    setMyInterval(setInterval(() => {
-      fetchAtividadesConcluidas()
-    }, 5000))
   }, [])
 
   const menu = () => {
@@ -66,14 +63,8 @@ export default function Atividades({ navigation }) {
       </View>
       <View style={styles.turmas}>
         {atividadesConcluidas.map((item, index) => {
-          return (<TouchableOpacity
-            onPress={() => {
-              setModalShow(!ModalShow)
-              setId_turma(item.id_turma)
-            }}
-          >
-            <AtividadesConcluidas key={index} item={item} />
-          </TouchableOpacity>)
+          return (
+            <AtividadesConcluidas key={index} item={item} />)
         })}
       </View>
     </View>

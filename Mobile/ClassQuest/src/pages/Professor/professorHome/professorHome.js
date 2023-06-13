@@ -1,5 +1,5 @@
-import AsyncStorage from "@react-native-async-storage/async-storage"
-import { useState, useEffect } from "react"
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,62 +8,63 @@ import {
   Image,
   ImageBackground,
   TextInput
-} from "react-native"
-import styles from "./style"
+} from "react-native";
+import styles from "./style";
 
 export default function Professor({ navigation }) {
-  const [modalVisible, setModalVisible] = useState(false)
-  const [Nome, setNome] = useState("")
-  const [info, setInfo] = useState({ turma: [] })
-  const [myInterval, setMyInterval] = useState(null)
-  const [dado, setDado] = useState(false)
-  const [ModalShow, setModalShow] = useState(true)
-  const [id_turma, setId_turma] = useState()
-  const [titulo, setTitulo] = useState("")
-  const [descricao, setDescricao] = useState("")
-  const [prazo, setPrazo] = useState()
-  const [pontos_conclusao, setPontos_conclusao] = useState()
-
+  const [modalVisible, setModalVisible] = useState(false);
+  const [Nome, setNome] = useState("");
+  const [info, setInfo] = useState({ turma: [] });
+  const [myInterval, setMyInterval] = useState(null);
+  const [dado, setDado] = useState(false);
+  const [ModalShow, setModalShow] = useState(false);
+  const [id_turma, setId_turma] = useState();
+  const [titulo, setTitulo] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [prazo, setPrazo] = useState();
+  const [pontos_conclusao, setPontos_conclusao] = useState();
 
   useEffect(() => {
-    dados()
-    setMyInterval(setInterval(() => {
-      dados()
-    }, 5000))
-  }, [])
+    dados();
+    // setMyInterval(
+    //   setInterval(() => {
+    //     dados();
+    //   }, 5000)
+    // );
+  }, []);
 
   const menu = () => {
-    clearInterval(myInterval)
-    navigation.openDrawer()
-  }
+    clearInterval(myInterval);
+    navigation.openDrawer();
+  };
 
   const voltar = () => {
-    clearInterval(myInterval)
-    navigation.navigate("Login")
-  }
+    clearInterval(myInterval);
+    navigation.navigate("Login");
+  };
   async function dados() {
     try {
-      const userString = await AsyncStorage.getItem("nome")
+      const userString = await AsyncStorage.getItem("nome");
       if (userString) {
-        const user = JSON.parse(userString)
-        const idzinho = user.id_prof
+        const user = JSON.parse(userString);
+        const idzinho = user.id_prof;
         fetch("http://localhost:3000/professores/readOne/" + idzinho)
           .then((resp) => resp.json())
           .then((data) => {
-            setInfo(data)
-          })
+            setInfo(data);
+          });
       }
     } catch (error) {
-      console.error("Error:", error)
+      console.error("Error:", error);
     }
   }
 
   async function criarRecurso() {
     try {
-      const userString = await AsyncStorage.getItem("nome")
-      const user = JSON.parse(userString)
-      const id_prof = user.id_prof
-      let token = await AsyncStorage.getItem("token")
+      const userString = await AsyncStorage.getItem("nome");
+      const user = JSON.parse(userString);
+      const id_prof = user.id_prof;
+      let token = await AsyncStorage.getItem("token");
 
       const responsePost = await fetch("http://localhost:3000/turmas/create", {
         method: "POST",
@@ -74,28 +75,31 @@ export default function Professor({ navigation }) {
         body: JSON.stringify({
           nome: Nome
         })
-      })
+      });
 
       if (responsePost.ok) {
         const dataPost = await responsePost.json();
         const resourceId = dataPost.id_turma;
 
-        const responsePut = await fetch(`http://localhost:3000/turmas/adicionarProfessor/${resourceId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token.split('"')[1]
-          },
-          body: JSON.stringify({
-            id_prof: id_prof
-          })
-        });
+        const responsePut = await fetch(
+          `http://localhost:3000/turmas/adicionarProfessor/${resourceId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token.split('"')[1]
+            },
+            body: JSON.stringify({
+              id_prof: id_prof
+            })
+          }
+        );
 
         if (responsePut.ok) {
           const dataPut = await responsePut.json();
           console.log("Recurso atualizado:", dataPut);
-          setModalVisible(false)
-          dados()
+          setModalVisible(false);
+          dados();
         } else {
           console.log("Erro ao atualizar o recurso.");
         }
@@ -114,43 +118,54 @@ export default function Professor({ navigation }) {
         <TextInput
           value={Nome}
           onChangeText={(val) => {
-            setNome(val)
+            setNome(val);
           }}
           autoFocus={true}
           keyboardType="default"
           style={styles.inputzinho}
         ></TextInput>
         <View style={styles.botoes}>
-          <TouchableOpacity
-            style={styles.sairBotao}
-
-          >
+          <TouchableOpacity style={styles.sairBotao}>
             <Text style={styles.txtFechar}>Fechar</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.okBotao}
             onPress={() => {
-              criarRecurso()
+              criarRecurso();
             }}
           >
             <Text style={styles.txtOk}>Ok</Text>
           </TouchableOpacity>
         </View>
       </View>
-    )
-  }
+    );
+  };
 
   const ModalAtt = () => {
     return (
-      <View style={{ ...styles.divTxtAtt, display: ModalShow ? "flex" : "none" }}>
-        <View key={index} style={{ flexDirection: 'row', paddingBottom: '5px' }}>
+      <View
+        style={{ ...styles.divTxtAtt, display: ModalShow ? "flex" : "none" }}
+      >
+        <View
+          key={index}
+          style={{ flexDirection: "row", paddingBottom: "5px" }}
+        >
           <Text style={styles.titulo}>Criar atividade: </Text>
           <ImageBackground
             source={require("../../../../assets/fundo.jpg")}
             resizeMode="cover"
             style={styles.imagem}
           ></ImageBackground>
-          <View style={{ justifyContent: 'space-between', display: 'flex', alignItems: 'center', flexDirection: 'row', borderTop: '1px solid black', width: '300px' }}>
+          <View
+            style={{
+              justifyContent: "space-between",
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "row",
+              borderTop: "1px solid black",
+              width: "300px"
+            }}
+          >
             <Text>Titulo:</Text>
             <TextInput
               autoFocus={true}
@@ -187,15 +202,19 @@ export default function Professor({ navigation }) {
                 setPontos_conclusao(val);
               }}
             ></TextInput>
-            <View style={{ flexDirection: 'row', }}>
-              <TouchableOpacity onPress={() => {
-                infos()
-              }}>
+            <View style={{ flexDirection: "row" }}>
+              <TouchableOpacity
+                onPress={() => {
+                  infos();
+                }}
+              >
                 <Text>Enviar</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => {
-                ShowModal(false)
-              }}>
+              <TouchableOpacity
+                onPress={() => {
+                  ShowModal(false);
+                }}
+              >
                 <Text>Fechar</Text>
               </TouchableOpacity>
             </View>
@@ -205,33 +224,40 @@ export default function Professor({ navigation }) {
     );
   };
   const infos = async () => {
-    let token = await AsyncStorage.getItem("token")
-    fetch("http://localhost:3000/atividades/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token.split('"')[1]
-      },
-      body: JSON.stringify({
-        id_turma: id_turma,
-        titulo: titulo,
-        descricao: descricao,
-        prazo: prazo,
-        pontos_conclusao: pontos_conclusao
+    try {
+      let token = await AsyncStorage.getItem("token");
+      fetch("http://localhost:3000/atividades/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token.split('"')[1]
+        },
+        body: JSON.stringify({
+          id_turma: id_turma,
+          titulo: titulo,
+          descricao: descricao,
+          prazo: prazo,
+          pontos_conclusao: pontos_conclusao
+        })
       })
-    })
-      .then(resp => resp.json())
-      .then(data => {
-        setDado(data);
-      })
-      .catch(error => {
-        console.error("Erro ao obter atividades concluídas:", error);
-      });
+        .then((resp) => resp.json())
+        .then((data) => {
+          setDado(data);
+        })
+        .catch((error) => {
+          console.error("Erro ao obter atividades concluídas:", error);
+        });
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <View style={styles.container}>
       <Modal visible={modalVisible} transparent>
         <ModalContent />
+      </Modal>
+      <Modal visible={ModalShow} transparent>
+        <ModalAtt />
       </Modal>
       <ImageBackground
         source={require("../../../../assets/fundo.jpg")}
@@ -242,7 +268,7 @@ export default function Professor({ navigation }) {
         <TouchableOpacity
           style={styles.imagenzinha}
           onPress={() => {
-            menu()
+            menu();
           }}
         >
           <Image
@@ -252,14 +278,14 @@ export default function Professor({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            setModalVisible(!modalVisible)
+            setModalVisible(!modalVisible);
           }}
         >
           <Text style={styles.txtEntrar}> Criar uma turma </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            voltar()
+            voltar();
           }}
         >
           <Text style={styles.txtSair}>Sair</Text>
@@ -269,17 +295,16 @@ export default function Professor({ navigation }) {
         {info.turma.map((att, index) => {
           return (
             <View style={styles.turma} key={index}>
-                <Image
-                  style={styles.image}
-                  source={require("../../../../assets/favicon.png")}
-                />
-                <Text>{att.nome}</Text>
-                <Text>Cod: {att.codigo}</Text>
-
+              <Image
+                style={styles.image}
+                source={require("../../../../assets/favicon.png")}
+              />
+              <Text>{att.nome}</Text>
+              <Text>Cod: {att.codigo}</Text>
             </View>
-          )
+          );
         })}
       </View>
     </View>
-  )
+  );
 }
