@@ -1,36 +1,46 @@
-import AsyncStorage from "@react-native-async-storage/async-storage"
-import { useState, useEffect } from "react"
-import { View, Text, TouchableOpacity, Image, ImageBackground, Modal, TextInput } from "react-native"
-import styles from "./style"
-import AtividadesConcluidas from "../../../components/ativadadesConcluidas/atividadesConcluida"
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ImageBackground,
+  Modal,
+  TextInput
+} from "react-native";
+import styles from "./style";
+import AtividadesConcluidas from "../../../components/ativadadesConcluidas/atividadesConcluida";
 
 export default function Atividades({ navigation }) {
-  const [myInterval, setMyInterval] = useState(null)
+  const [myInterval, setMyInterval] = useState(null);
   const [atividadesConcluidas, setAtividadesConcluidas] = useState([]);
 
   useEffect(() => {
-    fetchAtividadesConcluidas()
-  }, [])
+    fetchAtividadesConcluidas();
+  }, []);
 
   const menu = () => {
-    clearInterval(myInterval)
-    navigation.openDrawer()
-  }
+    clearInterval(myInterval);
+    navigation.openDrawer();
+  };
 
   const voltar = () => {
-    clearInterval(myInterval)
-    navigation.navigate("Login")
-  }
+    clearInterval(myInterval);
+    navigation.navigate("Login");
+  };
   const fetchAtividadesConcluidas = () => {
     fetch("http://localhost:3000/atividades/viewAtividades")
-      .then(resp => resp.json())
-      .then(data => {
+      .then((resp) => resp.json())
+      .then((data) => {
         setAtividadesConcluidas(data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Erro ao obter atividades concluídas:", error);
       });
   };
+
+  
 
   return (
     <View style={styles.container}>
@@ -43,7 +53,7 @@ export default function Atividades({ navigation }) {
         <TouchableOpacity
           style={styles.imagenzinha}
           onPress={() => {
-            menu()
+            menu();
           }}
         >
           <Image
@@ -51,11 +61,10 @@ export default function Atividades({ navigation }) {
             source={require("../../../../assets/favicon.png")}
           />
         </TouchableOpacity>
-        <Text style={styles.txtEntrar}> Atividade </Text>
-
+          <Text style={styles.txtEntrar}> Atividade </Text>
         <TouchableOpacity
           onPress={() => {
-            voltar()
+            voltar();
           }}
         >
           <Text style={styles.txtSair}>Sair</Text>
@@ -63,10 +72,9 @@ export default function Atividades({ navigation }) {
       </View>
       <View style={styles.turmas}>
         {atividadesConcluidas.map((item, index) => {
-          return (
-            <AtividadesConcluidas key={index} item={item} />)
+          return <AtividadesConcluidas key={index} item={item} />;
         })}
       </View>
     </View>
-  )
+  );
 }

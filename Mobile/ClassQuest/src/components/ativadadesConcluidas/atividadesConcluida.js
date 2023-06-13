@@ -48,12 +48,18 @@ const cardAttAluno = ({ item }) => {
         body: JSON.stringify({
           qtd: qtd
         })
+      })
+      .then((resp) => resp.json())
+      .then((data) => {
+        // console.log("Atividade criada:", data);
+        setModalVisible(false)
       });
     } catch (error) {
       // Handle network or other errors
       console.error("Error occurred while creating points:", error);
     }
   }
+
   const ModalQtd = (props) => {
     console.log(props);
     return (

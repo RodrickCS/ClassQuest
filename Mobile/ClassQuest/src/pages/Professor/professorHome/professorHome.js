@@ -16,13 +16,12 @@ export default function Professor({ navigation }) {
   const [Nome, setNome] = useState("");
   const [info, setInfo] = useState({ turma: [] });
   const [myInterval, setMyInterval] = useState(null);
-  const [dado, setDado] = useState(false);
   const [ModalShow, setModalShow] = useState(false);
-  const [id_turma, setId_turma] = useState();
-  const [titulo, setTitulo] = useState("");
-  const [descricao, setDescricao] = useState("");
-  const [prazo, setPrazo] = useState();
-  const [pontos_conclusao, setPontos_conclusao] = useState();
+  const [id_turma, setId_turma] = useState(10);
+  const [titulo, setTitulo] = useState("coisa");
+  const [descricao, setDescricao] = useState("coisinha");
+  const [prazo, setPrazo] = useState("2023-04-25T08:32:54.648Z");
+  const [pontos_conclusao, setPontos_conclusao] = useState(10);
 
   useEffect(() => {
     dados();
@@ -125,7 +124,12 @@ export default function Professor({ navigation }) {
           style={styles.inputzinho}
         ></TextInput>
         <View style={styles.botoes}>
-          <TouchableOpacity style={styles.sairBotao}>
+          <TouchableOpacity
+            style={styles.sairBotao}
+            onPress={() => {
+              setModalVisible(false);
+            }}
+          >
             <Text style={styles.txtFechar}>Fechar</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -143,31 +147,18 @@ export default function Professor({ navigation }) {
 
   const ModalAtt = () => {
     return (
-      <View
-        style={{ ...styles.divTxtAtt, display: ModalShow ? "flex" : "none" }}
-      >
-        <View
-          key={index}
-          style={{ flexDirection: "row", paddingBottom: "5px" }}
-        >
-          <Text style={styles.titulo}>Criar atividade: </Text>
-          <ImageBackground
-            source={require("../../../../assets/fundo.jpg")}
-            resizeMode="cover"
-            style={styles.imagem}
-          ></ImageBackground>
-          <View
-            style={{
-              justifyContent: "space-between",
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "row",
-              borderTop: "1px solid black",
-              width: "300px"
-            }}
-          >
+      <View style={{ ...styles.divin, display: ModalShow ? "flex" : "none" }}>
+        <ImageBackground
+          source={require("../../../../assets/fundo.jpg")}
+          resizeMode="cover"
+          style={styles.imagem}
+        ></ImageBackground>
+        <View style={{ flexDirection: "row", paddingBottom: "5px" }}>
+          <View>
+            <Text style={styles.titulo}>Criar atividade: </Text>
             <Text>Titulo:</Text>
             <TextInput
+              style={styles.inputzinho}
               autoFocus={true}
               keyboardType="default"
               value={titulo}
@@ -177,6 +168,7 @@ export default function Professor({ navigation }) {
             ></TextInput>
             <Text>Descrição:</Text>
             <TextInput
+              style={styles.inputzinho}
               autoFocus={true}
               keyboardType="default"
               value={descricao}
@@ -186,6 +178,7 @@ export default function Professor({ navigation }) {
             ></TextInput>
             <Text>Prazo:</Text>
             <TextInput
+              style={styles.inputzinho}
               autoFocus={true}
               keyboardType="default"
               value={prazo}
@@ -195,8 +188,9 @@ export default function Professor({ navigation }) {
             ></TextInput>
             <Text>Pontos de conclusão:</Text>
             <TextInput
+              style={styles.inputzinho}
               autoFocus={true}
-              keyboardType="default"
+              keyboardType="numeric"
               value={pontos_conclusao}
               onChangeText={(val) => {
                 setPontos_conclusao(val);
@@ -204,15 +198,27 @@ export default function Professor({ navigation }) {
             ></TextInput>
             <View style={{ flexDirection: "row" }}>
               <TouchableOpacity
+                style={{
+                  margin: "25px",
+                  padding: "15px",
+                  backgroundColor: "#0f0",
+                  borderRadius: "10px"
+                }}
                 onPress={() => {
-                  infos();
+                  criarAtt();
                 }}
               >
                 <Text>Enviar</Text>
               </TouchableOpacity>
               <TouchableOpacity
+                style={{
+                  margin: "25px",
+                  padding: "15px",
+                  backgroundColor: "#f00",
+                  borderRadius: "10px"
+                }}
                 onPress={() => {
-                  ShowModal(false);
+                  setModalShow(false);
                 }}
               >
                 <Text>Fechar</Text>
@@ -223,7 +229,8 @@ export default function Professor({ navigation }) {
       </View>
     );
   };
-  const infos = async () => {
+
+  const criarAtt = async () => {
     try {
       let token = await AsyncStorage.getItem("token");
       fetch("http://localhost:3000/atividades/create", {
@@ -239,24 +246,22 @@ export default function Professor({ navigation }) {
           prazo: prazo,
           pontos_conclusao: pontos_conclusao
         })
-      })
-        .then((resp) => resp.json())
-        .then((data) => {
-          setDado(data);
-        })
-        .catch((error) => {
-          console.error("Erro ao obter atividades concluídas:", error);
-        });
+      }).then((resp) => resp.json())
+      .then((data) => {
+        console.log("Atividade criada:", data);
+        setModalShow(false);
+      });
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <View style={styles.container}>
       <Modal visible={modalVisible} transparent>
         <ModalContent />
       </Modal>
-      <Modal visible={ModalShow} transparent>
+      <Modal visible={ModalShow}>
         <ModalAtt />
       </Modal>
       <ImageBackground
@@ -278,7 +283,7 @@ export default function Professor({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            setModalVisible(!modalVisible);
+            setModalVisible(true);
           }}
         >
           <Text style={styles.txtEntrar}> Criar uma turma </Text>
@@ -295,12 +300,19 @@ export default function Professor({ navigation }) {
         {info.turma.map((att, index) => {
           return (
             <View style={styles.turma} key={index}>
-              <Image
-                style={styles.image}
-                source={require("../../../../assets/favicon.png")}
-              />
-              <Text>{att.nome}</Text>
-              <Text>Cod: {att.codigo}</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  setId_turma(att.id_turma);
+                  setModalShow(true);
+                }}
+              >
+                <Image
+                  style={styles.image}
+                  source={require("../../../../assets/favicon.png")}
+                />
+                <Text>{att.nome}</Text>
+                <Text>Cod: {att.codigo}</Text>
+              </TouchableOpacity>
             </View>
           );
         })}
