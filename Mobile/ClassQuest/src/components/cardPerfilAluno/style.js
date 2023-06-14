@@ -23,6 +23,7 @@ export default StyleSheet.create({
   divTxtAtt: {
     alignItems: "left",
     position: 'relative',
+    backgroundColor: "#ddd"
   },
   turma: {
     flexDirection: "row",

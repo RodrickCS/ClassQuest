@@ -1,106 +1,116 @@
-const { PrismaClient } = require("@prisma/client")
-const prisma = new PrismaClient()
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 
 const read = async (req, res) => {
   try {
-    let atividade = await prisma.atividades.findMany()
-    res.status(200).json(atividade).end()
+    let atividade = await prisma.atividades.findMany();
+    res.status(200).json(atividade).end();
   } catch (err) {
-    res.status(500).json(err).end()
-    console.log(err)
+    res.status(500).json(err).end();
+    console.log(err);
   }
-}
+};
 
 const readOne = async (req, res) => {
   try {
     let atividade = await prisma.atividades.findUnique({
       where: {
-        id_atividade: Number(req.params.id_atividade),
-      },
-    })
-    res.status(200).json(atividade).end()
+        id_atividade: Number(req.params.id_atividade)
+      }
+    });
+    res.status(200).json(atividade).end();
   } catch (err) {
-    res.status(500).json(err).end()
-    console.log(err)
+    res.status(500).json(err).end();
+    console.log(err);
   }
-}
+};
 
 const adicionarAtividade = async (req, res) => {
   try {
     let atividade = await prisma.atividades.create({
-      data: req.body,
-    })
-    res.status(201).json(atividade).end()
+      data: req.body
+    });
+    res.status(201).json(atividade).end();
   } catch (err) {
-    res.status(500).json(err).end()
-    console.log(err)
+    res.status(500).json(err).end();
+    console.log(err);
   }
-}
+};
 
 const updateAtividade = async (req, res) => {
   try {
     let atividade = await prisma.atividades.update({
       where: {
-        id_atividade: Number(req.params.id_atividade),
+        id_atividade: Number(req.params.id_atividade)
       },
-      data: req.body,
-    })
-    res.status(200).json(atividade).end()
+      data: req.body
+    });
+    res.status(200).json(atividade).end();
   } catch (err) {
-    res.status(500).json(err).end()
-    console.log(err)
+    res.status(500).json(err).end();
+    console.log(err);
   }
-}
+};
 
 const excluir = async (req, res) => {
   try {
     let atividade = await prisma.atividades.delete({
       where: {
-        id_atividade: Number(req.params.id_atividade),
-      },
-    })
-    res.status(204).json(atividade).end()
+        id_atividade: Number(req.params.id_atividade)
+      }
+    });
+    res.status(204).json(atividade).end();
   } catch (err) {
-    res.status(500).json(err).end()
-    console.log(err)
+    res.status(500).json(err).end();
+    console.log(err);
   }
-}
+};
 
 const concluirTarefa = async (req, res) => {
   try {
     const atividadeConcluida = await prisma.atividades_concluidas.findMany({
       where: {
         id_atividade: Number(req.body.id_atividade),
-        id_aluno: Number(req.body.id_aluno),
-      },
-    })
+        id_aluno: Number(req.body.id_aluno)
+      }
+    });
 
     if (atividadeConcluida.length > 0) {
-      return res.status(400).json({ error: "Atividade já concluída" }).end()
+      return res.status(400).json({ error: "Atividade já concluída" }).end();
     }
 
     const atividade = await prisma.atividades_concluidas.create({
-      data: req.body,
-    })
+      data: {
+        id_atividade: Number(req.body.id_atividade),
+        id_aluno: Number(req.body.id_aluno),
+        data_concluida: req.body.data_concluida,
+        arquivo: req.body.arquivo
+      }
+    });
 
-    res.status(200).json(atividade).end()
+    res.status(200).json(atividade).end();
   } catch (err) {
-    res.status(500).json(err).end()
-    console.log(err)
+    res.status(500).json(err).end();
+    console.log(err);
   }
-}
+};
 
 const adicionarTarefa = async (req, res) => {
   try {
     const atividade = await prisma.atividades_concluidas.create({
-      data: req.body,
-    })
-    res.status(200).json(atividade).end()
+      data: {
+        id_atividade: Number(req.body.id_atividade),
+        id_aluno: Number(req.body.id_aluno),
+        data_concluida: req.body.data_concluida,
+        arquivo: req.body.arquivo
+      }
+    });
+    res.status(200).json(atividade).end();
   } catch (err) {
-    res.status(500).json(err).end()
-    console.log(err)
+    res.status(500).json(err).end();
+    console.log(err);
   }
-}
+};
 
 const readTarefaConcluida = async (req, res) => {
   try {
@@ -113,17 +123,17 @@ const readTarefaConcluida = async (req, res) => {
         aluno: {
           select: {
             id_aluno: true,
-            nome: true,
-          },
-        },
-      },
-    })
-    res.status(200).json(atividade).end()
+            nome: true
+          }
+        }
+      }
+    });
+    res.status(200).json(atividade).end();
   } catch (err) {
-    res.status(500).json(err).end()
-    console.log(err)
+    res.status(500).json(err).end();
+    console.log(err);
   }
-}
+};
 
 const readPendentes = async (req, res) => {
   try {
@@ -133,13 +143,13 @@ const readPendentes = async (req, res) => {
     LEFT JOIN atividades_concluidas ac ON ac.id_atividade = a.id_atividade AND ac.id_aluno = ${req.params.id_aluno}
     INNER JOIN  turmas t on t.id_turma = a.id_turma
     WHERE ac.id_concluida IS NULL
-    `
-    res.status(200).json(atividade).end()
+    `;
+    res.status(200).json(atividade).end();
   } catch (err) {
-    res.status(500).json(err).end()
-    console.log(err)
+    res.status(500).json(err).end();
+    console.log(err);
   }
-}
+};
 
 const viewAtividadeConcluida = async (req, res) => {
   try {
@@ -152,7 +162,7 @@ const viewAtividadeConcluida = async (req, res) => {
         pontos_conclusao: true,
         turma: {
           select: {
-            nome: true,
+            nome: true
           }
         },
         atividades_concluidas: {
@@ -163,23 +173,23 @@ const viewAtividadeConcluida = async (req, res) => {
             arquivo: true,
             aluno: {
               select: {
-                nome: true,
+                nome: true
               }
-            },
+            }
           },
           orderBy: {
             data_concluida: "desc"
-          },
-        },
-      },
-    })
-    
-    res.status(200).json(atividades)
+          }
+        }
+      }
+    });
+
+    res.status(200).json(atividades);
   } catch (err) {
-    res.status(500).json(err)
-    console.log(err)
+    res.status(500).json(err);
+    console.log(err);
   }
-}
+};
 
 module.exports = {
   read,
@@ -191,5 +201,5 @@ module.exports = {
   readTarefaConcluida,
   readPendentes,
   viewAtividadeConcluida,
-  adicionarTarefa,
-}
+  adicionarTarefa
+};

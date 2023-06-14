@@ -21,9 +21,6 @@ const cardAttAluno = ({ item }) => {
   const [idTurma, setIdTurma] = useState(1);
   const [idAluno, setIdAluno] = useState(1);
 
-  //   var idTurma;
-  //   var idAluno;
-
   const images = [
     require("../../../assets/setaBaixo.png"),
     require("../../../assets/setaCima.png")
@@ -37,8 +34,6 @@ const cardAttAluno = ({ item }) => {
   async function criarPontos(id_aluno, id_turma) {
     try {
       let token = await AsyncStorage.getItem("token");
-
-      console.log(id_aluno, id_turma);
       fetch(`http://localhost:3000/pontos/addPoints/${id_aluno}/${id_turma}`, {
         method: "PUT",
         headers: {
@@ -55,13 +50,11 @@ const cardAttAluno = ({ item }) => {
         setModalVisible(false)
       });
     } catch (error) {
-      // Handle network or other errors
       console.error("Error occurred while creating points:", error);
     }
   }
 
   const ModalQtd = (props) => {
-    console.log(props);
     return (
       <View style={styles.modalTotal}>
         <Text style={styles.txtCad}>Digite a quantidade de pontos:</Text>
@@ -141,7 +134,6 @@ const cardAttAluno = ({ item }) => {
                     onPress={() => {
                       const idA = t.id_aluno;
                       const idT = id_turma;
-                      console.log(idA, idT);
                       setIdAluno(idA);
                       setIdTurma(idT.item);
                       setModalVisible(true);

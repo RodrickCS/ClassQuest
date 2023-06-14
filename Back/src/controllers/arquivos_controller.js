@@ -1,4 +1,5 @@
 const { BlobServiceClient } = require('@azure/storage-blob')
+const { log } = require('console')
 const fs = require('fs')
 
 

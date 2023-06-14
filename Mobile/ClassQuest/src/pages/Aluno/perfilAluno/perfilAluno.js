@@ -15,9 +15,11 @@ export default function PerfilProf({ navigation }) {
 
   useEffect(() => {
     dados();
-    setMyInterval(setInterval(() => {
-      dados();
-    }, 5000));
+    setMyInterval(
+      setInterval(() => {
+        dados();
+      }, 5000)
+    );
   }, []);
 
   async function dados() {
@@ -32,7 +34,6 @@ export default function PerfilProf({ navigation }) {
           })
           .then((data) => {
             setInfo(data);
-            console.log(data);
           });
       }
     } catch (error) {
@@ -78,30 +79,22 @@ export default function PerfilProf({ navigation }) {
           Sair
         </Text>
       </View>
-      {info.pontos &&
-                info.pontos.map((ix, index) => {
-                  return (
-                    <View key={index}>
-                      <Text style={styles.tituloP}>Seus pontos: {ix.qtd}</Text>
-                    </View>
-                  );
-                })}
-      {info.turma &&
-        info.turma.map((i, index) => {
-          return (
-            <View style={styles.dados} key={index}>
-              <TouchableOpacity style={styles.turma}>
-                <Image
-                  style={styles.image}
-                  source={require("../../../../assets/favicon.png")}
-                />
-                <Text style={styles.titulo}>{i.nome}</Text>
-              </TouchableOpacity>
-
-              
-            </View>
-          );
-        })}
+      <View style={{ flexDirection: "row" }}>
+        {info.turma &&
+          info.turma.map((i, index) => {
+            return (
+              <View style={styles.dados} key={index}>
+                <TouchableOpacity style={styles.turma}>
+                  <Image
+                    style={styles.image}
+                    source={require("../../../../assets/favicon.png")}
+                  />
+                  <Text style={styles.titulo}>{i.nome}</Text>
+                </TouchableOpacity>
+              </View>
+            );
+          })}
+      </View>
     </View>
   );
 }
