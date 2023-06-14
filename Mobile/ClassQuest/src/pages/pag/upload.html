@@ -133,15 +133,21 @@
               body: JSON.stringify(form)
             };
             if ((data.error = "Atividade ja concluída")) {
-              fetch("http://localhost:3000/atividades/concluirNovamente", opcoes)
+              fetch(
+                "http://localhost:3000/atividades/concluirNovamente",
+                opcoes
+              )
                 .then((resp) => {
                   return resp.status;
                 })
                 .then((data) => {
-                  console.log(data);
-                  enviarPg()
-                });
-            }
+                  if (data === 200) {
+                   enviarPg();
+                  }
+                })
+              } else {
+                enviarPg()
+              }
           });
       } catch (error) {
         console.error("Error:", error);

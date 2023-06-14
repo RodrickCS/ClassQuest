@@ -168,8 +168,38 @@ const ModalContent = () => {
   );
 };
 
-const ModalAtt = () => {
-  return (
+
+const criarAtt = async () => {
+  try {
+    let token = await AsyncStorage.getItem("token");
+    fetch("http://localhost:3000/atividades/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token.split('"')[1]
+      },
+      body: JSON.stringify({
+        id_turma: id_turma,
+        titulo: titulo,
+        descricao: descricao,
+        prazo: prazo,
+        pontos_conclusao: pontos_conclusao
+      })
+    }).then((resp) => resp.json())
+      .then((data) => {
+        console.log("Atividade criada:", data);
+        setModalShow(false);
+      });
+  } catch (error) {
+    console.error(error);
+  }
+};
+return (
+  <View style={styles.container}>
+    <Modal visible={modalVisible} transparent>
+      <ModalContent />
+    </Modal>
+    <Modal visible={ModalShow}>
     <View style={{ ...styles.divin, display: ModalShow ? "flex" : "none" }}>
       <ImageBackground
         source={require("../../../../assets/fundo.jpg")}
@@ -254,40 +284,6 @@ const ModalAtt = () => {
       </View>
     </View>
   );
-};
-
-const criarAtt = async () => {
-  try {
-    let token = await AsyncStorage.getItem("token");
-    fetch("http://localhost:3000/atividades/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token.split('"')[1]
-      },
-      body: JSON.stringify({
-        id_turma: id_turma,
-        titulo: titulo,
-        descricao: descricao,
-        prazo: prazo,
-        pontos_conclusao: pontos_conclusao
-      })
-    }).then((resp) => resp.json())
-      .then((data) => {
-        console.log("Atividade criada:", data);
-        setModalShow(false);
-      });
-  } catch (error) {
-    console.error(error);
-  }
-};
-return (
-  <View style={styles.container}>
-    <Modal visible={modalVisible} transparent>
-      <ModalContent />
-    </Modal>
-    <Modal visible={ModalShow}>
-      <ModalAtt />
     </Modal>
     <ImageBackground
       source={require("../../../../assets/fundo.jpg")}
