@@ -33,9 +33,6 @@ export default StyleSheet.create({
     padding: "15px",
     textShadow: "1px 1px 1px #000"
   },
-  dados: {
-    margin: "10px"
-  },
   emCima:{
     margin: "10px",
     justifyContent: 'space-between',
@@ -45,9 +42,9 @@ export default StyleSheet.create({
     backgroundColor: "#6fddeb",
     borderRadius: "10px",
     padding: "20px",
-    margin: "10px",
-    width: "max-content"
-    // textAlign: 'center',
+    margin: "5px",
+    width: "max-content",
+    textAlign: 'center',
     // justifyContent:'center',
     // alignItems: 'center',
     // alignSelf: 'center',
@@ -139,8 +136,7 @@ export default StyleSheet.create({
     textShadow: '1px 1px 1px #000',
   },
   dados: {
-    // backgroundColor: '#6fddeb',
-    margin: '10px',
+    margin: '5px',
   },
   coisinhas: {
     flexDirection: 'row',

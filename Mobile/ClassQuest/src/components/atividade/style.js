@@ -19,6 +19,7 @@ export default StyleSheet.create({
     border: "1px solid",
     borderRadius: '10px',
     margin: "5px",
+    backgroundColor: "#fff"
   },
   divTxtAtt: {
     alignItems: "left",

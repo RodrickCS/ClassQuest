@@ -60,12 +60,12 @@ export default StyleSheet.create({
     backgroundColor: "#6fddeb",
     borderRadius: "10px",
     padding: "20px",
-    margin: "10px"
-    // textAlign: 'center',
-    // justifyContent:'center',
-    // alignItems: 'center',
-    // alignSelf: 'center',
-    // alignContent: 'center'
+    margin: "10px",
+    textAlign: 'center',
+    justifyContent:'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    alignContent: 'center'
   },
   turmas: {
     flexDirection: "row",
