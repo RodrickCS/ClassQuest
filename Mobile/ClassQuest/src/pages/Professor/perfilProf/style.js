@@ -43,15 +43,16 @@ export default StyleSheet.create({
     textShadow: '1px 1px 1px #000',
   },
   dados: {
-    // backgroundColor: '#6fddeb',
-    margin: '10px',
+    flexDirection: 'row'
   },
   turma: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     margin: '5px',
+    width: 'max-content',
     backgroundColor: '#fff',
     borderRadius: '10px',
+    padding: '20px'
   },
   coisinhas: {
     flexDirection: 'row',

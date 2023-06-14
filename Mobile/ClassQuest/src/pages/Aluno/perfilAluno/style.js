@@ -4,6 +4,10 @@ export default StyleSheet.create({
   container: {
     // alignItems: 'center',
   },
+  tituloP:{
+    color: '#fff',
+    margin: '5px',
+  },
   imagem: {
     flex: 2,
     width: 390,

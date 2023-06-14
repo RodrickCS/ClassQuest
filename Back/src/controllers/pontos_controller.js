@@ -24,7 +24,11 @@ const create_points_profile = async (req, res) => {
 
 const add_points = async (req, res) => {
   try {
+<<<<<<< HEAD
     let ponto =
+=======
+    var ponto =
+>>>>>>> 84d1b5eb8ac647c94be0e850eea787c9a4ce4b2c
       await prisma.$queryRaw`UPDATE pontos SET qtd = (SELECT qtd WHERE id_aluno = ${req.params.id_aluno} AND id_turma = ${req.params.id_turma} LIMIT 1) + ${req.body.qtd} WHERE id_aluno = ${req.params.id_aluno} AND id_turma = ${req.params.id_turma}`;
     res.status(200).json({ msg: "Pontos atribuídos" }).end();
   } catch (err) {

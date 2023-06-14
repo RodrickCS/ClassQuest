@@ -6,9 +6,19 @@ export default StyleSheet.create({
     width: 390,
     height: 900
   },
+  titulo: {
+    color: "#fff",
+    fontSize: '12pt',
+    margin: '15px',
+    textAlign: 'center'
+  },
+  divin: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   image: {
     width: "49px",
-    height: "50px",
+    height: "50px"
   },
   image2: {
     width: "10px",
@@ -41,16 +51,16 @@ export default StyleSheet.create({
   dados: {
     margin: "10px"
   },
-  emCima:{
+  emCima: {
     margin: "10px",
-    justifyContent: 'space-between',
-    flexDirection: "row",
+    justifyContent: "space-between",
+    flexDirection: "row"
   },
   turma: {
     backgroundColor: "#6fddeb",
     borderRadius: "10px",
     padding: "20px",
-    margin: "10px",
+    margin: "10px"
     // textAlign: 'center',
     // justifyContent:'center',
     // alignItems: 'center',
