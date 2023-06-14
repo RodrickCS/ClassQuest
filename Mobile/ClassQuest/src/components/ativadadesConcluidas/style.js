@@ -49,7 +49,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     display: 'flex',
     flexWrap: 'wrap',
-    flexDirection: 'column',
+    // flexDirection: 'column',
     padding: '5px',
   },
   inputzinho: {
