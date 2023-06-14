@@ -72,6 +72,7 @@ const checkUser = () => {
       document.querySelector("#btExcluiAtividade").classList.remove("model");
       document.querySelector("#btCorrigirAtividade").classList.remove("model");
       document.querySelector(".hideBtExcluir").classList.remove("model");
+      document.querySelector(".pontosAluno").classList.add("model");
     } else {
       document.querySelector(".remove").classList.add("model");
       document.querySelector(".btPremio").classList.add("model");
