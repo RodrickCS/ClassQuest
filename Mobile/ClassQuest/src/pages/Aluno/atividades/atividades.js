@@ -8,6 +8,7 @@ import {
   ImageBackground
 } from "react-native"
 import styles from "./style"
+import CardAlunoHome from "../../../components/cardPerfilAluno/cardPerfilAluno"
 
 export default function Atividades({ navigation }) {
   const [info, setInfo] = useState({ turma: [] })
@@ -76,12 +77,12 @@ export default function Atividades({ navigation }) {
           <Text style={styles.txtSair}>Sair</Text>
         </TouchableOpacity>
       </View>
+   
+      {info.turma.map((att, index) => {
+      return <CardAlunoHome key={index} item={att} />
+    })}
+    
     </View>
-
-
-    // {info.turma.map((att, index) => {
-    //   return <CardAlunoHome key={index} item={att} />
-    // })}
 
   )
 }

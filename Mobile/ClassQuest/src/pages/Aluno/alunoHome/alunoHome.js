@@ -11,7 +11,7 @@ import {
   TextInput
 } from "react-native";
 import styles from "../alunoHome/style";
-import CardAlunoHome from "../../../components/cardPerfilAluno/cardPerfilAluno";
+// import CardAlunoHome from "../../../components/cardPerfilAluno/cardPerfilAluno";
 
 export default function Aluno({ navigation }) {
   const url = createURL("atividade", {});
@@ -182,7 +182,17 @@ export default function Aluno({ navigation }) {
       </View>
       <View style={styles.turmas}>
         {info.turma.map((att, index) => {
-          return <CardAlunoHome key={index} item={att} />;
+          return (
+            <View key={index} style={styles.turma}>
+              {/* <TouchableOpacity  onPress={opcoes}> */}
+                <Image
+                  style={styles.image}
+                  source={require("../../../../assets/favicon.png")}
+                />
+                <Text>{att.nome}</Text>
+              {/* </TouchableOpacity> */}
+            </View>
+          );
         })}
       </View>
     </View>

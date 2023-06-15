@@ -28,7 +28,13 @@ const readOne = async (req, res) => {
 const adicionarAtividade = async (req, res) => {
   try {
     let atividade = await prisma.atividades.create({
-      data: req.body
+      data: {
+        id_turma: Number(req.body.id_turma),
+        titulo: req.body.titulo,
+        descricao:  req.body.descricao,
+        prazo:  req.body.prazo,
+        pontos_conclusao: Number(req.body.pontos_conclusao)
+      }
     });
     res.status(201).json(atividade).end();
   } catch (err) {

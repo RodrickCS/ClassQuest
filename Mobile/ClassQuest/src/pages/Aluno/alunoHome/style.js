@@ -47,7 +47,7 @@ export default StyleSheet.create({
     padding: '24px',
     borderRadius: '10px',
     margin: '10px',
-    // position: 'relative'
+    width: 'max-content'
   },
   turmas:{
     flexDirection: 'row',
