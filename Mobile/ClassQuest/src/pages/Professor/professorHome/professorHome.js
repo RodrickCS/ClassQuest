@@ -18,12 +18,11 @@ export default function Professor({ navigation }) {
   const [info, setInfo] = useState({ turma: [] });
   const [myInterval, setMyInterval] = useState(null);
   const [ModalShow, setModalShow] = useState(false);
-  const [id_turma, setId_turma] = useState(10);
-  const [titulo, setTitulo] = useState("coisa");
-  const [descricao, setDescricao] = useState("coisinha");
+  const [id_turma, setId_turma] = useState(0);
+  const [titulo, setTitulo] = useState("");
+  const [descricao, setDescricao] = useState("");
   const [prazo, setPrazo] = useState("");
-  const [pontos_conclusao, setPontos_conclusao] = useState(10);
-  const [selectedTime, setSelectedTime] = useState(null);
+  const [pontos_conclusao, setPontos_conclusao] = useState(0);
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
 

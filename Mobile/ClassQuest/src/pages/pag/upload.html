@@ -72,18 +72,13 @@
   <script>
     const inpArquivo = document.querySelector("#inpArquivo");
 
-    // const geral = async () => {
-    //   await enviarArquivo(inpArquivo);
-    //   await atividadeConcluida(id, inpArquivo);
-    //   enviarPg();
-    // };
-
     const enviarPg = () => {
       const url = "http://localhost:19006/atividade";
       window.location.replace(url);
     };
 
     const atividadeConcluida = async (inpArquivo) => {
+      console.log();
       const urlParams = new URLSearchParams(window.location.search);
       const id = urlParams.get("id");
 
@@ -107,7 +102,7 @@
           id_atividade: id,
           id_aluno: id_aluno,
           data_concluida: formattedDateTime,
-          arquivo: inpArquivo.value
+          arquivo: inpArquivo.value.split("\\")[2]
         };
         const options = {
           method: "POST",
@@ -132,22 +127,22 @@
               },
               body: JSON.stringify(form)
             };
-            if ((data.error = "Atividade ja concluída")) {
-              fetch(
-                "http://localhost:3000/atividades/concluirNovamente",
-                opcoes
-              )
-                .then((resp) => {
-                  return resp.status;
-                })
-                .then((data) => {
-                  if (data === 200) {
-                   enviarPg();
-                  }
-                })
-              } else {
+            // if ((data.error = "Atividade ja concluída")) {
+            //   fetch(
+            //     "http://localhost:3000/atividades/concluirNovamente",
+            //     opcoes
+            //   )
+            //     .then((resp) => {
+            //       return resp.status;
+            //     })
+            //     .then((data) => {
+            //       if (data === 200) {
+            //        enviarPg();
+            //       }
+            //     })
+              // } else {
                 enviarPg()
-              }
+              // }
           });
       } catch (error) {
         console.error("Error:", error);

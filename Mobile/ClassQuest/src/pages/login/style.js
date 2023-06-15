@@ -10,7 +10,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   titulo: {
-    color: "#15f",
+    color: '#15f',
     fontWeight: 'bold',
     textAlign: 'center',
     fontSize: '20pt',
@@ -18,7 +18,7 @@ export default StyleSheet.create({
   },
   inputzinho: {
     margin: '5px',
-    backgroundColor: "#eef",
+    backgroundColor: '#eef',
     borderRadius: '10px',
     borderWidth: 0
   },
@@ -26,20 +26,20 @@ export default StyleSheet.create({
     padding: '10vh',
   },
   buttonzinho: {
-    backgroundColor: "#f00",
+    backgroundColor: '#f00',
     borderRadius: '10px',
     padding: '10px',
     margin: '10px'
   },
   txtbutton: {
-    color: "#fff",
+    color: '#fff',
     fontWeight: 'bold',
     textAlign: 'center',
     justifyContent: 'center',
     fontSize: '15pt',
   },
   txtCad: {
-    color: "#0000FF",
+    color: '#0000FF',
     textAlign: 'center',
     justifyContent: 'center',
     fontSize: '10pt',

@@ -27,7 +27,7 @@ const cardAttAluno = ({ item }) => {
   ];
 
   const ativadadeBaixar = async (arquivo) => {
-    const azureUrl = `https://classquest.blob.core.windows.net/data/${arquivo}`;
+    const azureUrl = `https://classquest.blob.core.windows.net/data/`+ arquivo;
     await Linking.openURL(azureUrl);
   };
 

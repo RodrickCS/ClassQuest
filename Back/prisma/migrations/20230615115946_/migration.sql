@@ -93,29 +93,6 @@ CREATE TABLE `_professoresToturmas` (
     INDEX `_professoresToturmas_B_index`(`B`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- View
-    CREATE VIEW vw_atividadesAgrupadas AS
-    SELECT
-  atividades.id_turma,
-  atividades.titulo,
-  atividades.descricao,
-  atividades.prazo,
-  atividades.pontos_conclusao,
-  turmas.nome AS turma_nome,
-  atividades_concluidas.id_aluno,
-  atividades_concluidas.id_atividade,
-  atividades_concluidas.data_concluida,
-  atividades_concluidas.arquivo,
-  alunos.nome AS aluno_nome
-FROM
-  atividades
-  LEFT JOIN turmas ON atividades.id_turma = turmas.id_turma
-  LEFT JOIN atividades_concluidas ON atividades.id_atividade = atividades_concluidas.id_atividade
-  LEFT JOIN alunos ON atividades_concluidas.id_aluno = alunos.id_aluno
-ORDER BY
-  atividades_concluidas.data_concluida DESC;
-
-
 -- AddForeignKey
 ALTER TABLE `atividades` ADD CONSTRAINT `atividades_id_turma_fkey` FOREIGN KEY (`id_turma`) REFERENCES `turmas`(`id_turma`) ON DELETE CASCADE ON UPDATE CASCADE;
 

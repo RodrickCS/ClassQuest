@@ -8,14 +8,10 @@ import {
   ImageBackground
 } from "react-native"
 import styles from "./style"
-import CardAlunoHome from "../../../components/cardPerfilAluno/cardPerfilAluno"
 
 export default function Atividades({ navigation }) {
   const [info, setInfo] = useState({ turma: [] })
-  const [Enviar, setEnviar] = useState()
   const [myInterval, setMyInterval] = useState(null)
-  const [modalAtividade, setModalAtividade] = useState(false)
-  const addConcluir = "/concluir"
 
   useEffect(() => {
     dados()

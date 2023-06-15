@@ -273,6 +273,7 @@ const checkTurma = async (req, res) => {
     res.status(200).json(turma).end()
   } catch (err) {
     res.status(500).json(err).end()
+    console.log(err);
   }
 }
 
