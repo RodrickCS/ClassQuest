@@ -8,30 +8,35 @@
 
 # Instruções para teste: 
 
- 
 - Instalação
 
 Será necessário instalar o [XAMPP](https://www.apachefriends.org/pt_br/index.html) e [NodeJS](https://nodejs.org/en)
 
 - Execução
    - Executar o XAMPP e clicar em "START" na opção "MySQL"
-   - Abrir o VSCode (Recomendado)
-   - No terminal (CTRL + "), digite:
      
-     ```cmd
-     cd back
-     npm i
-     prisma migrate dev --name "init"
-     nodemon
-     ```
+   - Abrir o VSCode (Recomendado)
+     
+   - No terminal (CTRL + "), digite:
+
+
+    ```cmd
+    cd back
+    npm i
+    prisma migrate dev --name "init"
+    nodemon
+    ```
     - Crie outro terminal (Símbolo de +) e digite:
       
+
+
      ```cmd
      cd mobile
      cd classquest
      npm i
      npx expo start --web
      ```
+     
      - Em seguida abra o arquivo HTML localizado na pasta Front/Pages/Login/index.html
        
  - Pastas
@@ -39,3 +44,6 @@ Será necessário instalar o [XAMPP](https://www.apachefriends.org/pt_br/index.h
    - ./docs (Documentação do projeto e arquivo de teste no insomnia)
    - ./back (Backend MVC)
    - ./front (Interface web)
+  
+ - Observações
+   - Por usar credenciais da Azure, a funcionalidade de enviar o arquivo está indisponível   
