@@ -11,7 +11,7 @@
  
 - Instalação
 
-Será necessário instalar o [XAMPP](https://www.apachefriends.org/pt_br/index.html), [NodeJs](https://nodejs.org/en), [VSCode](https://code.visualstudio.com/download)(Opcional)
+Será necessário instalar o [XAMPP](https://www.apachefriends.org/pt_br/index.html) e [NodeJS](https://nodejs.org/en)
 
 - Execução
    - Executar o XAMPP e clicar em "START" na opção "MySQL"
