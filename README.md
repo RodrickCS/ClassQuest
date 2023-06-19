@@ -1,8 +1,37 @@
 # ClassQuest 
 
+ O projeto consiste em um aplicativo gamificado para sala de aula, em que os alunos são incentivados a se envolverem mais ativamente nas atividades escolares, cumprindo tarefas e conquistando pontos que podem ser trocados por recompensas na escola.
 
-### O projeto consiste em um aplicativo gamificado para sala de aula, em que os alunos são incentivados a se envolverem mais ativamente nas atividades escolares, cumprindo tarefas e conquistando pontos que podem ser trocados por recompensas na escola.
+ A ideia é motivar os alunos a participarem mais ativamente das atividades escolares, reforçando comportamentos positivos e criando um senso de competição saudável entre eles. Além disso, o aplicativo pode ajudar os professores a gerenciar tarefas e avaliar o desempenho dos alunos de forma mais eficiente.
 
-### A ideia é motivar os alunos a participarem mais ativamente das atividades escolares, reforçando comportamentos positivos e criando um senso de competição saudável entre eles. Além disso, o aplicativo pode ajudar os professores a gerenciar tarefas e avaliar o desempenho dos alunos de forma mais eficiente.
+ Esse projeto tem o potencial de melhorar o engajamento dos alunos e a qualidade do ensino, além de ser uma oportunidade de negócio promissora no setor educacional.
 
-### Esse projeto tem o potencial de melhorar o engajamento dos alunos e a qualidade do ensino, além de ser uma oportunidade de negócio promissora no setor educacional.
+# Instruções para teste: 
+
+ 
+- Instalação
+
+Será necessário instalar o [XAMPP](https://www.apachefriends.org/pt_br/index.html), [NodeJs](https://nodejs.org/en), [VSCode](https://code.visualstudio.com/download)(Opcional)
+
+- Execução
+   - Executar o XAMPP e clicar em "START" na opção "MySQL"
+   - Abrir o VSCode (Recomendado)
+   - No terminal (CTRL + "), digite:
+     
+     ```cmd
+     cd back
+     npm i
+     prisma migrate dev --name "init"
+     nodemon
+     ```
+    - Crie outro terminal (Símbolo de +) e digite:
+      
+     ```cmd
+     cd mobile
+     cd classquest
+     npm i
+     npx expo start --web
+     ```
+     - Em seguida
+
+     
