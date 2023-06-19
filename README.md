@@ -17,7 +17,7 @@ Será necessário instalar o [XAMPP](https://www.apachefriends.org/pt_br/index.h
      
    - Abrir o VSCode (Recomendado)
      
-   - No terminal (CTRL + "), digite:
+   - No terminal CMD (CTRL + "), digite:
 
 
     ```cmd
