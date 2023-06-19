@@ -32,6 +32,10 @@ Será necessário instalar o [XAMPP](https://www.apachefriends.org/pt_br/index.h
      npm i
      npx expo start --web
      ```
-     - Em seguida abra o arquivo html localizado na pasta Front/Pages/Login/index.html
-
-     
+     - Em seguida abra o arquivo HTML localizado na pasta Front/Pages/Login/index.html
+       
+ - Pastas
+   - ./mobile (Aplicativo Mobile)
+   - ./docs (Documentação do projeto e arquivo de teste no insomnia)
+   - ./back (Backend MVC)
+   - ./front (Interface web)
