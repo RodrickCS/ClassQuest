@@ -46,4 +46,4 @@ Será necessário instalar o [XAMPP](https://www.apachefriends.org/pt_br/index.h
    - ./front (Interface web)
   
  - Observações
-   - Por usar credenciais da Azure, a funcionalidade de enviar/baixar o arquivo está indisponível   
+   - Por usar credenciais da Azure e eu não ter mais acesso à elas, a funcionalidade de enviar/baixar o arquivo está indisponível   
