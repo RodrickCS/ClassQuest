@@ -8,6 +8,8 @@
 
 # Instruções para teste: 
 
+- Acessar o [site](https://classquest-site-production.up.railway.app) na nuvem
+
 - Instalação
 
 Será necessário instalar o [XAMPP](https://www.apachefriends.org/pt_br/index.html) e [NodeJS](https://nodejs.org/en)
