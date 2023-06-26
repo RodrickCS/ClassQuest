@@ -8,8 +8,6 @@
 
 # Instruções para teste: 
 
-- Acessar o [site](https://classquest-site-production.up.railway.app) na nuvem
-
 - Instalação
 
 Será necessário instalar o [XAMPP](https://www.apachefriends.org/pt_br/index.html) e [NodeJS](https://nodejs.org/en)
@@ -48,4 +46,5 @@ Será necessário instalar o [XAMPP](https://www.apachefriends.org/pt_br/index.h
    - ./front (Interface web)
   
  - Observações
-   - Por usar credenciais da Azure e eu não ter mais acesso à elas, a funcionalidade de enviar/baixar o arquivo está indisponível   
+   - Por usar credenciais da Azure e eu não ter mais acesso à elas, a funcionalidade de enviar/baixar o arquivo está indisponível
+   - Caso queira testalo sem clonar o repositório acesse esse [link](https://classquest-site-production.up.railway.app/)
