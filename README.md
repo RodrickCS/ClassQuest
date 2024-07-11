@@ -17,8 +17,7 @@ Será necessário instalar o [XAMPP](https://www.apachefriends.org/pt_br/index.h
      
    - Abrir o VSCode (Recomendado)
      
-   - No terminal CMD dentro da pasta do projeto (CTRL + "), digite:
-
+   - Localize a pasta do projeto no CMD e digite:
 
     ```cmd
     cd back
